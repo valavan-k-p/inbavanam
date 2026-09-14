@@ -10,7 +10,6 @@ import { X } from "lucide-react";
 import type { NavItem } from "@/types/content";
 import { enquireLink, primaryNav, site, supportLink } from "@/data/site";
 import { Logo } from "@/components/brand/logo";
-import { KolamKnot } from "@/components/illustrations/kolam";
 import { LineArt } from "@/components/illustrations/line-art";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/utils";
@@ -47,8 +46,6 @@ export function SiteMenu() {
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-maroon-deep/70 transition-opacity duration-500 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
         <Dialog.Popup className="surface-maroon grain fixed inset-0 z-50 overflow-x-hidden overflow-y-auto transition-opacity duration-500 ease-[var(--ease-out-soft)] outline-none data-[ending-style]:opacity-0 data-[starting-style]:opacity-0">
-          <KolamKnot className="pointer-events-none absolute -top-12 -left-12 w-44 text-stone/15 md:w-60" />
-          <KolamKnot className="pointer-events-none absolute -right-12 -bottom-12 w-44 text-stone/15 md:w-60" />
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
           <nav aria-label="Primary">
             <RadialLayout onNavigate={close} />
@@ -139,27 +136,14 @@ function RadialLayout({ onNavigate }: { onNavigate: () => void }) {
             animate={{ pathLength: 1 }}
             transition={{ duration: 1.4, ease }}
           />
-          <circle
-            cx={50}
-            cy={50}
-            r={26}
-            strokeWidth={0.35}
-            strokeDasharray="0.01 1.5"
-            strokeLinecap="round"
-            opacity={0.7}
-          />
         </svg>
 
         <motion.div
-          className="absolute top-1/2 left-1/2 flex w-[44%] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
+          className="absolute top-[51.5%] left-1/2 flex w-[44%] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
           initial={reduce ? false : { opacity: 0, scale: 0.88 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease, delay: 0.05 }}
         >
-          <KolamKnot
-            draw
-            className="pointer-events-none absolute top-1/2 left-1/2 w-[120%] -translate-x-1/2 -translate-y-1/2 text-stone/15"
-          />
           <Link
             href="/"
             onClick={onNavigate}
@@ -171,13 +155,13 @@ function RadialLayout({ onNavigate }: { onNavigate: () => void }) {
           </Link>
           <p
             aria-hidden="true"
-            className="relative mt-5 font-display text-[clamp(1.9rem,1.1rem+1.6vw,2.9rem)] leading-none tracking-[0.12em] uppercase"
+            className="relative mt-4 font-display text-[clamp(1.9rem,1.1rem+1.6vw,2.9rem)] leading-none tracking-[0.12em] uppercase"
           >
             {site.name}
           </p>
           <p
             aria-hidden="true"
-            className="relative mt-3 min-h-[2.8em] max-w-[24ch] label text-muted-foreground"
+            className="relative mt-2.5 max-w-[24ch] label text-muted-foreground"
           >
             {shown ? shown.description : site.tagline}
           </p>

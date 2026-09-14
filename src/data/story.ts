@@ -66,7 +66,7 @@ export const pillars: { label: string; body: string; art: IllustrationName }[] =
 ];
 
 /** Brand line used as a pull quote. Not attributed to any person. */
-export const pullQuote = "A place to pause. A place to connect.";
+export const pullQuote = "A place to pause. A space to connect.";
 
 export const place = {
   eyebrow: "The land",

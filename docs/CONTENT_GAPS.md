@@ -105,7 +105,7 @@ confirmed by any source:
 | --- | --- |
 | Phone "+91 98765 43210" and email "hello@inbavanam.org" | Shows "Information to be confirmed" until real values are set |
 | Room names (Heritage Room, Garden Cottage, Family Stay) and room-type tabs (Cottages, Family spaces, Group stays) | No rooms listed until supplied; tabs return when rooms have categories |
-| Quote "A meaningful life is a shared life" attributed to the founders | Unattributed brand line "A place to pause. A place to connect." |
+| Quote "A meaningful life is a shared life" attributed to the founders | Unattributed brand line "A place to pause. A space to connect." |
 | Instagram, Facebook and YouTube icons | Omitted until accounts are confirmed |
 | Privacy and Terms links | Omitted; a privacy notice is **Needed** because the enquiry form collects personal data |
 | Photographs of the property, founders and community | Labelled placeholders; real photographs are needed |
