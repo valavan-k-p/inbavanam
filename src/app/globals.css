@@ -1,0 +1,291 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Inbavanam design tokens. Source of truth for colour, type, space and
+ * motion. See docs/DESIGN_SYSTEM.md for usage rules and contrast data.
+ */
+:root {
+  /* Brand palette (supplied colour reference) */
+  --brand-maroon: #3c1d1d;
+  --brand-maroon-deep: #2b1515;
+  --brand-olive: #534c2f;
+  --brand-walnut: #523320;
+  --brand-cream: #d6c6b8;
+  --brand-ivory: #e8ded4;
+  --brand-stone: #b8a99d;
+  --brand-terracotta: #a94732;
+  --brand-indigo: #252852;
+  --brand-ink: #1f1411;
+
+  /* Semantic tokens for the default light surface (cream) */
+  --background: var(--brand-cream);
+  --foreground: var(--brand-ink);
+  --card: var(--brand-ivory);
+  --card-foreground: var(--brand-ink);
+  --popover: var(--brand-ivory);
+  --popover-foreground: var(--brand-ink);
+  --primary: var(--brand-maroon);
+  --primary-foreground: var(--brand-ivory);
+  --secondary: var(--brand-olive);
+  --secondary-foreground: var(--brand-ivory);
+  --muted: var(--brand-ivory);
+  --muted-foreground: var(--brand-walnut);
+  --accent: var(--brand-terracotta);
+  --accent-foreground: var(--brand-ivory);
+  --destructive: #8f2a1c;
+  --border: color-mix(in oklab, var(--brand-walnut) 28%, transparent);
+  --input: color-mix(in oklab, var(--brand-walnut) 45%, transparent);
+  --ring: var(--brand-terracotta);
+  --rule: color-mix(in oklab, var(--brand-walnut) 30%, transparent);
+  --focus: var(--brand-terracotta);
+  --radius: 2px;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-soft: cubic-bezier(0.55, 0, 0.75, 0.2);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+  --dur-draw: 1100ms;
+
+  /* Layout */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-y: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --header-h: 4.5rem;
+
+  /* Fine grain, used at very low opacity over flat surfaces */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/*
+ * Surface classes set the background and re-map text, rule and focus
+ * colours so every component stays legible on it. Contrast values
+ * (WCAG 2.2) are listed in docs/DESIGN_SYSTEM.md.
+ */
+.surface-ivory {
+  --background: var(--brand-ivory);
+  --card: var(--brand-cream);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.surface-maroon,
+.surface-walnut,
+.surface-olive,
+.surface-indigo {
+  --foreground: var(--brand-ivory);
+  --card-foreground: var(--brand-ivory);
+  --muted-foreground: var(--brand-stone);
+  --primary: var(--brand-ivory);
+  --primary-foreground: var(--brand-maroon);
+  --border: color-mix(in oklab, var(--brand-ivory) 22%, transparent);
+  --input: color-mix(in oklab, var(--brand-ivory) 40%, transparent);
+  --rule: color-mix(in oklab, var(--brand-ivory) 22%, transparent);
+  --focus: var(--brand-cream);
+  --ring: var(--brand-cream);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.surface-maroon {
+  --background: var(--brand-maroon);
+  --card: var(--brand-maroon-deep);
+}
+
+.surface-walnut {
+  --background: var(--brand-walnut);
+  --card: var(--brand-maroon-deep);
+}
+
+/* Stone text is below 4.5:1 on olive, so secondary text uses cream there. */
+.surface-olive {
+  --background: var(--brand-olive);
+  --card: color-mix(in oklab, var(--brand-olive) 80%, black);
+  --muted-foreground: var(--brand-cream);
+}
+
+.surface-indigo {
+  --background: var(--brand-indigo);
+  --card: color-mix(in oklab, var(--brand-indigo) 80%, black);
+}
+
+/* Dark-surface tokens without a background, for UI laid over video or imagery. */
+.on-dark {
+  --foreground: var(--brand-ivory);
+  --muted-foreground: var(--brand-stone);
+  --primary: var(--brand-ivory);
+  --primary-foreground: var(--brand-maroon);
+  --rule: color-mix(in oklab, var(--brand-ivory) 30%, transparent);
+  --focus: var(--brand-cream);
+  color: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-rule: var(--rule);
+  --color-focus: var(--focus);
+
+  --color-maroon: var(--brand-maroon);
+  --color-maroon-deep: var(--brand-maroon-deep);
+  --color-olive: var(--brand-olive);
+  --color-walnut: var(--brand-walnut);
+  --color-cream: var(--brand-cream);
+  --color-ivory: var(--brand-ivory);
+  --color-stone: var(--brand-stone);
+  --color-terracotta: var(--brand-terracotta);
+  --color-indigo: var(--brand-indigo);
+  --color-ink: var(--brand-ink);
+
+  --font-sans: var(--font-manrope), "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), "Noto Serif Tamil", Georgia, "Times New Roman", serif;
+
+  --text-display: clamp(3.25rem, 1.9rem + 6.2vw, 8.5rem);
+  --text-display--line-height: 0.92;
+  --text-h1: clamp(2.5rem, 1.7rem + 3.4vw, 5.25rem);
+  --text-h1--line-height: 1;
+  --text-h2: clamp(2rem, 1.45rem + 2.3vw, 3.75rem);
+  --text-h2--line-height: 1.05;
+  --text-h3: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  --text-h3--line-height: 1.15;
+  --text-lede: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  --text-lede--line-height: 1.6;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.3;
+
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-2xl: 6px;
+  --radius-3xl: 8px;
+  --radius-4xl: 10px;
+
+  --ease-soft: var(--ease-out-soft);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: var(--header-h);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--brand-maroon);
+    color: var(--brand-ivory);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Small uppercase label used for eyebrows, meta and navigation. */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility prose-measure {
+  max-width: 38rem;
+}
+
+/* Low-opacity paper grain layered over a surface. Never over body text alone. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--grain);
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
