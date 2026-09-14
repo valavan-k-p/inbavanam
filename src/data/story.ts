@@ -1,10 +1,10 @@
-import type { Fact, Founder, MediaAsset } from "@/types/content";
+import type { Fact, Founder, IllustrationName, MediaAsset } from "@/types/content";
 import { site } from "./site";
 
 /**
- * Editorial copy for the homepage and About page. Every statement here is
- * traceable to docs/SOURCE_NOTES.md. Keep claims precise; do not add
- * superlatives or facts that are not in the source material.
+ * Editorial copy for the public pages. Every factual statement here is
+ * traceable to docs/SOURCE_NOTES.md. Headlines are brand copy, not claims.
+ * Do not add superlatives, testimonials or facts that are not in the sources.
  */
 
 export const heroMedia: MediaAsset = {
@@ -16,6 +16,28 @@ export const heroMedia: MediaAsset = {
     "Hero video: gimbal footage of the grounds and buildings. Supply MP4 (H.264) and WebM, plus a poster frame.",
 };
 
+/** Hero slideshow, used until the hero video is supplied. */
+export const heroSlides: MediaAsset[] = [
+  {
+    kind: "image",
+    src: null,
+    alt: "The buildings and grounds of Inbavanam",
+    brief: "Wide photograph of the buildings and grounds in warm evening light.",
+  },
+  {
+    kind: "image",
+    src: null,
+    alt: "The land around Inbavanam",
+    brief: "Landscape of the land around Inbavanam in early morning light.",
+  },
+  {
+    kind: "image",
+    src: null,
+    alt: "People gathered at Inbavanam",
+    brief: "A gathering on site, photographed with the consent of those shown.",
+  },
+];
+
 export const intro = {
   eyebrow: "What is Inbavanam",
   heading: "A space shaped around rest, connection and a larger community purpose.",
@@ -24,6 +46,27 @@ export const intro = {
     "It is run by Gladston Xavier and Florina Xavier, social workers whose work with the surrounding communities is part of the same story. People come here to stay, to gather and to take part.",
   ],
 };
+
+export const aboutIntro = {
+  heading: "A home grown from lived values",
+  media: {
+    kind: "image",
+    src: null,
+    alt: "Gladston Xavier and Florina Xavier at Inbavanam",
+    brief: "The founders together on the grounds, natural light.",
+  } satisfies MediaAsset,
+};
+
+/** Values band. Each pillar maps to a strand of the work in the source material. */
+export const pillars: { label: string; body: string; art: IllustrationName }[] = [
+  { label: "People", body: "Stronger communities", art: "people" },
+  { label: "Nature", body: "A healthier tomorrow", art: "leaf" },
+  { label: "Learning", body: "Lifelong growth", art: "book" },
+  { label: "Justice", body: "A fairer society", art: "scales" },
+];
+
+/** Brand line used as a pull quote. Not attributed to any person. */
+export const pullQuote = "A place to pause. A place to connect.";
 
 export const place = {
   eyebrow: "The land",
@@ -60,18 +103,42 @@ export const architecture = {
       label: "Natural cooling",
       body: "Spaces designed to stay cool without relying on conventional air conditioning.",
       verified: false,
+      art: "sun",
     },
     {
       label: "Heavy stone",
       body: "Walls built from stone the founders describe as extremely heavy.",
       verified: false,
+      art: "stone",
     },
     {
       label: "Climate-responsive design",
       body: "Construction that works with the local climate rather than against it.",
       verified: false,
+      art: "leaf",
     },
   ] satisfies Fact[],
+};
+
+export const stayIntro = {
+  heading: "Rest well. Feel at home.",
+  body: "Spaces for rest, reflection and time together, in buildings shaped by thoughtful, climate-responsive architecture.",
+  media: {
+    kind: "image",
+    src: null,
+    alt: "A room at Inbavanam",
+    brief: "Interior of a room with natural light, showing the stone walls.",
+  } satisfies MediaAsset,
+};
+
+export const experiencesIntro = {
+  heading: "Gather. Learn. Rejuvenate.",
+  body: "Inbavanam hosts individuals, families, groups and organisations who come to rest, to learn and to celebrate together.",
+};
+
+export const workIntro = {
+  heading: "People. Programs. Possibilities.",
+  body: "Inbavanam supports a range of programs with the communities around it, from education and empowerment to natural farming and access to justice.",
 };
 
 export const community = {
@@ -87,6 +154,35 @@ export const community = {
     alt: "A community gathering near Inbavanam",
     brief:
       "Documentary photograph of a community program, with written consent from the people shown and a caption naming the activity.",
+  } satisfies MediaAsset,
+};
+
+export const communityBand = {
+  quote: "Stronger communities, a brighter tomorrow.",
+  media: {
+    kind: "image",
+    src: null,
+    alt: "Children and adults at a community program",
+    brief: "Community program photograph, with consent. Shown with a warm sepia tone.",
+  } satisfies MediaAsset,
+};
+
+export const galleryIntro = {
+  heading: "Moments from Inbavanam",
+  body: "Every photograph here will carry a caption saying what it shows, where and when.",
+};
+
+export const contactIntro = {
+  heading: "Get in touch",
+  body: "We are happy to hear from you, whether you would like to stay, attend a program, work together or support what happens here.",
+};
+
+export const findUs = {
+  media: {
+    kind: "image",
+    src: null,
+    alt: "The landscape around Inbavanam",
+    brief: "Wide landscape view of the surroundings, for the Find us band.",
   } satisfies MediaAsset,
 };
 

@@ -10,7 +10,9 @@ export const TBC = "Information to be confirmed";
 export const site = {
   name: "Inbavanam",
   proposition: "A place to stay. A space to connect. A community with purpose.",
-  heroLines: ["A place to pause.", "A place to connect."],
+  heroEyebrow: ["Rooted in people", "Nurturing tomorrow"],
+  heroHeadline: ["A place to stay.", "A space to connect.", "A community with purpose."],
+  tagline: "People · Place · Purpose",
   locationShort: "Karamadai · Coimbatore",
   /** Source: stakeholder audio. Exact street address is not yet supplied. */
   locationLong: "Near Karamadai, in the Mettupalayam and Coimbatore region of Tamil Nadu",
@@ -38,15 +40,45 @@ export const contact = {
 } as const;
 
 export const primaryNav: NavItem[] = [
-  { label: "About", href: "/about", description: "Our story and the people behind it" },
-  { label: "Stay", href: "/stay", description: "Accommodation and spaces" },
-  { label: "Experiences", href: "/experiences", description: "Retreats, camps and gatherings" },
-  { label: "Our Work", href: "/our-work", description: "Programs with surrounding communities" },
-  { label: "Community", href: "/community", description: "Volunteer, support, get involved" },
-  { label: "Events", href: "/events", description: "Calendar and how the space is used" },
-  { label: "Gallery", href: "/gallery", description: "Architecture, land and people" },
-  { label: "Contact", href: "/contact", description: "Enquiries and directions" },
+  {
+    label: "About",
+    href: "/about",
+    description: "Our story and the people behind it",
+    art: "people",
+  },
+  { label: "Stay", href: "/stay", description: "Accommodation and spaces", art: "home" },
+  {
+    label: "Experiences",
+    href: "/experiences",
+    description: "Retreats, camps and gatherings",
+    art: "sun",
+  },
+  {
+    label: "Our Work",
+    href: "/our-work",
+    description: "Programs with surrounding communities",
+    art: "sprout",
+  },
+  {
+    label: "Community",
+    href: "/community",
+    description: "Volunteer, support, get involved",
+    art: "gathering",
+  },
+  {
+    label: "Events",
+    href: "/events",
+    description: "Calendar and how the space is used",
+    art: "lamp",
+  },
+  {
+    label: "Gallery",
+    href: "/gallery",
+    description: "Architecture, land and people",
+    art: "frame",
+  },
+  { label: "Contact", href: "/contact", description: "Enquiries and directions", art: "path" },
 ];
 
 export const supportLink = { label: "Support Inbavanam", href: "/community#support" } as const;
-export const enquireLink = { label: "Plan your stay", href: "/contact?type=stay" } as const;
+export const enquireLink = { label: "Book / Enquire", href: "/contact?type=stay" } as const;

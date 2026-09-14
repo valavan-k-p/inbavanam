@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { programAreas } from "@/data/programs";
-import { community } from "@/data/story";
+import { workIntro } from "@/data/story";
 import { PageHero } from "@/components/sections/page-hero";
+import { ProgramGrid } from "@/components/sections/program-grid";
+import { CommunityBand } from "@/components/sections/bands";
 import { MediaFrame } from "@/components/ui/media-frame";
 import { ButtonLink } from "@/components/ui/button-link";
+import { PillLinks } from "@/components/ui/pill-links";
+import { Reveal } from "@/components/ui/reveal";
 import { LineArt } from "@/components/illustrations/line-art";
 
 export const metadata: Metadata = {
@@ -16,73 +20,74 @@ export const metadata: Metadata = {
 export default function OurWorkPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Our work"
-        title="Work with the communities around Inbavanam"
-        lede={community.body[0]}
-      >
-        <nav aria-label="Program areas">
-          <ul className="flex flex-wrap gap-x-6 gap-y-3">
-            {programAreas.map((area) => (
-              <li key={area.slug}>
-                <a
-                  href={`#${area.slug}`}
-                  className="min-h-11 content-center label underline-offset-8 hover:underline"
-                >
-                  {area.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </PageHero>
+      <PageHero eyebrow="Our work" title={workIntro.heading} lede={workIntro.body} />
 
-      <div className="pb-[var(--section-y)]">
+      <section aria-label="Programs" className="container-page pb-[var(--section-y)]">
+        <ProgramGrid />
+      </section>
+
+      <CommunityBand />
+
+      <section aria-labelledby="areas-title" className="section-y">
+        <div className="container-page flex flex-col gap-8">
+          <h2 id="areas-title" className="text-h2" data-reveal="up">
+            Program areas
+          </h2>
+          <Reveal delay={0.1}>
+            <PillLinks
+              label="Program areas"
+              links={programAreas.map((a) => ({ href: `#${a.slug}`, label: a.title }))}
+            />
+          </Reveal>
+        </div>
+
         {programAreas.map((area, i) => (
           <section
             key={area.slug}
             id={area.slug}
             aria-labelledby={`${area.slug}-title`}
-            className="container-page grid scroll-mt-24 gap-10 border-t border-rule py-16 lg:grid-cols-12"
+            className="container-page mt-16 grid scroll-mt-24 gap-10 border-t border-rule pt-16 lg:grid-cols-12"
           >
             <div className="flex flex-col gap-6 lg:col-span-5">
-              <div className="flex items-center gap-5">
+              <Reveal variant="left" className="flex items-center gap-5">
                 <span className="label text-muted-foreground tabular">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <LineArt name={area.illustration} className="size-12 text-olive" />
-              </div>
-              <h2 id={`${area.slug}-title`} className="text-h2">
+              </Reveal>
+              <h3 id={`${area.slug}-title`} className="text-h2" data-reveal="up">
                 {area.title}
-              </h2>
-              <p className="text-lede">{area.summary}</p>
-              <div>
-                <h3 className="label text-muted-foreground">Programs</h3>
-                <ul className="mt-3 flex flex-col gap-2">
-                  {area.programs.map((p) => (
-                    <li key={p} className="flex items-center gap-3">
-                      <span aria-hidden="true" className="size-1.5 rotate-45 bg-terracotta" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {area.slug === "natural-farming" ? <FarmingNotes /> : null}
-              <div className="flex flex-wrap gap-6">
-                <ButtonLink href="/community#volunteer" variant="outline">
-                  Get involved
-                </ButtonLink>
-                <ButtonLink href={`/events?program=${area.slug}`} variant="text" arrow>
-                  Related events
-                </ButtonLink>
-              </div>
+              </h3>
+              <Reveal delay={0.1} className="flex flex-col gap-6">
+                <p className="text-lede">{area.summary}</p>
+                <div>
+                  <h4 className="label text-muted-foreground">Programs</h4>
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {area.programs.map((p) => (
+                      <li key={p} className="flex items-center gap-3">
+                        <span aria-hidden="true" className="size-1.5 rotate-45 bg-terracotta" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {area.slug === "natural-farming" ? <FarmingNotes /> : null}
+                <div className="flex flex-wrap gap-6">
+                  <ButtonLink href="/community#volunteer" variant="olive" arrow>
+                    Get involved
+                  </ButtonLink>
+                  <ButtonLink href={`/events?program=${area.slug}`} variant="text" arrow>
+                    Related events
+                  </ButtonLink>
+                </div>
+              </Reveal>
             </div>
-            <div className="lg:col-span-6 lg:col-start-7">
+            <Reveal variant="clip" className="lg:col-span-6 lg:col-start-7">
               <MediaFrame media={area.media} ratio="4 / 3" />
-            </div>
+            </Reveal>
           </section>
         ))}
-      </div>
+      </section>
     </>
   );
 }

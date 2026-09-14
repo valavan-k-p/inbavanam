@@ -6,6 +6,7 @@ import { splitEvents, todayISO } from "@/lib/dates";
 import { PageHero } from "@/components/sections/page-hero";
 import { EventCalendar } from "@/components/events/event-calendar";
 import { EventCard, EventsEmptyState } from "@/components/events/event-card";
+import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -42,15 +43,20 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
       </PageHero>
 
       <section aria-label="Calendar" className="container-page pb-16">
-        <EventCalendar events={visible} today={today} />
+        <Reveal
+          variant="scale"
+          className="rounded-[var(--radius)] border border-rule bg-card p-4 md:p-8"
+        >
+          <EventCalendar events={visible} today={today} />
+        </Reveal>
       </section>
 
-      <section aria-labelledby="upcoming-title" className="surface-ivory section-y">
+      <section aria-labelledby="upcoming-title" className="surface-card section-y">
         <div className="container-page">
-          <h2 id="upcoming-title" className="text-h2">
+          <h2 id="upcoming-title" className="text-h2" data-reveal="up">
             Upcoming
           </h2>
-          <div className="mt-10">
+          <Reveal delay={0.1} className="mt-10">
             {upcoming.length ? (
               upcoming.map((e) => (
                 <div key={e.slug} id={`event-${e.slug}`} className="scroll-mt-24">
@@ -60,14 +66,14 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
             ) : (
               <EventsEmptyState />
             )}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {past.length ? (
         <section aria-labelledby="past-title" className="section-y">
           <div className="container-page">
-            <h2 id="past-title" className="text-h2">
+            <h2 id="past-title" className="text-h2" data-reveal="up">
               Past events
             </h2>
             <div className="mt-10">

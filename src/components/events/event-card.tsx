@@ -37,7 +37,7 @@ export function EventCard({
       <div className="md:col-span-2 md:text-right">
         <Link
           href={event.registrationUrl ?? `/contact?type=event&event=${event.slug}`}
-          className="label inline-flex min-h-11 items-center underline-offset-8 hover:underline"
+          className="inline-flex min-h-11 items-center label underline-offset-8 hover:underline"
         >
           {event.registrationUrl ? "Register" : "Enquire"}
           <span className="sr-only"> about {event.title}</span>
@@ -59,7 +59,7 @@ export function EventsEmptyState() {
         </p>
         <Link
           href="/contact?type=event"
-          className="label inline-flex min-h-11 items-center self-start underline-offset-8 hover:underline"
+          className="inline-flex min-h-11 items-center self-start label underline-offset-8 hover:underline"
         >
           Ask about hosting an event
         </Link>

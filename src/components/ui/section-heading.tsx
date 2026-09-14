@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { revealDelay } from "./reveal";
 
 type SectionHeadingProps = {
   eyebrow?: string;
@@ -10,6 +11,8 @@ type SectionHeadingProps = {
   align?: "start" | "center";
   id?: string;
   className?: string;
+  /** Animate eyebrow, title and lede in sequence on scroll. */
+  reveal?: boolean;
 };
 
 export function SectionHeading({
@@ -21,7 +24,11 @@ export function SectionHeading({
   align = "start",
   id,
   className,
+  reveal = true,
 }: SectionHeadingProps) {
+  const r = (variant: string, delay: number) =>
+    reveal ? { "data-reveal": variant, style: revealDelay(delay) } : {};
+
   return (
     <header
       className={cn(
@@ -31,8 +38,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p className="flex items-center gap-3 label text-muted-foreground">
-          <span aria-hidden="true" className="inline-block size-1.5 rotate-45 bg-terracotta" />
+        <p className="label text-muted-foreground" {...r("fade", 0)}>
           {eyebrow}
         </p>
       ) : null}
@@ -42,12 +48,17 @@ export function SectionHeading({
           size === "display" && "text-display",
           size === "h1" && "text-h1",
           size === "h2" && "text-h2",
-          "max-w-[18ch]",
+          "max-w-[20ch]",
         )}
+        {...r("up", 0.08)}
       >
         {title}
       </Tag>
-      {lede ? <p className="prose-measure text-lede text-muted-foreground">{lede}</p> : null}
+      {lede ? (
+        <p className="prose-measure text-lede text-muted-foreground" {...r("up", 0.16)}>
+          {lede}
+        </p>
+      ) : null}
     </header>
   );
 }

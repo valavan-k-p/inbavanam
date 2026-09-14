@@ -50,7 +50,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Scroll-reveal styles apply only once this runs, so content is never hidden without JavaScript. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
+      </head>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

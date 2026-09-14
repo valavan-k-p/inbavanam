@@ -7,9 +7,14 @@ type MediaFrameProps = {
   media: MediaAsset;
   /** CSS aspect ratio, e.g. "4 / 5". Reserves space so nothing shifts on load. */
   ratio?: string;
+  /** Fill the nearest positioned ancestor instead of using an aspect ratio. */
+  fill?: boolean;
   sizes?: string;
   priority?: boolean;
   showCaption?: boolean;
+  /** Zoom slightly when an ancestor with the `group` class is hovered. */
+  zoom?: boolean;
+  tone?: "light" | "dark";
   className?: string;
 };
 
@@ -20,16 +25,32 @@ type MediaFrameProps = {
 export function MediaFrame({
   media,
   ratio = "4 / 3",
+  fill = false,
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   showCaption = true,
+  zoom = true,
+  tone = "light",
   className,
 }: MediaFrameProps) {
   const src = media.kind === "video" ? media.poster : media.src;
 
-  return (
-    <figure className={cn("group/media", className)}>
-      <div className="relative overflow-hidden bg-walnut/15" style={{ aspectRatio: ratio }}>
+  const frame = (
+    <div
+      className={cn(
+        "relative overflow-hidden bg-walnut/15",
+        fill && "absolute inset-0",
+        fill && className,
+      )}
+      style={fill ? undefined : { aspectRatio: ratio }}
+    >
+      <div
+        data-media-layer
+        className={cn(
+          "absolute inset-0 transition-transform duration-[1100ms] ease-[var(--ease-out-soft)]",
+          zoom && "group-hover:scale-[1.05]",
+        )}
+      >
         {src ? (
           <Image
             src={src}
@@ -37,12 +58,20 @@ export function MediaFrame({
             fill
             sizes={sizes}
             priority={priority}
-            className="object-cover transition-transform duration-[var(--dur-slow)] ease-[var(--ease-out-soft)] group-hover/media:scale-[1.02]"
+            className="object-cover"
           />
         ) : (
-          <MediaPlaceholder media={media} />
+          <MediaPlaceholder media={media} tone={tone} corner={fill} />
         )}
       </div>
+    </div>
+  );
+
+  if (fill) return frame;
+
+  return (
+    <figure className={className}>
+      {frame}
       {showCaption && media.caption ? (
         <figcaption className="mt-3 text-sm text-muted-foreground">{media.caption}</figcaption>
       ) : null}
@@ -50,18 +79,31 @@ export function MediaFrame({
   );
 }
 
-export function MediaPlaceholder({ media }: { media: MediaAsset }) {
+type PlaceholderProps = {
+  media: MediaAsset;
+  tone?: "light" | "dark";
+  /** Tuck the label into the top-right corner (used behind overlaid text). */
+  corner?: boolean;
+};
+
+export function MediaPlaceholder({ media, tone = "light", corner = false }: PlaceholderProps) {
   const noun = media.kind === "video" ? "Video" : "Photograph";
   return (
     <div
       role="img"
       aria-label={`${media.alt} (${noun.toLowerCase()} to be supplied)`}
       data-placeholder="media"
-      className="grain absolute inset-0 flex flex-col justify-between bg-[color-mix(in_oklab,var(--brand-cream)_55%,var(--brand-stone))] p-5 text-walnut sm:p-6"
+      className={cn(
+        "grain absolute inset-0 flex flex-col gap-3 p-5 sm:p-6",
+        corner ? "items-end pt-[calc(var(--header-h)+1.5rem)] text-right" : "justify-between",
+        tone === "dark"
+          ? "bg-[linear-gradient(155deg,#4a2a22,#2b1515)] text-stone"
+          : "bg-[linear-gradient(155deg,#e2d3c2,#c4ab93)] text-walnut",
+      )}
     >
       <svg
         viewBox={`0 0 ${kolamKnot.size} ${kolamKnot.size}`}
-        className="pointer-events-none absolute top-1/2 left-1/2 w-2/5 max-w-48 -translate-x-1/2 -translate-y-1/2 opacity-25"
+        className="pointer-events-none absolute top-1/2 left-1/2 w-2/5 max-w-56 -translate-x-1/2 -translate-y-1/2 opacity-20"
         fill="none"
         stroke="currentColor"
         strokeWidth={1}
@@ -83,7 +125,9 @@ export function MediaPlaceholder({ media }: { media: MediaAsset }) {
       </svg>
       <span className="relative label">{noun} to be supplied</span>
       {media.brief ? (
-        <span className="relative max-w-[32ch] text-sm leading-snug">{media.brief}</span>
+        <span className="relative line-clamp-3 max-w-[30ch] text-sm leading-snug">
+          {media.brief}
+        </span>
       ) : null}
     </div>
   );

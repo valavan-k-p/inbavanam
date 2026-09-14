@@ -31,6 +31,10 @@ export type NavItem = {
   href: string;
   /** One line shown in the radial and mobile menus. */
   description: string;
+  /** Line-art shown in the menu medallion until a photograph is supplied. */
+  art: IllustrationName;
+  /** Optional photograph for the menu medallion. */
+  image?: string | null;
 };
 
 export type Fact = {
@@ -38,6 +42,7 @@ export type Fact = {
   body: string;
   /** False when the wording still needs verification against source video. */
   verified: boolean;
+  art?: IllustrationName;
 };
 
 export type ProgramArea = {
@@ -113,4 +118,19 @@ export type Founder = {
 };
 
 export type IllustrationName =
-  "sprout" | "sesame" | "gathering" | "book" | "hands" | "stone" | "leaf" | "sun" | "path" | "lamp";
+  | "sprout"
+  | "sesame"
+  | "gathering"
+  | "book"
+  | "hands"
+  | "stone"
+  | "leaf"
+  | "sun"
+  | "path"
+  | "lamp"
+  | "people"
+  | "home"
+  | "dove"
+  | "ball"
+  | "scales"
+  | "frame";

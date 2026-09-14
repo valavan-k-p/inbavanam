@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/navigation/site-header";
 import { Footer } from "@/components/navigation/footer";
+import { RevealObserver } from "@/components/ui/reveal-observer";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +16,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         {children}
       </main>
       <Footer />
+      <RevealObserver />
     </>
   );
 }

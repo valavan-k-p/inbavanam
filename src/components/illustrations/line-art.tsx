@@ -29,7 +29,14 @@ const art: Record<IllustrationName, React.ReactNode> = {
       <circle cx="32" cy="32" r="12" strokeDasharray="1.5 3.5" />
       {Array.from({ length: 7 }, (_, i) => {
         const a = (i / 7) * Math.PI * 2 - Math.PI / 2;
-        return <circle key={i} cx={32 + Math.cos(a) * 21} cy={32 + Math.sin(a) * 21} r="3.5" />;
+        return (
+          <circle
+            key={i}
+            cx={(32 + Math.cos(a) * 21).toFixed(2)}
+            cy={(32 + Math.sin(a) * 21).toFixed(2)}
+            r="3.5"
+          />
+        );
       })}
     </>
   ),
@@ -96,6 +103,53 @@ const art: Record<IllustrationName, React.ReactNode> = {
       <path d="M44 38c2-2 6-3 9-2-2 2-6 2-9 2Z" />
       <path d="M32 34c-4-4-4-9 0-14 4 5 4 10 0 14Z" />
       <path d="M26 55h12" />
+    </>
+  ),
+  people: (
+    <>
+      <circle cx="24" cy="20" r="6" />
+      <circle cx="42" cy="23" r="5" />
+      <path d="M12 50c0-8 5-14 12-14s12 6 12 14" />
+      <path d="M33 50c0-7 4-12 9-12s9 5 9 12" />
+      <path d="M8 54h48" />
+    </>
+  ),
+  home: (
+    <>
+      <path d="M8 30 32 12l24 18" />
+      <path d="M12 27l4-3M52 27l-4-3" />
+      <path d="M15 26v26h34V26" />
+      <path d="M27 52V39h10v13" />
+      <path d="M19 32h5v5h-5ZM40 32h5v5h-5Z" />
+      <path d="M6 52h52" />
+    </>
+  ),
+  dove: (
+    <>
+      <path d="M10 38c6 2 14 1 20-6l4-10c2-4 7-6 11-4-2 1-3 3-3 5 6 0 10 4 12 8-6-1-10 1-13 4-5 6-13 10-23 9-4 0-7-2-8-6Z" />
+      <path d="M30 32c-4 6-10 8-16 8" />
+      <path d="M40 48c4 2 9 2 13 0M45 45c0 3 1 5 3 7" />
+    </>
+  ),
+  ball: (
+    <>
+      <circle cx="32" cy="30" r="16" />
+      <path d="M16 30h32M32 14c-6 5-6 27 0 32M32 14c6 5 6 27 0 32" />
+      <path d="M14 56h36" />
+    </>
+  ),
+  scales: (
+    <>
+      <path d="M32 10v42M22 52h20M14 18h36" />
+      <path d="M14 18 8 32M14 18l6 14M8 32c0 4 3 6 6 6s6-2 6-6Z" />
+      <path d="M50 18l-6 14M50 18l6 14M44 32c0 4 3 6 6 6s6-2 6-6Z" />
+    </>
+  ),
+  frame: (
+    <>
+      <rect x="10" y="14" width="44" height="36" rx="2" />
+      <path d="m14 45 12-12 8 8 6-6 10 10" />
+      <circle cx="42" cy="24" r="4" />
     </>
   ),
 };

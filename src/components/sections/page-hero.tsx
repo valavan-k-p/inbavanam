@@ -1,5 +1,5 @@
 import { SectionHeading } from "@/components/ui/section-heading";
-import { KolamDivider } from "@/components/illustrations/kolam";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 type PageHeroProps = {
@@ -13,12 +13,13 @@ type PageHeroProps = {
 /** Opening block for inner pages; clears the fixed header. */
 export function PageHero({ eyebrow, title, lede, className, children }: PageHeroProps) {
   return (
-    <section className={cn("pt-[calc(var(--header-h)+clamp(3.5rem,8vw,7rem))] pb-14", className)}>
+    <section
+      className={cn("pt-[calc(var(--header-h)+clamp(3rem,7vw,6rem))] pb-12 md:pb-16", className)}
+    >
       <div className="container-page flex flex-col gap-10">
         <SectionHeading as="h1" size="h1" eyebrow={eyebrow} title={title} lede={lede} />
-        {children}
+        {children ? <Reveal delay={0.24}>{children}</Reveal> : null}
       </div>
-      <KolamDivider className="container-page mt-16" count={7} />
     </section>
   );
 }

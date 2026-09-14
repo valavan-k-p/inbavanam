@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +20,8 @@ type LogoProps = {
 };
 
 export function Logo({ size = 56, onDark = false, priority = false, className }: LogoProps) {
+  // If the file is missing, leave the space empty rather than show a broken image.
+  const [failed, setFailed] = useState(false);
   const inner = onDark ? Math.round(size * 0.78) : size;
   return (
     <span
@@ -27,14 +32,17 @@ export function Logo({ size = 56, onDark = false, priority = false, className }:
       )}
       style={{ width: size, height: size }}
     >
-      <Image
-        src={site.logo.src}
-        alt={site.logo.alt}
-        width={Math.round(inner * RATIO)}
-        height={inner}
-        priority={priority}
-        className="h-auto max-h-full w-auto max-w-full"
-      />
+      {failed ? null : (
+        <Image
+          src={site.logo.src}
+          alt={site.logo.alt}
+          width={Math.round(inner * RATIO)}
+          height={inner}
+          priority={priority}
+          onError={() => setFailed(true)}
+          className="h-auto max-h-full w-auto max-w-full"
+        />
+      )}
     </span>
   );
 }

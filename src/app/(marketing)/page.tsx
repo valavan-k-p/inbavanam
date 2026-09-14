@@ -1,18 +1,16 @@
 import { CinematicHero } from "@/components/hero/cinematic-hero";
 import {
+  AboutTeaserSection,
   ArchitectureSection,
-  CommunitySection,
-  EssenceSection,
   EventsSection,
   ExperiencesSection,
-  FinalCtaSection,
   FoundersSection,
   GalleryPreviewSection,
-  LocationSection,
   OurWorkSection,
   PlaceSection,
-  StayPreviewSection,
+  StayFeatureSection,
 } from "@/components/sections/home";
+import { CommunityBand, FindUsBand, PlanStayBand, ValuesBand } from "@/components/sections/bands";
 import { JsonLd, organizationJsonLd } from "@/lib/seo/json-ld";
 
 // Re-read published events and gallery items from Supabase every five minutes.
@@ -23,18 +21,19 @@ export default function HomePage() {
     <>
       <JsonLd data={organizationJsonLd()} />
       <CinematicHero />
-      <EssenceSection />
+      <AboutTeaserSection />
+      <ValuesBand />
       <PlaceSection />
       <ArchitectureSection />
-      <StayPreviewSection />
+      <StayFeatureSection />
       <ExperiencesSection />
-      <CommunitySection />
+      <CommunityBand />
       <OurWorkSection />
       <EventsSection />
       <FoundersSection />
       <GalleryPreviewSection />
-      <LocationSection />
-      <FinalCtaSection />
+      <FindUsBand />
+      <PlanStayBand />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getGalleryItems } from "@/lib/db/content";
+import { galleryIntro } from "@/data/story";
 import { galleryCategories, type GalleryCategory } from "@/types/content";
 import { PageHero } from "@/components/sections/page-hero";
 import { GalleryGrid } from "@/components/gallery/gallery-grid";
@@ -22,11 +23,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
   return (
     <>
-      <PageHero
-        eyebrow="Gallery"
-        title="Architecture, land and people"
-        lede="Every photograph here will carry a caption saying what it shows, where and when."
-      />
+      <PageHero eyebrow="Gallery" title={galleryIntro.heading} lede={galleryIntro.body} />
       <section aria-label="Gallery" className="container-page pb-[var(--section-y)]">
         <GalleryGrid
           items={galleryItems}

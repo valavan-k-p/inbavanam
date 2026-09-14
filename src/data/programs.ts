@@ -1,4 +1,4 @@
-import type { ProgramArea } from "@/types/content";
+import type { IllustrationName, ProgramArea } from "@/types/content";
 
 /**
  * Program areas. Program names come verbatim from the existing-site review
@@ -47,7 +47,7 @@ export const programAreas: ProgramArea[] = [
     title: "Peacebuilding",
     summary: "Bringing people together across differences.",
     programs: ["Peacebuilding", "Social Cohesion", "Secular Celebrations"],
-    illustration: "lamp",
+    illustration: "dove",
     media: {
       kind: "image",
       src: null,
@@ -74,7 +74,7 @@ export const programAreas: ProgramArea[] = [
     title: "Community Engagement",
     summary: "Sport and shared activity as a way of building community.",
     programs: ["Community Sports and Engagement"],
-    illustration: "gathering",
+    illustration: "ball",
     media: {
       kind: "image",
       src: null,
@@ -88,7 +88,7 @@ export const programAreas: ProgramArea[] = [
     title: "Advocacy",
     summary: "Helping people reach the rights and services they are entitled to.",
     programs: ["Access to Justice"],
-    illustration: "path",
+    illustration: "scales",
     media: {
       kind: "image",
       src: null,
@@ -122,6 +122,22 @@ export const programAreas: ProgramArea[] = [
       brief: "Photograph of volunteers, with caption.",
     },
   },
+];
+
+/** Program icon grid: individual programs linked to their area. */
+export const programIndex: { name: string; area: string; art: IllustrationName }[] = [
+  { name: "Peacebuilding", area: "peacebuilding", art: "dove" },
+  { name: "Organizational Capacity Building", area: "education-and-training", art: "stone" },
+  { name: "Children's Empowerment", area: "empowerment", art: "sprout" },
+  { name: "Outbound Trainings", area: "education-and-training", art: "path" },
+  { name: "WISDOM Workshops", area: "education-and-training", art: "lamp" },
+  { name: "Education", area: "education-and-training", art: "book" },
+  { name: "Gender Empowerment", area: "empowerment", art: "people" },
+  { name: "Natural Farming", area: "natural-farming", art: "sesame" },
+  { name: "Community Sports and Engagement", area: "community-engagement", art: "ball" },
+  { name: "Access to Justice", area: "advocacy", art: "scales" },
+  { name: "Tribal Panchayat Leaders Empowerment", area: "empowerment", art: "gathering" },
+  { name: "Sustainable Development", area: "sustainable-development", art: "leaf" },
 ];
 
 export function getProgramArea(slug: string) {

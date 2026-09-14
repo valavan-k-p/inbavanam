@@ -1,6 +1,7 @@
 "use client";
 
 import { cloneElement, useActionState, useEffect, useId, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { submitEnquiry, type EnquiryState } from "@/app/(marketing)/contact/actions";
 import {
   enquiryTypeLabels,
@@ -9,7 +10,6 @@ import {
   type EnquiryFieldErrors,
   type EnquiryType,
 } from "@/lib/validations/enquiry";
-import { cn } from "@/lib/utils";
 
 const initialState: EnquiryState = { status: "idle" };
 
@@ -23,6 +23,14 @@ const fieldLabels: Record<string, string> = {
   groupSize: "Group size",
   message: "Message",
   consent: "Consent",
+};
+
+const messageHints: Record<EnquiryType, string> = {
+  general: "Tell us what you would like to know.",
+  stay: "Who is coming, and anything we should know to prepare.",
+  event: "The kind of gathering, the number of people and what you need from the space.",
+  volunteer: "Your skills, your availability and what draws you to the work.",
+  support: "How you would like to help.",
 };
 
 type EnquiryFormProps = { defaultType?: EnquiryType; context?: string };
@@ -50,7 +58,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
 
   if (state.status === "success") {
     return (
-      <div role="status" className="flex flex-col gap-5 border-t border-rule pt-8">
+      <div role="status" data-reveal="up" className="flex flex-col gap-5">
         <p className="font-display text-h3">Thank you. Your enquiry has been sent.</p>
         <p className="text-muted-foreground">We will reply to the email address you gave us.</p>
       </div>
@@ -60,10 +68,10 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
   const id = (name: string) => `${baseId}-${name}`;
   const v = state.values ?? {};
   const fieldError = (name: keyof EnquiryFieldErrors) => errors[name]?.[0];
+  const hasDates = type === "stay" || type === "event";
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const values = Object.fromEntries(new FormData(event.currentTarget));
-    const result = validateEnquiry(values);
+    const result = validateEnquiry(Object.fromEntries(new FormData(event.currentTarget)));
     if (!result.success) {
       event.preventDefault();
       setClientErrors(result.fieldErrors);
@@ -73,7 +81,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
   };
 
   return (
-    <form action={formAction} onSubmit={onSubmit} noValidate className="flex flex-col gap-8">
+    <form action={formAction} onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
       {showSummary ? (
         <div
           ref={summaryRef}
@@ -100,34 +108,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
         </div>
       ) : null}
 
-      <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 label text-muted-foreground">What is this about?</legend>
-        <div id={id("type")} className="flex flex-wrap gap-2">
-          {enquiryTypes.map((t) => (
-            <label
-              key={t}
-              className={cn(
-                "flex min-h-11 cursor-pointer items-center border px-4 label transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus",
-                type === t
-                  ? "border-maroon bg-maroon text-ivory"
-                  : "border-rule hover:border-foreground",
-              )}
-            >
-              <input
-                type="radio"
-                name="type"
-                value={t}
-                checked={type === t}
-                onChange={() => setType(t)}
-                className="sr-only"
-              />
-              {enquiryTypeLabels[t]}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <Field id={id("name")} label="Name" required error={fieldError("name")}>
           <input name="name" type="text" autoComplete="name" defaultValue={v.name} required />
         </Field>
@@ -149,23 +130,16 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
         >
           <input name="phone" type="tel" autoComplete="tel" defaultValue={v.phone} />
         </Field>
-        {type === "stay" || type === "event" ? (
-          <Field
-            id={id("groupSize")}
-            label="Group size"
-            hint="Approximate is fine."
-            error={fieldError("groupSize")}
-          >
-            <input
-              name="groupSize"
-              type="number"
-              inputMode="numeric"
-              min={1}
-              defaultValue={v.groupSize}
-            />
-          </Field>
-        ) : null}
-        {type === "stay" || type === "event" ? (
+        <Field id={id("type")} label="Enquiry type" required error={fieldError("type")}>
+          <select name="type" value={type} onChange={(e) => setType(e.target.value as EnquiryType)}>
+            {enquiryTypes.map((t) => (
+              <option key={t} value={t}>
+                {enquiryTypeLabels[t]}
+              </option>
+            ))}
+          </select>
+        </Field>
+        {hasDates ? (
           <>
             <Field
               id={id("arrival")}
@@ -182,6 +156,20 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
             >
               <input name="departure" type="date" defaultValue={v.departure} />
             </Field>
+            <Field
+              id={id("groupSize")}
+              label="Group size"
+              hint="Approximate is fine."
+              error={fieldError("groupSize")}
+            >
+              <input
+                name="groupSize"
+                type="number"
+                inputMode="numeric"
+                min={1}
+                defaultValue={v.groupSize}
+              />
+            </Field>
           </>
         ) : null}
       </div>
@@ -193,7 +181,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
         hint={messageHints[type]}
         error={fieldError("message")}
       >
-        <textarea name="message" rows={6} defaultValue={v.message} required />
+        <textarea name="message" rows={5} defaultValue={v.message} required />
       </Field>
 
       {context ? <input type="hidden" name="context" value={context} /> : null}
@@ -207,7 +195,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="flex items-start gap-3">
+        <label className="flex items-start gap-3 text-sm">
           <input
             id={id("consent")}
             name="consent"
@@ -215,7 +203,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
             defaultChecked={v.consent === "on"}
             aria-invalid={Boolean(fieldError("consent"))}
             aria-describedby={fieldError("consent") ? `${id("consent")}-error` : undefined}
-            className="mt-1 size-5 accent-maroon"
+            className="mt-0.5 size-5 accent-maroon"
           />
           <span>I agree that Inbavanam may use these details to reply to my enquiry.</span>
         </label>
@@ -230,20 +218,24 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
         type="submit"
         disabled={pending}
         aria-disabled={pending}
-        className="inline-flex min-h-12 cursor-pointer items-center justify-center self-start bg-primary px-8 label text-primary-foreground transition-colors hover:bg-primary/88 disabled:cursor-wait disabled:opacity-60"
+        className="group inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 bg-primary px-8 label text-primary-foreground transition-[background-color,transform] duration-300 hover:bg-primary/90 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
       >
         {pending ? "Sending..." : "Send enquiry"}
+        <ArrowRight
+          aria-hidden="true"
+          className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+          strokeWidth={1.5}
+        />
       </button>
     </form>
   );
 }
 
-const messageHints: Record<EnquiryType, string> = {
-  general: "Tell us what you would like to know.",
-  stay: "Who is coming, and anything we should know to prepare.",
-  event: "The kind of gathering, the number of people and what you need from the space.",
-  volunteer: "Your skills, your availability and what draws you to the work.",
-  support: "How you would like to help.",
+type ControlProps = {
+  id?: string;
+  className?: string;
+  "aria-invalid"?: boolean;
+  "aria-describedby"?: string;
 };
 
 type FieldProps = {
@@ -252,7 +244,7 @@ type FieldProps = {
   required?: boolean;
   hint?: string;
   error?: string;
-  children: React.ReactElement<React.InputHTMLAttributes<HTMLInputElement>>;
+  children: React.ReactElement<ControlProps>;
 };
 
 function Field({ id, label, required, hint, error, children }: FieldProps) {
@@ -264,7 +256,7 @@ function Field({ id, label, required, hint, error, children }: FieldProps) {
     "aria-invalid": Boolean(error),
     "aria-describedby": describedBy,
     className:
-      "min-h-12 w-full border border-input bg-ivory/60 px-4 py-3 text-base text-foreground transition-colors placeholder:text-muted-foreground hover:border-foreground focus:border-foreground aria-[invalid=true]:border-destructive",
+      "min-h-12 w-full rounded-[var(--radius)] border border-input bg-background/70 px-4 py-3 text-base text-foreground transition-[border-color,box-shadow] duration-300 placeholder:text-muted-foreground hover:border-foreground focus:border-foreground focus:shadow-[0_0_0_4px_rgb(169_71_50/0.12)] aria-[invalid=true]:border-destructive",
   });
   return (
     <div className="flex flex-col gap-2">

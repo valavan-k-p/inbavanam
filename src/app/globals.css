@@ -5,44 +5,48 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Inbavanam design tokens. Source of truth for colour, type, space and
- * motion. See docs/DESIGN_SYSTEM.md for usage rules and contrast data.
+ * Inbavanam design tokens, theme v2: parchment canvas, maroon chrome, olive
+ * bands. Usage rules and contrast data: docs/DESIGN_SYSTEM.md.
  */
 :root {
-  /* Brand palette (supplied colour reference) */
+  /* Brand palette */
   --brand-maroon: #3c1d1d;
   --brand-maroon-deep: #2b1515;
   --brand-olive: #534c2f;
+  --brand-olive-deep: #3b3a24;
+  --brand-khaki: #a39a6a;
   --brand-walnut: #523320;
   --brand-cream: #d6c6b8;
   --brand-ivory: #e8ded4;
+  --brand-paper: #f3ebdf;
+  --brand-card: #faf5ee;
   --brand-stone: #b8a99d;
   --brand-terracotta: #a94732;
   --brand-indigo: #252852;
-  --brand-ink: #1f1411;
+  --brand-ink: #2a1a15;
 
-  /* Semantic tokens for the default light surface (cream) */
-  --background: var(--brand-cream);
+  /* Semantic tokens for the default surface (paper) */
+  --background: var(--brand-paper);
   --foreground: var(--brand-ink);
-  --card: var(--brand-ivory);
+  --card: var(--brand-card);
   --card-foreground: var(--brand-ink);
-  --popover: var(--brand-ivory);
+  --popover: var(--brand-card);
   --popover-foreground: var(--brand-ink);
   --primary: var(--brand-maroon);
   --primary-foreground: var(--brand-ivory);
-  --secondary: var(--brand-olive);
+  --secondary: var(--brand-olive-deep);
   --secondary-foreground: var(--brand-ivory);
   --muted: var(--brand-ivory);
   --muted-foreground: var(--brand-walnut);
   --accent: var(--brand-terracotta);
   --accent-foreground: var(--brand-ivory);
   --destructive: #8f2a1c;
-  --border: color-mix(in oklab, var(--brand-walnut) 28%, transparent);
-  --input: color-mix(in oklab, var(--brand-walnut) 45%, transparent);
+  --border: color-mix(in oklab, var(--brand-walnut) 20%, transparent);
+  --input: color-mix(in oklab, var(--brand-walnut) 35%, transparent);
   --ring: var(--brand-terracotta);
-  --rule: color-mix(in oklab, var(--brand-walnut) 30%, transparent);
+  --rule: color-mix(in oklab, var(--brand-walnut) 22%, transparent);
   --focus: var(--brand-terracotta);
-  --radius: 2px;
+  --radius: 4px;
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -55,28 +59,41 @@
   /* Layout */
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --section-y: clamp(4.5rem, 3rem + 6vw, 9rem);
-  --header-h: 4.5rem;
+  --header-h: 4.75rem;
 
-  /* Fine grain, used at very low opacity over flat surfaces */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /*
- * Surface classes set the background and re-map text, rule and focus
- * colours so every component stays legible on it. Contrast values
- * (WCAG 2.2) are listed in docs/DESIGN_SYSTEM.md.
+ * Surface classes set the background and remap text, rule and focus colours
+ * so every component stays legible on it.
  */
-.surface-ivory {
-  --background: var(--brand-ivory);
-  --card: var(--brand-cream);
+.surface-paper,
+.surface-card,
+.surface-ivory,
+.surface-cream {
   background-color: var(--background);
   color: var(--foreground);
+}
+.surface-card {
+  --background: var(--brand-card);
+  --card: var(--brand-paper);
+}
+.surface-ivory {
+  --background: var(--brand-ivory);
+  --card: var(--brand-card);
+}
+.surface-cream {
+  --background: var(--brand-cream);
+  --card: var(--brand-card);
 }
 
 .surface-maroon,
 .surface-walnut,
 .surface-olive,
-.surface-indigo {
+.surface-olive-deep,
+.surface-indigo,
+.on-dark {
   --foreground: var(--brand-ivory);
   --card-foreground: var(--brand-ivory);
   --muted-foreground: var(--brand-stone);
@@ -87,41 +104,37 @@
   --rule: color-mix(in oklab, var(--brand-ivory) 22%, transparent);
   --focus: var(--brand-cream);
   --ring: var(--brand-cream);
-  background-color: var(--background);
   color: var(--foreground);
 }
 
+.surface-maroon,
+.surface-walnut,
+.surface-olive,
+.surface-olive-deep,
+.surface-indigo {
+  background-color: var(--background);
+}
 .surface-maroon {
   --background: var(--brand-maroon);
   --card: var(--brand-maroon-deep);
 }
-
 .surface-walnut {
   --background: var(--brand-walnut);
   --card: var(--brand-maroon-deep);
 }
-
 /* Stone text is below 4.5:1 on olive, so secondary text uses cream there. */
 .surface-olive {
   --background: var(--brand-olive);
-  --card: color-mix(in oklab, var(--brand-olive) 80%, black);
+  --card: var(--brand-olive-deep);
   --muted-foreground: var(--brand-cream);
 }
-
+.surface-olive-deep {
+  --background: var(--brand-olive-deep);
+  --card: var(--brand-olive);
+}
 .surface-indigo {
   --background: var(--brand-indigo);
   --card: color-mix(in oklab, var(--brand-indigo) 80%, black);
-}
-
-/* Dark-surface tokens without a background, for UI laid over video or imagery. */
-.on-dark {
-  --foreground: var(--brand-ivory);
-  --muted-foreground: var(--brand-stone);
-  --primary: var(--brand-ivory);
-  --primary-foreground: var(--brand-maroon);
-  --rule: color-mix(in oklab, var(--brand-ivory) 30%, transparent);
-  --focus: var(--brand-cream);
-  color: var(--foreground);
 }
 
 @theme inline {
@@ -149,9 +162,12 @@
   --color-maroon: var(--brand-maroon);
   --color-maroon-deep: var(--brand-maroon-deep);
   --color-olive: var(--brand-olive);
+  --color-olive-deep: var(--brand-olive-deep);
+  --color-khaki: var(--brand-khaki);
   --color-walnut: var(--brand-walnut);
   --color-cream: var(--brand-cream);
   --color-ivory: var(--brand-ivory);
+  --color-paper: var(--brand-paper);
   --color-stone: var(--brand-stone);
   --color-terracotta: var(--brand-terracotta);
   --color-indigo: var(--brand-indigo);
@@ -162,24 +178,24 @@
 
   --text-display: clamp(3.25rem, 1.9rem + 6.2vw, 8.5rem);
   --text-display--line-height: 0.92;
-  --text-h1: clamp(2.5rem, 1.7rem + 3.4vw, 5.25rem);
-  --text-h1--line-height: 1;
-  --text-h2: clamp(2rem, 1.45rem + 2.3vw, 3.75rem);
-  --text-h2--line-height: 1.05;
-  --text-h3: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  --text-h1: clamp(2.5rem, 1.7rem + 3.4vw, 5rem);
+  --text-h1--line-height: 1.02;
+  --text-h2: clamp(2rem, 1.45rem + 2.3vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h3: clamp(1.45rem, 1.2rem + 0.9vw, 2rem);
   --text-h3--line-height: 1.15;
-  --text-lede: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  --text-lede: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
   --text-lede--line-height: 1.6;
-  --text-label: 0.75rem;
+  --text-label: 0.72rem;
   --text-label--line-height: 1.3;
 
-  --radius-sm: 1px;
-  --radius-md: 2px;
-  --radius-lg: 3px;
-  --radius-xl: 4px;
-  --radius-2xl: 6px;
-  --radius-3xl: 8px;
-  --radius-4xl: 10px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
+  --radius-4xl: 20px;
 
   --ease-soft: var(--ease-out-soft);
 }
@@ -208,7 +224,7 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -244,13 +260,103 @@
   }
 }
 
-/* Small uppercase label used for eyebrows, meta and navigation. */
+/*
+ * Scroll reveals. The `js` class is added by an inline script before first
+ * paint, so without JavaScript nothing is ever hidden. RevealObserver sets
+ * data-revealed when an element enters the viewport.
+ */
+.js [data-reveal] {
+  transition:
+    opacity 0.9s var(--ease-out-soft),
+    transform 0.9s var(--ease-out-soft),
+    clip-path 1.3s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+.js [data-reveal="up"]:not([data-revealed]) {
+  transform: translate3d(0, 28px, 0);
+}
+.js [data-reveal="left"]:not([data-revealed]) {
+  transform: translate3d(-40px, 0, 0);
+}
+.js [data-reveal="right"]:not([data-revealed]) {
+  transform: translate3d(40px, 0, 0);
+}
+.js [data-reveal="scale"]:not([data-revealed]) {
+  transform: scale(0.94);
+}
+/*
+ * "rise" is set on a clipping wrapper; its child slides up from beneath the
+ * mask. The wrapper itself is what gets observed, because an element that is
+ * fully clipped by an ancestor never reports as intersecting.
+ */
+.js [data-reveal="rise"]:not([data-revealed]) {
+  opacity: 1;
+}
+.js [data-reveal="rise"] > * {
+  transition: transform 1s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal="rise"]:not([data-revealed]) > * {
+  transform: translate3d(0, 108%, 0);
+}
+.js [data-reveal="clip"] {
+  clip-path: inset(0 0 0 0);
+}
+.js [data-reveal="clip"]:not([data-revealed]) {
+  opacity: 1;
+  clip-path: inset(0 0 100% 0);
+}
+.js [data-reveal="clip"]:not([data-revealed]) [data-media-layer] {
+  transform: scale(1.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal]:not([data-revealed]),
+  .js [data-reveal="rise"]:not([data-revealed]) > * {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.1) translate3d(0, -1%, 0);
+  }
+  to {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
 @utility label {
   font-family: var(--font-sans);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -269,7 +375,23 @@
   max-width: 38rem;
 }
 
-/* Low-opacity paper grain layered over a surface. Never over body text alone. */
+/* Underline that draws in from the left on hover, focus or current page. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--dur-base) var(--ease-out-soft);
+
+  &:hover,
+  &:focus-visible,
+  &[aria-current="page"],
+  :is(a, button):hover > &,
+  :is(a, button):focus-visible > & {
+    background-size: 100% 1px;
+  }
+}
+
 @utility grain {
   position: relative;
   isolation: isolate;

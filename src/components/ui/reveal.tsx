@@ -1,29 +1,40 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
 
-import { motion, useReducedMotion } from "motion/react";
+export type RevealVariant = "up" | "fade" | "left" | "right" | "scale" | "clip" | "rise";
+
+/** Inline style that staggers a reveal by `seconds`. */
+export function revealDelay(seconds: number): CSSProperties | undefined {
+  return seconds
+    ? ({ "--reveal-delay": `${Math.round(seconds * 1000)}ms` } as CSSProperties)
+    : undefined;
+}
 
 type RevealProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
+  /** Delay in seconds, for staggering siblings. */
   delay?: number;
+  variant?: RevealVariant;
+  as?: "div" | "li" | "span" | "p" | "figure" | "section";
+  id?: string;
 };
 
 /**
- * Soft rise-and-fade for images and media only. Text is never wrapped, so
- * copy stays readable without JavaScript and for crawlers.
+ * Scroll reveal driven by CSS and RevealObserver. Works for text too: the
+ * hidden state only applies after JavaScript has run, and reduced motion
+ * shows everything immediately.
  */
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  variant = "up",
+  as: Tag = "div",
+  id,
+}: RevealProps) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay }}
-    >
+    <Tag id={id} data-reveal={variant} className={className} style={revealDelay(delay)}>
       {children}
-    </motion.div>
+    </Tag>
   );
 }
