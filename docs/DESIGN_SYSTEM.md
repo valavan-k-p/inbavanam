@@ -74,6 +74,7 @@ Motion is richer in v2 but always switches off under `prefers-reduced-motion`.
 | Watch our story | Pulsing ring on the play button; video opens in a dialog | `StoryButton` |
 | Radial menu | Ring draws, medallions spring out from the centre along the circle, centre text changes on hover or focus | Motion springs in `SiteMenu` |
 | Filters | Active pill highlight glides between options; gallery tiles animate their layout when filtered | `PillGroup` (`layoutId`), Motion `layout` |
+| Gallery wall | Photographs on the face of a sphere: tiles fly in from depth, the wall is dragged with momentum and wraps endlessly, tiles are greyscale until pointed at, and an opened tile zooms out of the wall into the lightbox. Arrow keys move the wall, Enter opens the centred photograph, and a Grid view is always one click away | `GalleryWall` (CSS 3D, one animation loop that runs only while moving); grid by default under reduced motion |
 | Hover | Card lift, image zoom, arrow nudge, underline draw, icon lift | CSS transitions |
 | Kolam | Border strands draw themselves on scroll | `KolamDivider` |
 

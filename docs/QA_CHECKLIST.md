@@ -67,6 +67,23 @@ resource schemas and the admin redirect guard.
 | Gallery: 8 filter pills, 10 tiles | Pass |
 | Visual review of every page in a visible browser | **Open**: screenshots were unreliable in this session |
 
+## Gallery wall
+
+Modelled on the client's reference video: photographs on a sphere, dragged
+with momentum, greyscale until pointed at, zooming into the lightbox.
+
+| Check | Result |
+| --- | --- |
+| Wall geometry: wrapping, neighbour variety, visible arc stays inside one repeat at 375, 1440 and 1920 wide | Pass (unit tests) |
+| 168 tiles built and wrapped onto the sphere; tiles past the edge hidden; all tiles `aria-hidden` | Pass (component test) |
+| Arrow keys move the wall; Enter opens the centred photograph in the lightbox | Pass (component test) |
+| Short press opens a tile; the end of a drag does not | Pass (component test) |
+| Gallery page: `h1`, 8 filters and Grid view toggle present; home section renders with "Open the gallery" | Pass (browser DOM) |
+| Reduced motion starts in the Grid view; no fly-in, momentum or zoom | Implemented; covered by the component test's reduced-motion setup |
+| Mouse wheel still scrolls the page; vertical touch swipes scroll the page | By design (`touch-action: pan-y`, no wheel handler) |
+| Visual check of the fly-in, drag and zoom in a visible browser | **Open**: the in-app browser was hidden and rendered no animation frames |
+| Frame rate with real photographs on a mid-range phone | **Open** |
+
 ## Not yet verifiable
 
 - Supabase flows (sign-in, admin CRUD, enquiry storage, RLS) need a Supabase
