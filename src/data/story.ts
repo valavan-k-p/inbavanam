@@ -9,7 +9,7 @@ import { site } from "./site";
 
 export const heroMedia: MediaAsset = {
   kind: "video",
-  src: null,
+  src: "/videos/inbavanam-hero.mp4",
   poster: null,
   alt: "Slow gimbal footage moving through the grounds and stone buildings of Inbavanam",
   brief:

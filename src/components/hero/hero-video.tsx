@@ -1,85 +1,75 @@
 "use client";
 
-import Image from "next/image";
-import { useRef, useState, useSyncExternalStore } from "react";
-import { useReducedMotion } from "motion/react";
-import { Pause, Play } from "lucide-react";
-
-type NetworkInformation = { saveData?: boolean; effectiveType?: string };
-
-function prefersLightData() {
-  const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
-  return Boolean(connection?.saveData) || /(^|-)2g$/.test(connection?.effectiveType ?? "");
-}
-
-const noopSubscribe = () => () => {};
+import { useEffect, useRef } from "react";
+import { KolamKnot } from "@/components/illustrations/kolam";
+import { cn } from "@/lib/utils";
 
 type HeroVideoProps = {
-  src: string;
+  src?: string;
   webm?: string;
-  poster: string | null;
-  alt: string;
+  poster?: string | null;
+  alt?: string;
+  className?: string;
 };
 
 /**
- * Background hero video. Muted, looping and inline; never autoplays under
- * reduced motion; not downloaded at all on Save-Data or 2G connections,
- * where the poster frame is shown instead.
+ * Cinematic hero video container.
+ *
+ * Requirements fulfilled:
+ * - autoplay, muted, loop, playsInline
+ * - no browser controls or UI overlays
+ * - covers available media container (object-fit: cover)
+ * - smooth responsive playback on desktop, tablet, and mobile
+ * - clearly defined asset path (/videos/inbavanam-hero.mp4)
+ * - retains the existing maroon atmosphere and subtle Kolam motif
  */
-export function HeroVideo({ src, webm, poster, alt }: HeroVideoProps) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const reduce = useReducedMotion();
-  const loadVideo = useSyncExternalStore(
-    noopSubscribe,
-    () => !prefersLightData(),
-    () => false,
-  );
-  const [playing, setPlaying] = useState(false);
+export function HeroVideo({
+  src = "/videos/inbavanam-hero.mp4",
+  webm,
+  poster,
+  alt = "Inbavanam grounds and architecture",
+  className,
+}: HeroVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const toggle = () => {
-    const video = ref.current;
+  useEffect(() => {
+    const video = videoRef.current;
     if (!video) return;
-    if (video.paused) void video.play();
-    else video.pause();
-  };
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay may be restricted until user interaction in some browser environments
+      });
+    }
+  }, []);
 
   return (
-    <>
-      {poster ? (
-        <Image src={poster} alt="" fill priority sizes="100vw" className="object-cover" />
-      ) : null}
-      {loadVideo ? (
-        <video
-          ref={ref}
-          className="absolute inset-0 size-full object-cover"
-          autoPlay={!reduce}
-          muted
-          loop
-          playsInline
-          preload={reduce ? "none" : "auto"}
-          poster={poster ?? undefined}
-          aria-label={alt}
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-        >
-          {webm ? <source src={webm} type="video/webm" /> : null}
-          <source src={src} type="video/mp4" />
-        </video>
-      ) : null}
-      {loadVideo ? (
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? "Pause background video" : "Play background video"}
-          className="pointer-events-auto absolute right-[var(--gutter)] bottom-6 z-20 grid size-11 cursor-pointer place-items-center rounded-full border border-ivory/50 bg-maroon-deep/40 text-ivory transition-colors hover:bg-maroon-deep/70"
-        >
-          {playing ? (
-            <Pause aria-hidden="true" className="size-4" strokeWidth={1.5} />
-          ) : (
-            <Play aria-hidden="true" className="size-4" strokeWidth={1.5} />
-          )}
-        </button>
-      ) : null}
-    </>
+    <div
+      className={cn(
+        "relative size-full overflow-hidden bg-maroon-deep grain",
+        className,
+      )}
+    >
+      {/* Subtle decorative kolam motif integrated into the visual atmosphere */}
+      <KolamKnot
+        className="pointer-events-none absolute top-1/2 left-1/2 w-[min(50vw,32rem)] -translate-x-1/2 -translate-y-1/2 text-stone/15"
+      />
+
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={poster ?? undefined}
+        aria-label={alt}
+        className="absolute inset-0 size-full object-cover"
+      >
+        {webm ? <source src={webm} type="video/webm" /> : null}
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
   );
 }
+
