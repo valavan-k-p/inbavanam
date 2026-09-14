@@ -8,12 +8,10 @@ import { site } from "./site";
  */
 
 export const heroMedia: MediaAsset = {
-  kind: "video",
-  src: "/videos/inbavanam-hero.mp4",
-  poster: null,
-  alt: "Slow gimbal footage moving through the grounds and stone buildings of Inbavanam",
-  brief:
-    "Hero video: gimbal footage of the grounds and buildings. Supply MP4 (H.264) and WebM, plus a poster frame.",
+  kind: "image",
+  src: "/images/hero image.png",
+  alt: "Inbavanam",
+  brief: "Centerpiece Inbavanam artwork",
 };
 
 /** Hero slideshow, used until the hero video is supplied. */
