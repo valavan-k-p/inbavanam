@@ -58,7 +58,12 @@ export function MediaFrame({
             fill
             sizes={sizes}
             priority={priority}
-            className="object-cover"
+            className={cn(
+              "object-cover",
+              (media as { span?: string }).span === "tall"
+                ? "object-[center_20%]"
+                : "object-center",
+            )}
           />
         ) : (
           <MediaPlaceholder media={media} tone={tone} corner={fill} />

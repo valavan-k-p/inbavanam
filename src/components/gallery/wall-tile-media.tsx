@@ -33,7 +33,17 @@ export function WallTileMedia({ item, className }: { item: GalleryItem; classNam
   return (
     <div className={cn("absolute inset-0", className)}>
       {src ? (
-        <Image src={src} alt="" fill sizes="380px" draggable={false} className="object-cover" />
+        <Image
+          src={src}
+          alt={item.alt}
+          fill
+          sizes="380px"
+          draggable={false}
+          className={cn(
+            "object-cover",
+            item.span === "tall" ? "object-[center_20%]" : "object-center",
+          )}
+        />
       ) : (
         <div
           className={cn(
