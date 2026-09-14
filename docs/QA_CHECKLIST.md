@@ -53,6 +53,20 @@ resource schemas and the admin redirect guard.
 | No stock imagery; missing media is labelled | Pass |
 | Official logo renders | **Open: `public/brand/logo.png` is missing from disk.** Logo slots show a broken image until it is restored. |
 
+## Theme v2 (mockup redesign)
+
+| Check | Result |
+| --- | --- |
+| Typecheck, lint, tests (8 files, 35 tests), production build | Pass |
+| Hero headline, eyebrow and bottom bar reveal on first load | Pass after fixing two reveal bugs: clipped "rise" lines never intersected, and elements in the bottom 8% of the first screen never triggered |
+| Radial menu opens with 8 medallion links, current page marked | Pass (browser DOM) |
+| Menu Escape, focus move and focus return | Pass in unit tests. Not confirmed in the in-app browser: its window was hidden and rendered 0 animation frames, which stalls every transition |
+| No horizontal overflow at 375px (home, contact, gallery) and 1440px (home, about) | Pass |
+| No tap targets under 24px at 375px (home) | Pass |
+| Contact form uses a labelled enquiry-type select | Pass |
+| Gallery: 8 filter pills, 10 tiles | Pass |
+| Visual review of every page in a visible browser | **Open**: screenshots were unreliable in this session |
+
 ## Not yet verifiable
 
 - Supabase flows (sign-in, admin CRUD, enquiry storage, RLS) need a Supabase

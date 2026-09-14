@@ -94,3 +94,19 @@ The source notes mention about five recorded videos. None have been supplied yet
 
 LinkedIn, Canva and Substack were mentioned as future channels. No accounts
 are linked because none have been confirmed.
+
+## From the theme mockup (not used)
+
+The visual mockup supplied for theme v2 contained sample content. The layout
+and styling were adopted; the following content was not, because it is not
+confirmed by any source:
+
+| Mockup content | What the site does instead |
+| --- | --- |
+| Phone "+91 98765 43210" and email "hello@inbavanam.org" | Shows "Information to be confirmed" until real values are set |
+| Room names (Heritage Room, Garden Cottage, Family Stay) and room-type tabs (Cottages, Family spaces, Group stays) | No rooms listed until supplied; tabs return when rooms have categories |
+| Quote "A meaningful life is a shared life" attributed to the founders | Unattributed brand line "A place to pause. A place to connect." |
+| Instagram, Facebook and YouTube icons | Omitted until accounts are confirmed |
+| Privacy and Terms links | Omitted; a privacy notice is **Needed** because the enquiry form collects personal data |
+| Photographs of the property, founders and community | Labelled placeholders; real photographs are needed |
+| A different logo mark (sprout) | The supplied logo is used |

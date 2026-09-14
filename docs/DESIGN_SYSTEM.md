@@ -4,35 +4,78 @@ Tokens live in `src/app/globals.css`. Components use semantic tokens
 (`bg-background`, `text-muted-foreground`, `border-rule`) rather than raw hex
 values, so a section's surface class decides every colour inside it.
 
+## Theme v2
+
+Theme v2 follows the client's visual mockup: a light parchment canvas, a
+maroon header, circular photo medallions in the radial menu, pill filters,
+photo cards, an olive values band, a program icon grid and a light footer.
+Content from the mockup that is not confirmed by a source was not adopted
+(see `CONTENT_GAPS.md`).
+
 ## Principles
 
 - The real place, people and footage are the heroes; the interface frames them.
-- Editorial and architectural: square corners (2px radius), hairline rules
-  instead of card shadows, asymmetric grids, generous space.
-- Culturally rooted through restraint: one kolam motif per view at most.
+- Editorial and warm: 4px radius on cards and fields, pill-shaped filters,
+  hairline rules, asymmetric grids, generous space.
+- Culturally rooted through restraint: kolam in the menu corners, dividers and
+  placeholders; thin line-art for programs and values.
 - No emoji anywhere. Icons are Lucide (UI only) or the custom line-art set.
 
 ## Colour
 
-| Token         | Hex       | Role                                                  |
-| ------------- | --------- | ----------------------------------------------------- |
-| `maroon`      | `#3C1D1D` | Primary dark surface, primary buttons, menu, founders |
-| `maroon-deep` | `#2B1515` | Scrims and dark cards                                 |
-| `olive`       | `#534C2F` | Nature and community surfaces, line-art               |
-| `walnut`      | `#523320` | Architecture surface, footer, secondary text on light |
-| `cream`       | `#D6C6B8` | Principal light canvas                                |
-| `ivory`       | `#E8DED4` | Alternate light surface, text on dark                 |
-| `stone`       | `#B8A99D` | Secondary text on dark surfaces only                  |
-| `terracotta`  | `#A94732` | Accent: kolam lines, markers, focus ring on light     |
-| `indigo`      | `#252852` | Accent surface, used once (final call to action)      |
-| `ink`         | `#1F1411` | Body text on light                                    |
+| Token         | Hex       | Role                                                        |
+| ------------- | --------- | ----------------------------------------------------------- |
+| `paper`       | `#F3EBDF` | Principal light canvas (v2)                                 |
+| `card`        | `#FAF5EE` | Cards, form panel, footer, alternate light sections         |
+| `cream`       | `#D6C6B8` | Warm light band (Stay feature)                              |
+| `ivory`       | `#E8DED4` | Text on dark, light buttons on dark                         |
+| `maroon`      | `#3C1D1D` | Header, menu, primary buttons, founders                     |
+| `maroon-deep` | `#2B1515` | Scrims under photography and video                          |
+| `olive`       | `#534C2F` | Values band                                                 |
+| `olive-deep`  | `#3B3A24` | Olive buttons ("Explore our work", "Support Inbavanam")     |
+| `khaki`       | `#A39A6A` | Outline buttons on dark ("Support Inbavanam", "Book / Enquire") |
+| `walnut`      | `#523320` | Architecture band, Plan-your-stay strip, secondary text     |
+| `stone`       | `#B8A99D` | Secondary text on dark surfaces only                        |
+| `terracotta`  | `#A94732` | Accent markers, focus ring on light                         |
+| `indigo`      | `#252852` | Reserved accent                                             |
+| `ink`         | `#2A1A15` | Body text on light                                          |
 
 ### Surfaces
 
-Apply one class per section: default (cream), `surface-ivory`,
-`surface-maroon`, `surface-walnut`, `surface-olive`, `surface-indigo`. Each
-remaps foreground, secondary text, rules and focus colour. Use `on-dark` for UI
-laid over video without a solid background.
+Apply one class per section: default (paper), `surface-card`, `surface-ivory`,
+`surface-cream`, `surface-maroon`, `surface-walnut`, `surface-olive`,
+`surface-olive-deep`, `surface-indigo`. Each remaps foreground, secondary
+text, rules and focus colour. Use `on-dark` for UI laid over photography or
+video without a solid background.
+
+### Theme v2 contrast (WCAG 2.2)
+
+| Pair                   | Ratio | Allowed use                    |
+| ---------------------- | ----- | ------------------------------ |
+| ink on paper           | 14.13 | All text                       |
+| ink on card            | 15.40 | All text                       |
+| walnut on paper        | 9.58  | Secondary text                 |
+| terracotta on paper    | 4.89  | Text, markers, focus ring      |
+| terracotta on card     | 5.33  | Text, markers                  |
+| khaki on maroon        | 5.33  | Button borders (non-text)      |
+| ivory on olive-deep    | 8.71  | All text                       |
+| stone on olive-deep    | 5.06  | Secondary text                 |
+
+## Animation
+
+Motion is richer in v2 but always switches off under `prefers-reduced-motion`.
+
+| Where | What | How |
+| --- | --- | --- |
+| Every section | Headings, text and cards rise and fade in; images wipe open from the top with a slow zoom-out | `data-reveal` (`up`, `fade`, `left`, `right`, `scale`, `clip`, `rise`) plus `RevealObserver`. CSS only; hidden states apply only after an inline script adds `js` to `<html>`, so nothing is hidden without JavaScript |
+| Page changes | Content fades and rises on client navigation | `app/(marketing)/template.tsx` (not on first load) |
+| Header | Transparent over the hero, maroon after scrolling; hides while scrolling down, returns on scroll up or keyboard focus | `SiteHeader` |
+| Hero | Three-slide crossfade with a slow zoom, progress bar, pause control; headline lines rise in from a mask | `HeroSlideshow`, `data-reveal="rise"` |
+| Watch our story | Pulsing ring on the play button; video opens in a dialog | `StoryButton` |
+| Radial menu | Ring draws, medallions spring out from the centre along the circle, centre text changes on hover or focus | Motion springs in `SiteMenu` |
+| Filters | Active pill highlight glides between options; gallery tiles animate their layout when filtered | `PillGroup` (`layoutId`), Motion `layout` |
+| Hover | Card lift, image zoom, arrow nudge, underline draw, icon lift | CSS transitions |
+| Kolam | Border strands draw themselves on scroll | `KolamDivider` |
 
 ### Measured contrast (WCAG 2.2)
 
