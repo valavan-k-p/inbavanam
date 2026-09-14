@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   aboutIntro,
   architecture,
@@ -25,7 +24,7 @@ import { PhotoCard } from "@/components/ui/photo-card";
 import { KolamDivider } from "@/components/illustrations/kolam";
 import { LineArt } from "@/components/illustrations/line-art";
 import { EventCard, EventsEmptyState } from "@/components/events/event-card";
-import { spanClass } from "@/components/gallery/spans";
+import { GalleryWall } from "@/components/gallery/gallery-wall";
 import { ProgramGrid } from "./program-grid";
 
 export function AboutTeaserSection() {
@@ -279,38 +278,29 @@ export function FoundersSection() {
 }
 
 export async function GalleryPreviewSection() {
-  const preview = (await getGalleryItems()).slice(0, 6);
+  const items = await getGalleryItems();
   return (
-    <section aria-labelledby="gallery-title" className="section-y">
-      <div className="container-page">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading id="gallery-title" eyebrow="Gallery" title={galleryIntro.heading} />
-          <Reveal variant="fade">
-            <ButtonLink href="/gallery" variant="text" arrow>
-              View the gallery
-            </ButtonLink>
-          </Reveal>
-        </div>
-        <ul className="mt-14 grid grid-flow-dense auto-rows-[10rem] grid-cols-2 gap-3 md:auto-rows-[13rem] md:grid-cols-4 md:gap-4">
-          {preview.map((item, i) => (
-            <Reveal
-              as="li"
-              key={item.id}
-              variant="scale"
-              delay={i * 0.06}
-              className={`relative ${spanClass(item.span)}`}
-            >
-              <Link
-                href={`/gallery?category=${item.category}`}
-                aria-label={`${item.alt}, in ${item.category}`}
-                className="group absolute inset-0 overflow-hidden"
-              >
-                <MediaFrame media={item} fill sizes="(min-width: 768px) 25vw, 50vw" />
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+    <section aria-labelledby="gallery-title">
+      <GalleryWall
+        items={items}
+        label="Gallery wall"
+        className="h-[85svh] min-h-[34rem]"
+        top={
+          <div className="container-page pt-14">
+            <p className="label text-muted-foreground" data-reveal="fade">
+              Gallery
+            </p>
+            <h2 id="gallery-title" className="mt-3 max-w-[18ch] text-h2" data-reveal="up">
+              {galleryIntro.heading}
+            </h2>
+          </div>
+        }
+        corner={
+          <ButtonLink href="/gallery" variant="khaki" size="sm" arrow>
+            Open the gallery
+          </ButtonLink>
+        }
+      />
     </section>
   );
 }

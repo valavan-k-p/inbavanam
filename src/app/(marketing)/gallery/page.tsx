@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getGalleryItems } from "@/lib/db/content";
 import { galleryIntro } from "@/data/story";
 import { galleryCategories, type GalleryCategory } from "@/types/content";
-import { PageHero } from "@/components/sections/page-hero";
-import { GalleryGrid } from "@/components/gallery/gallery-grid";
+import { GalleryExplorer } from "@/components/gallery/gallery-explorer";
+import { MediaFrame } from "@/components/ui/media-frame";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -23,13 +23,25 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
   return (
     <>
-      <PageHero eyebrow="Gallery" title={galleryIntro.heading} lede={galleryIntro.body} />
-      <section aria-label="Gallery" className="container-page pb-[var(--section-y)]">
-        <GalleryGrid
-          items={galleryItems}
-          initialCategory={isCategory(category) ? category : null}
-        />
-      </section>
+      <GalleryExplorer
+        items={galleryItems}
+        initialCategory={isCategory(category) ? category : null}
+        title={galleryIntro.heading}
+        lede={galleryIntro.body}
+      />
+      {/* Without JavaScript the wall cannot run, so list the photographs plainly. */}
+      <noscript>
+        <section aria-label="Gallery" className="container-page py-16">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {galleryItems.map((item) => (
+              <li key={item.id}>
+                <MediaFrame media={item} ratio="4 / 3" />
+                <p className="mt-3 label text-muted-foreground">{item.category}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </noscript>
     </>
   );
 }

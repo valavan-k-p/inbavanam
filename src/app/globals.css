@@ -322,6 +322,18 @@
   }
 }
 
+/* Gallery wall: tiles are greyscale until pointed at or centred by keyboard. */
+.wall-tile .wall-tile-media {
+  filter: grayscale(1) brightness(0.78);
+  transition: filter 0.5s var(--ease-out-soft);
+}
+.wall-tile[data-hover] .wall-tile-media {
+  filter: none;
+}
+.wall-tile[data-hover] {
+  box-shadow: 0 0 0 1px rgb(232 222 212 / 0.55);
+}
+
 @keyframes kenburns {
   from {
     transform: scale(1.1) translate3d(0, -1%, 0);
