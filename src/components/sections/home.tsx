@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   aboutIntro,
   architecture,
@@ -30,7 +31,7 @@ import { ProgramGrid } from "./program-grid";
 export function AboutTeaserSection() {
   return (
     <section id="essence" aria-labelledby="about-title" className="overflow-hidden section-y">
-      <div className="container-page grid items-center gap-12 lg:grid-cols-12">
+      <div className="container-page grid items-center gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16">
         <div className="flex flex-col gap-7 lg:col-span-5">
           <SectionHeading
             id="about-title"
@@ -47,12 +48,22 @@ export function AboutTeaserSection() {
             </ButtonLink>
           </Reveal>
         </div>
-        <Reveal variant="clip" className="lg:col-span-7">
-          <MediaFrame
-            media={aboutIntro.media}
-            ratio="5 / 4"
-            sizes="(min-width: 1024px) 58vw, 100vw"
-          />
+        <Reveal
+          variant="fade"
+          delay={0.2}
+          className="flex items-center justify-center lg:col-span-7 lg:justify-center xl:justify-end"
+        >
+          <div className="relative flex w-full items-center justify-center lg:justify-center xl:justify-end">
+            <Image
+              src="/about us image/ab image nbg.png"
+              alt="Gladston Xavier and Florina Xavier with Inbavanam retreat sanctuary and Western Ghats landscape"
+              width={1462}
+              height={1076}
+              priority
+              className="h-auto w-full max-w-[440px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px] object-contain drop-shadow-[0_14px_32px_rgba(45,28,20,0.08)] transition-transform duration-700 ease-out hover:scale-[1.015]"
+              sizes="(min-width: 1536px) 840px, (min-width: 1280px) 780px, (min-width: 1024px) 58vw, (min-width: 640px) 540px, 92vw"
+            />
+          </div>
         </Reveal>
       </div>
     </section>
