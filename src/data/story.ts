@@ -75,8 +75,8 @@ export const place = {
   ],
   media: {
     kind: "image",
-    src: null,
-    alt: "Open land and trees at Inbavanam",
+    src: "/inbavanam cover/farm.png",
+    alt: "Farmland at Inbavanam with cattle grazing against the backdrop of the Western Ghats",
     brief:
       "Wide landscape photograph of the grounds, ideally early morning or late afternoon light.",
   } satisfies MediaAsset,

@@ -72,12 +72,21 @@ export function AboutTeaserSection() {
 
 export function PlaceSection() {
   return (
-    <section aria-labelledby="place-title" className="section-y">
-      <div className="container-page grid items-end gap-12 lg:grid-cols-12">
-        <Reveal variant="clip" className="lg:col-span-7">
-          <MediaFrame media={place.media} ratio="16 / 10" sizes="(min-width: 1024px) 58vw, 100vw" />
-        </Reveal>
-        <div className="flex flex-col gap-8 lg:col-span-4 lg:col-start-9">
+    <section
+      aria-labelledby="place-title"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat section-y"
+      style={{
+        backgroundImage: "url('/inbavanam%20cover/farm.png')",
+      }}
+    >
+      {/* Very subtle warm earthy overlay preserving full photograph visibility, natural sunlight, and landscape details */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-walnut/10"
+      />
+
+      <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
+        <div className="flex flex-col gap-8 lg:col-span-5 lg:col-start-8">
           <Reveal variant="scale">
             <LineArt name="sprout" className="size-20 text-olive" />
           </Reveal>
@@ -87,7 +96,8 @@ export function PlaceSection() {
           </Reveal>
         </div>
       </div>
-      <KolamDivider className="container-page mt-20" />
+
+      <KolamDivider className="relative z-10 container-page mt-20" />
     </section>
   );
 }
@@ -135,8 +145,22 @@ export function ArchitectureSection() {
 
 export function StayFeatureSection() {
   return (
-    <section aria-labelledby="stay-title" className="surface-cream overflow-hidden section-y">
-      <div className="container-page grid items-center gap-12 lg:grid-cols-12">
+    <section
+      aria-labelledby="stay-title"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat section-y"
+      style={{
+        backgroundImage: "url('/inbavanam%20cover/pets.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Subtle warm transparent overlay for readability while keeping the photograph clearly recognizable */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-walnut/15"
+      />
+
+      <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeading
             id="stay-title"
