@@ -53,12 +53,18 @@ export function CommunityBand() {
   return (
     <section
       aria-labelledby="community-band-title"
-      className="on-dark relative isolate overflow-hidden bg-maroon-deep"
+      className="on-dark relative isolate overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/inbavanam%20cover/side%20inbavanam.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="absolute inset-0 -z-10 sepia-[0.35]">
-        <MediaFrame media={communityBand.media} fill tone="dark" sizes="100vw" zoom={false} />
-      </div>
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-maroon-deep/92 via-maroon-deep/65 to-maroon-deep/25" />
+      {/* Subtle warm overlay for text readability while keeping the photograph clearly visible */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-maroon-deep/70 via-maroon-deep/45 to-maroon-deep/35"
+      />
       <div className="container-page grid gap-12 py-[var(--section-y)] lg:grid-cols-12 lg:items-end">
         <div className="flex flex-col gap-7 lg:col-span-6">
           <SectionHeading

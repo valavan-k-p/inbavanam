@@ -49,8 +49,8 @@ export const aboutIntro = {
   heading: "A home grown from lived values",
   media: {
     kind: "image",
-    src: null,
-    alt: "Gladston Xavier and Florina Xavier at Inbavanam",
+    src: "/about us image/ab image nbg.png",
+    alt: "Gladston Xavier and Florina Xavier with Inbavanam retreat sanctuary and Western Ghats landscape",
     brief: "The founders together on the grounds, natural light.",
   } satisfies MediaAsset,
 };
@@ -207,8 +207,9 @@ export const founders: Founder[] = [
     bio: null,
     portrait: {
       kind: "image",
-      src: null,
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (7).jpeg",
       alt: "Portrait of Gladston Xavier",
+      caption: "Portrait of Gladston Xavier, natural light.",
       brief: "Portrait of Gladston Xavier, natural light.",
     },
   },
@@ -218,8 +219,9 @@ export const founders: Founder[] = [
     bio: null,
     portrait: {
       kind: "image",
-      src: null,
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (6).jpeg",
       alt: "Portrait of Florina Xavier",
+      caption: "Portrait of Florina Xavier, natural light.",
       brief: "Portrait of Florina Xavier, natural light.",
     },
   },

@@ -79,20 +79,29 @@ export function PlaceSection() {
         backgroundImage: "url('/inbavanam%20cover/farm.png')",
       }}
     >
-      {/* Very subtle warm earthy overlay preserving full photograph visibility, natural sunlight, and landscape details */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-walnut/10"
-      />
-
       <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
-        <div className="flex flex-col gap-8 lg:col-span-5 lg:col-start-8">
+        <div
+          className="relative flex flex-col gap-8 lg:col-span-5 lg:col-start-8"
+          style={{
+            color: "#faf7f2",
+            "--foreground": "#faf7f2",
+            "--muted-foreground": "#e8ded4",
+          } as React.CSSProperties}
+        >
           <Reveal variant="scale">
-            <LineArt name="sprout" className="size-20 text-olive" />
+            <LineArt name="sprout" className="size-20 text-[#e8ded4] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
           </Reveal>
-          <SectionHeading id="place-title" eyebrow={place.eyebrow} title={place.heading} />
+          <SectionHeading
+            id="place-title"
+            eyebrow={place.eyebrow}
+            title={place.heading}
+            className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+          />
           <Reveal delay={0.2}>
-            <Paragraphs items={place.body} className="text-muted-foreground" />
+            <Paragraphs
+              items={place.body}
+              className="text-[#e8ded4] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
+            />
           </Reveal>
         </div>
       </div>
@@ -146,6 +155,7 @@ export function ArchitectureSection() {
 export function StayFeatureSection() {
   return (
     <section
+      id="stay"
       aria-labelledby="stay-title"
       className="relative overflow-hidden bg-cover bg-center bg-no-repeat section-y"
       style={{
@@ -154,14 +164,16 @@ export function StayFeatureSection() {
         backgroundPosition: "center",
       }}
     >
-      {/* Subtle warm transparent overlay for readability while keeping the photograph clearly recognizable */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-walnut/15"
-      />
-
       <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
-        <div className="flex flex-col gap-8 lg:col-span-5">
+        <div
+          className="relative flex flex-col gap-8 lg:col-span-5"
+          style={{
+            color: "#fbf8f3",
+            "--foreground": "#fbf8f3",
+            "--muted-foreground": "#f5eee6",
+            textShadow: "0 1px 3px rgba(20, 10, 8, 0.6), 0 2px 8px rgba(20, 10, 8, 0.35)",
+          } as React.CSSProperties}
+        >
           <SectionHeading
             id="stay-title"
             eyebrow="Stay"
@@ -169,10 +181,15 @@ export function StayFeatureSection() {
             lede={stayIntro.body}
           />
           <Reveal delay={0.25} className="flex flex-wrap items-center gap-6">
-            <ButtonLink href={enquireLink.href} arrow>
+            <ButtonLink href={enquireLink.href} arrow className="[text-shadow:none]">
               {enquireLink.label}
             </ButtonLink>
-            <ButtonLink href="/stay" variant="text" arrow>
+            <ButtonLink
+              href="/stay"
+              variant="text"
+              arrow
+              className="text-[#fbf8f3]"
+            >
               See the spaces
             </ButtonLink>
           </Reveal>

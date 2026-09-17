@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { aboutIntro, aboutNotes, founders, foundersIntro, intro } from "@/data/story";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Paragraphs } from "@/components/ui/paragraphs";
@@ -8,10 +9,12 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
 import { ValuesBand } from "@/components/sections/bands";
 
+import { OrganisationProfileSection } from "@/components/sections/organisation-profile";
+
 export const metadata: Metadata = {
-  title: "About",
+  title: "About & Organisation Profile",
   description:
-    "The story of Inbavanam near Karamadai, and of Gladston and Florina Xavier, the social workers who run it.",
+    "The story of Inbavanam near Karamadai, Gladston and Florina Xavier, and our community development programmes in Kandiyur and Bagavathi Amman Koil.",
   alternates: { canonical: "/about" },
 };
 
@@ -25,19 +28,31 @@ export default function AboutPage() {
             <Reveal delay={0.24}>
               <Paragraphs items={intro.body} className="text-muted-foreground" />
             </Reveal>
-            <Reveal delay={0.32}>
+            <Reveal delay={0.32} className="flex flex-wrap items-center gap-6">
               <ButtonLink href="#story" variant="text" arrow>
                 Our story
               </ButtonLink>
+              <ButtonLink href="#organisation-profile" variant="text" arrow>
+                Organisation profile
+              </ButtonLink>
             </Reveal>
           </div>
-          <Reveal variant="clip" className="lg:col-span-7">
-            <MediaFrame
-              media={aboutIntro.media}
-              ratio="5 / 4"
-              priority
-              sizes="(min-width: 1024px) 58vw, 100vw"
-            />
+          <Reveal
+            variant="fade"
+            delay={0.2}
+            className="flex items-center justify-center lg:col-span-7 lg:justify-center xl:justify-end"
+          >
+            <div className="relative flex w-full items-center justify-center lg:justify-center xl:justify-end">
+              <Image
+                src="/about us image/ab image nbg.png"
+                alt="Gladston Xavier and Florina Xavier with Inbavanam retreat sanctuary and Western Ghats landscape"
+                width={1462}
+                height={1076}
+                priority
+                className="h-auto w-full max-w-[440px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px] object-contain drop-shadow-[0_14px_32px_rgba(45,28,20,0.08)] transition-transform duration-700 ease-out hover:scale-[1.015]"
+                sizes="(min-width: 1536px) 840px, (min-width: 1280px) 780px, (min-width: 1024px) 58vw, (min-width: 640px) 540px, 92vw"
+              />
+            </div>
           </Reveal>
         </div>
       </section>
@@ -110,25 +125,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="timeline-title" className="section-y">
-        <div className="container-page grid gap-10 lg:grid-cols-12">
-          <SectionHeading
-            id="timeline-title"
-            eyebrow="Timeline"
-            title="The last five years and more"
-            className="lg:col-span-5"
-          />
-          <Reveal delay={0.15} className="flex flex-col gap-6 lg:col-span-6 lg:col-start-7">
-            <p className="text-muted-foreground">
-              A timeline of Inbavanam and its programs is being prepared, along with introductions
-              to the team who work here.
-            </p>
-            <ButtonLink href="/our-work" variant="text" arrow className="self-start">
-              See our work today
-            </ButtonLink>
-          </Reveal>
-        </div>
-      </section>
+      {/* Full Inbavanam Organisation Profile */}
+      <OrganisationProfileSection />
     </>
   );
 }
