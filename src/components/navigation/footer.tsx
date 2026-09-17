@@ -116,26 +116,6 @@ function SunMotif({ className }: { className?: string }) {
   );
 }
 
-/**
- * 4-line rhythmic wavy ribbon pattern inspired by the reference image.
- */
-function WavyRibbon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 180 32"
-      className={className}
-      fill="none"
-      strokeWidth={1.35}
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <path d="M0,5 Q22.5,0 45,5 T90,5 T135,5 T180,5" stroke="#ab5945" />
-      <path d="M0,12 Q22.5,7 45,12 T90,12 T135,12 T180,12" stroke="#5a5233" />
-      <path d="M0,19 Q22.5,14 45,19 T90,19 T135,19 T180,19" stroke="#9e823c" />
-      <path d="M0,26 Q22.5,21 45,26 T90,26 T135,26 T180,26" stroke="#705039" />
-    </svg>
-  );
-}
 
 /**
  * Graceful deer & fawn wildlife motif directly inspired by the reference image,
@@ -223,8 +203,6 @@ function FooterDecorations() {
       {/* 1. Radiant sun detail in the upper right background */}
       <SunMotif className="absolute -top-3 right-6 sm:right-16 lg:right-28 size-20 sm:size-24" />
 
-      {/* 2. Rhythmic 4-line wavy ribbon accent floating near center-top */}
-      <WavyRibbon className="absolute top-7 left-1/3 hidden w-28 md:block lg:w-36" />
 
       {/* 3. Rolling landscape silhouette across the base */}
       <svg
@@ -331,18 +309,6 @@ export function Footer() {
             </>
           ) : null}
         </p>
-        <ul className="flex gap-6">
-          <li>
-            <Link href="/contact" className="inline-block link-underline py-2">
-              Contact
-            </Link>
-          </li>
-          <li>
-            <a href="/sitemap.xml" className="inline-block link-underline py-2">
-              Sitemap
-            </a>
-          </li>
-        </ul>
       </div>
     </footer>
   );
