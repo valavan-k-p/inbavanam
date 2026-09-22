@@ -60,14 +60,9 @@ export function GalleryExplorer({ items, initialCategory, title, lede }: Gallery
       label="Gallery wall"
       className="h-svh min-h-[36rem]"
       top={
-        <div className="container-page pt-[calc(var(--header-h)+2rem)]">
-          <p className="label text-muted-foreground" data-reveal="fade">
-            Gallery
-          </p>
-          <h1 className="mt-3 max-w-[18ch] text-h2" data-reveal="up">
-            {title}
-          </h1>
-        </div>
+        // The wall speaks for itself, so the page heading is kept for screen
+        // readers and search engines rather than drawn over the photographs.
+        <h1 className="sr-only">{title}</h1>
       }
       footer={<WallFilters value={category} onChange={setCategory} />}
       corner={<ViewToggle view="wall" onChange={setChoice} tone="dark" />}

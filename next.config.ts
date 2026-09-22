@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      {
+        // The ThreeUI koi document is one 16 MB file: let repeat visits reuse
+        // it from cache instead of downloading it again.
+        source: "/synthralos-halftone.html",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
     ];
   },
 };

@@ -18,20 +18,20 @@ export const heroMedia: MediaAsset = {
 export const heroSlides: MediaAsset[] = [
   {
     kind: "image",
-    src: null,
-    alt: "The buildings and grounds of Inbavanam",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM.jpeg",
+    alt: "The main two-storey brick building at Inbavanam at dusk, standing above the slope",
     brief: "Wide photograph of the buildings and grounds in warm evening light.",
   },
   {
     kind: "image",
-    src: null,
-    alt: "The land around Inbavanam",
+    src: "/inbavanam cover/top view inbavanam.png",
+    alt: "Aerial view of Inbavanam, its gardens and the cultivated land around it",
     brief: "Landscape of the land around Inbavanam in early morning light.",
   },
   {
     kind: "image",
-    src: null,
-    alt: "People gathered at Inbavanam",
+    src: "/community/community-group-portrait.webp",
+    alt: "A large group of children and adults gathered on the open ground at Inbavanam",
     brief: "A gathering on site, photographed with the consent of those shown.",
   },
 ];
@@ -67,12 +67,6 @@ export const pillars: { label: string; body: string; art: IllustrationName }[] =
 export const pullQuote = "A place to pause. A space to connect.";
 
 export const place = {
-  eyebrow: "The land",
-  heading: "Land that is worked as well as lived on.",
-  body: [
-    "Crops have been grown on the land, and vegetables and herbs are dried on site and prepared into powders for additional nutrition.",
-    "A list of the birds seen here and a short album of the plants on the site are being prepared.",
-  ],
   media: {
     kind: "image",
     src: "/inbavanam cover/farm.png",
@@ -90,11 +84,13 @@ export const architecture = {
     "In recorded walkthroughs, the founders explain the materials and the thinking behind the construction.",
   ],
   media: {
-    kind: "video",
-    src: null,
-    poster: null,
-    alt: "The founders walking through a stone building at Inbavanam, explaining how it was built",
-    brief: "Founder architecture walkthrough video, with captions (VTT).",
+    kind: "image",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (13).jpeg",
+    width: 1600,
+    height: 1066,
+    alt: "Elevation of the two-storey brick and stone building at Inbavanam, with arched openings on both floors",
+    caption: "The main building: brick, stone and deep shaded openings.",
+    brief: "Standing in for the architecture walkthrough video, which is still to be supplied.",
   } satisfies MediaAsset,
   facts: [
     {
@@ -123,8 +119,11 @@ export const stayIntro = {
   body: "Spaces for rest, reflection and time together, in buildings shaped by thoughtful, climate-responsive architecture.",
   media: {
     kind: "image",
-    src: null,
-    alt: "A room at Inbavanam",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (21).jpeg",
+    alt: "A guest room at Inbavanam with twin beds and handmade yellow Athangudi floor tiles",
+    caption: "A guest room with handmade Athangudi tiles.",
+    width: 1600,
+    height: 1066,
     brief: "Interior of a room with natural light, showing the stone walls.",
   } satisfies MediaAsset,
 };
@@ -148,8 +147,11 @@ export const community = {
   ],
   media: {
     kind: "image",
-    src: null,
-    alt: "A community gathering near Inbavanam",
+    src: "/community/courtyard-session.webp",
+    alt: "Children seated on the ground in the brick courtyard at Inbavanam while adults speak to them",
+    caption: "A session in the courtyard at Inbavanam.",
+    width: 1447,
+    height: 1087,
     brief:
       "Documentary photograph of a community program, with written consent from the people shown and a caption naming the activity.",
   } satisfies MediaAsset,
@@ -159,8 +161,10 @@ export const communityBand = {
   quote: "Stronger communities, a brighter tomorrow.",
   media: {
     kind: "image",
-    src: null,
-    alt: "Children and adults at a community program",
+    src: "/community/craft-display.webp",
+    alt: "Children holding paper flowers they have made, beneath the Inbavanam sign",
+    width: 1411,
+    height: 1114,
     brief: "Community program photograph, with consent. Shown with a warm sepia tone.",
   } satisfies MediaAsset,
 };
@@ -178,8 +182,10 @@ export const contactIntro = {
 export const findUs = {
   media: {
     kind: "image",
-    src: null,
-    alt: "The landscape around Inbavanam",
+    src: "/inbavanam cover/top view inbavanam.png",
+    alt: "Aerial view of the buildings at Inbavanam surrounded by gardens, coconut palms and cultivated fields",
+    width: 1672,
+    height: 941,
     brief: "Wide landscape view of the surroundings, for the Find us band.",
   } satisfies MediaAsset,
 };
@@ -192,11 +198,13 @@ export const foundersIntro = {
     "Their story, why Inbavanam began and how they approach community work will be told here in their own words, drawn from the interviews they have recorded.",
   ],
   media: {
-    kind: "video",
-    src: null,
-    poster: null,
-    alt: "Gladston Xavier and Florina Xavier talking about why they started Inbavanam",
-    brief: "Founder interview video (both founders together), with captions.",
+    kind: "image",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (4).jpeg",
+    width: 1600,
+    height: 1066,
+    alt: "Gladston Xavier and Florina Xavier seated together outdoors at Inbavanam",
+    caption: "Gladston and Florina Xavier at Inbavanam.",
+    brief: "Standing in for the founder interview video, which is still to be supplied.",
   } satisfies MediaAsset,
 };
 

@@ -12,8 +12,8 @@ export const experiences: Experience[] = [
     illustration: "sun",
     media: {
       kind: "image",
-      src: null,
-      alt: "A quiet corner of Inbavanam",
+      src: "/experiences/retreats.jpg",
+      alt: "A guest cottage with a tiled roof and open verandah, looking out over coconut groves to the Western Ghats",
       brief: "Calm photograph of a sitting or resting space.",
     },
   },
@@ -24,8 +24,8 @@ export const experiences: Experience[] = [
     illustration: "gathering",
     media: {
       kind: "image",
-      src: null,
-      alt: "A group sharing a meal",
+      src: "/experiences/group-stays.jpg",
+      alt: "The two-storey residence at Inbavanam, with brick arches, jaali screens and a round corner pavilion",
       brief: "Photograph of a group stay, with consent.",
     },
   },
@@ -36,8 +36,8 @@ export const experiences: Experience[] = [
     illustration: "path",
     media: {
       kind: "image",
-      src: null,
-      alt: "A camp at Inbavanam",
+      src: "/experiences/camps.jpg",
+      alt: "The large hall at Inbavanam, with a high trussed roof, ceiling fans and chairs stacked along one wall",
       brief: "Photograph from a camp.",
     },
   },
@@ -48,9 +48,9 @@ export const experiences: Experience[] = [
     illustration: "lamp",
     media: {
       kind: "image",
-      src: null,
-      alt: "A celebration at Inbavanam",
-      brief: "Photograph from a celebration held on site.",
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (4).jpeg",
+      alt: "The round brick pavilion at Inbavanam, open through arches to the trees outside",
+      brief: "Photograph from a celebration held on site, to replace this view of the pavilion.",
     },
   },
   {
@@ -60,9 +60,9 @@ export const experiences: Experience[] = [
     illustration: "book",
     media: {
       kind: "image",
-      src: null,
-      alt: "A team gathering outdoors",
-      brief: "Photograph from a corporate outing or training.",
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (5).jpeg",
+      alt: "The library at Inbavanam, with brick arches, bookshelves and a ceiling set with blue glass discs",
+      brief: "Photograph from a corporate outing or training, to replace this view of the hall.",
     },
   },
 ];

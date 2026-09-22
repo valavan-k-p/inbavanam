@@ -36,6 +36,30 @@ export function RevealObserver() {
     const scan = (root: ParentNode) => root.querySelectorAll(SELECTOR).forEach(track);
     scan(document);
 
+    // Safety net. If the observer misses an element for any reason, nothing
+    // would ever show it again, so a scroll pass reveals anything that is
+    // measurably inside the viewport. It only looks at elements still hidden.
+    let queued = false;
+    const sweep = () => {
+      queued = false;
+      const pending = document.querySelectorAll(SELECTOR);
+      if (!pending.length) return;
+      pending.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 0 && rect.bottom > 0 && rect.top < window.innerHeight) {
+          el.setAttribute("data-revealed", "");
+          io.unobserve(el);
+        }
+      });
+    };
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(sweep);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
     const mo = new MutationObserver((mutations) => {
       for (const m of mutations) {
         m.addedNodes.forEach((node) => {
@@ -50,6 +74,8 @@ export function RevealObserver() {
     return () => {
       io.disconnect();
       mo.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, [pathname]);
 

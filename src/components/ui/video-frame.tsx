@@ -13,7 +13,10 @@ type VideoFrameProps = {
  * Nothing is downloaded until the visitor presses play.
  */
 export function VideoFrame({ media, ratio = "16 / 9", className }: VideoFrameProps) {
-  if (!media.src) return <MediaFrame media={media} ratio={ratio} className={className} />;
+  // A photograph standing in for a film that has not been supplied yet is
+  // shown as a photograph, not fed to <video>.
+  if (media.kind !== "video" || !media.src)
+    return <MediaFrame media={media} ratio={ratio} className={className} />;
 
   return (
     <figure className={cn(className)}>

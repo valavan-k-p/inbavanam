@@ -10,23 +10,19 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/utils";
 import { SiteMenu } from "./site-menu";
 
-type ScrollState = { scrolled: boolean; hidden: boolean };
-
-/** Tracks whether the page has scrolled, and hides the header while scrolling down. */
-function useScrollState(): ScrollState {
-  const [state, setState] = useState<ScrollState>({ scrolled: false, hidden: false });
+/**
+ * Tracks whether the page has scrolled past the hero, which is what turns the
+ * header's background on. The header itself stays put: it never hides.
+ */
+function useScrolled(): boolean {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    let lastY = window.scrollY;
     let frame = 0;
     const update = () => {
-      const y = window.scrollY;
-      const next = { scrolled: y > 40, hidden: y > 520 && y > lastY + 2 };
-      if (Math.abs(y - lastY) > 2) lastY = y;
       frame = 0;
-      setState((prev) =>
-        prev.scrolled === next.scrolled && prev.hidden === next.hidden ? prev : next,
-      );
+      const next = window.scrollY > 40;
+      setScrolled((prev) => (prev === next ? prev : next));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -39,21 +35,20 @@ function useScrollState(): ScrollState {
     };
   }, []);
 
-  return state;
+  return scrolled;
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const { scrolled, hidden } = useScrollState();
+  const scrolled = useScrolled();
   const overHero = pathname === "/" && !scrolled;
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header
       className={cn(
-        "on-dark fixed inset-x-0 top-0 z-40 transition-[background-color,translate,box-shadow] duration-500 ease-[var(--ease-out-soft)] focus-within:translate-y-0",
+        "on-dark fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow] duration-500 ease-[var(--ease-out-soft)]",
         overHero ? "bg-transparent" : "bg-maroon shadow-[0_10px_30px_-20px_rgb(0_0_0/0.6)]",
-        hidden && "-translate-y-full",
       )}
     >
       <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-6">
@@ -62,8 +57,8 @@ export function SiteHeader() {
           <Wordmark className="hidden sm:flex" />
         </Link>
 
-        <nav aria-label="Main" className="hidden min-[1360px]:block">
-          <ul className="flex items-center gap-6">
+        <nav aria-label="Main" className="hidden min-[1440px]:block">
+          <ul className="flex items-center gap-5">
             {primaryNav.map((item) => (
               <li key={item.href}>
                 <Link

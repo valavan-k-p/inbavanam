@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@designcodeio/threeui": ["./src/shaders/koi-studies/KoiStudies.tsx"],
+      "@designcodeio/threeui/style.css": ["./src/shaders/threeui.css"]
     }
   },
   "include": [

@@ -47,3 +47,4 @@ next-env.d.ts
 
 # client source material (kept local, not committed)
 /prompt/
+.vercel

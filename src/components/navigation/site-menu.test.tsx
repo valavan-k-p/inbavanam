@@ -76,6 +76,7 @@ describe("SiteMenu", () => {
     const about = within(dialog)
       .getAllByRole("link", { name: "About" })
       .find((el) => el.dataset.navLink === "radial");
-    expect(about).toHaveAccessibleDescription(primaryNav[0].description);
+    const description = primaryNav.find((item) => item.label === "About")?.description;
+    expect(about).toHaveAccessibleDescription(description);
   });
 });

@@ -41,9 +41,11 @@ export type WallGeometry = {
 
 /** Tile size and sphere radius for a wall of the given size. */
 export function measureWall(width: number, height: number): WallGeometry {
-  // Width sets the tile size; height caps it on short, wide screens.
+  // Width sets the tile size; height caps it on short, wide screens. The
+  // sphere scales with the tiles, so these figures also set how much of the
+  // viewport the wall fills: it should read as an object, not fill the frame.
   const tileW = Math.round(
-    Math.min(380, Math.max(170, width * 0.22), Math.max(140, height * 0.45)),
+    Math.min(300, Math.max(150, width * 0.175), Math.max(120, height * 0.36)),
   );
   const tileH = Math.round(tileW * 0.625);
   const gap = Math.round(tileW * 0.06);

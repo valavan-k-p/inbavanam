@@ -47,23 +47,14 @@ function BotanicalStalk({
       {/* Central stem */}
       <path d="M22,110 L22,8" />
       {/* Terminal tip leaf */}
-      <path
-        d="M22,8 C20,4 20,1 22,0 C24,1 24,4 22,8 Z"
-        fill={leafFill}
-      />
+      <path d="M22,8 C20,4 20,1 22,0 C24,1 24,4 22,8 Z" fill={leafFill} />
       {/* Paired alternating seeds */}
       {seeds.map((s, idx) => {
         const isLeft = s.rot < 0;
         const leafPath = isLeft
           ? `M22,${s.y} C17,${s.y - 4} 12,${s.y - 8} 11,${s.y - 12} C15,${s.y - 10} 19,${s.y - 6} 22,${s.y} Z`
           : `M22,${s.y} C27,${s.y - 4} 32,${s.y - 8} 33,${s.y - 12} C29,${s.y - 10} 25,${s.y - 6} 22,${s.y} Z`;
-        return (
-          <path
-            key={idx}
-            d={leafPath}
-            fill={leafFill}
-          />
-        );
+        return <path key={idx} d={leafPath} fill={leafFill} />;
       })}
     </svg>
   );
@@ -84,21 +75,9 @@ function SunMotif({ className }: { className?: string }) {
   });
 
   return (
-    <svg
-      viewBox="0 0 100 100"
-      className={className}
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 100 100" className={className} fill="none" aria-hidden="true">
       {/* Central sun circle */}
-      <circle
-        cx="50"
-        cy="50"
-        r="14"
-        fill="#d8be75"
-        stroke="#8b712b"
-        strokeWidth={1.4}
-      />
+      <circle cx="50" cy="50" r="14" fill="#d8be75" stroke="#8b712b" strokeWidth={1.4} />
       {/* 24 radial rays */}
       {rays.map((ray, i) => (
         <line
@@ -116,7 +95,6 @@ function SunMotif({ className }: { className?: string }) {
   );
 }
 
-
 /**
  * Graceful deer & fawn wildlife motif directly inspired by the reference image,
  * stylized with handcrafted Inbavanam line-art and ornamental flank dots.
@@ -133,12 +111,7 @@ function DeerMotif({ className }: { className?: string }) {
   });
 
   return (
-    <svg
-      viewBox="0 0 126 100"
-      className={className}
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 126 100" className={className} fill="none" aria-hidden="true">
       {/* --- Mother Deer --- */}
       {/* Body silhouette */}
       <path
@@ -201,8 +174,7 @@ function FooterDecorations() {
       className="pointer-events-none absolute inset-0 overflow-hidden select-none"
     >
       {/* 1. Radiant sun detail in the upper right background */}
-      <SunMotif className="absolute -top-3 right-6 sm:right-16 lg:right-28 size-20 sm:size-24" />
-
+      <SunMotif className="absolute -top-3 right-6 size-20 sm:right-16 sm:size-24 lg:right-28" />
 
       {/* 3. Rolling landscape silhouette across the base */}
       <svg
@@ -224,35 +196,19 @@ function FooterDecorations() {
       </svg>
 
       {/* 4. Deer & Fawn wildlife motif standing naturally on the terrain */}
-      <DeerMotif className="absolute bottom-10 right-10 sm:right-24 lg:right-36 xl:right-44 h-18 sm:h-22 lg:h-24 w-auto" />
+      <DeerMotif className="absolute right-10 bottom-10 h-18 w-auto sm:right-24 sm:h-22 lg:right-36 lg:h-24 xl:right-44" />
 
       {/* 5. Botanical stalks rising from the terrain in the lower margins */}
       {/* Left botanical cluster */}
-      <div className="absolute bottom-4 left-3 sm:left-8 lg:left-14 flex items-end gap-1.5">
-        <BotanicalStalk
-          height={100}
-          color="#4a432b"
-          leafFill="#786b44"
-        />
-        <BotanicalStalk
-          height={78}
-          color="#7c4636"
-          leafFill="#a7523f"
-        />
+      <div className="absolute bottom-4 left-3 flex items-end gap-1.5 sm:left-8 lg:left-14">
+        <BotanicalStalk height={100} color="#4a432b" leafFill="#786b44" />
+        <BotanicalStalk height={78} color="#7c4636" leafFill="#a7523f" />
       </div>
 
       {/* Right botanical cluster (framing the right side near the deer) */}
-      <div className="absolute bottom-4 right-3 sm:right-8 lg:right-12 hidden items-end gap-1.5 sm:flex">
-        <BotanicalStalk
-          height={82}
-          color="#7c4636"
-          leafFill="#a7523f"
-        />
-        <BotanicalStalk
-          height={104}
-          color="#4a432b"
-          leafFill="#786b44"
-        />
+      <div className="absolute right-3 bottom-4 hidden items-end gap-1.5 sm:right-8 sm:flex lg:right-12">
+        <BotanicalStalk height={82} color="#7c4636" leafFill="#a7523f" />
+        <BotanicalStalk height={104} color="#4a432b" leafFill="#786b44" />
       </div>
     </div>
   );
@@ -260,7 +216,7 @@ function FooterDecorations() {
 
 export function Footer() {
   return (
-    <footer className="relative surface-card border-t border-rule overflow-hidden">
+    <footer className="surface-card relative overflow-hidden border-t border-rule">
       {/* Nature-inspired decorative layer inspired by the reference design */}
       <FooterDecorations />
 
@@ -297,7 +253,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10 container-page flex flex-col gap-3 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative z-10 container-page flex flex-col items-center gap-3 py-6 text-center text-sm text-muted-foreground sm:flex-row sm:justify-center">
         <p>
           &copy; {new Date().getFullYear()} {site.name}
           {contact.email ? (

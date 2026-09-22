@@ -302,11 +302,23 @@
 .js [data-reveal="rise"]:not([data-revealed]) > * {
   transform: translate3d(0, 108%, 0);
 }
+/*
+ * "clip" wipes the media upward. Like "rise", the clip belongs to the child,
+ * not to the observed element: an element clipped to zero height never
+ * reports as intersecting, so it would stay hidden forever.
+ */
 .js [data-reveal="clip"] {
+  opacity: 1;
+}
+.js [data-reveal="clip"] > * {
   clip-path: inset(0 0 0 0);
+  transition: clip-path 1.3s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 .js [data-reveal="clip"]:not([data-revealed]) {
   opacity: 1;
+}
+.js [data-reveal="clip"]:not([data-revealed]) > * {
   clip-path: inset(0 0 100% 0);
 }
 .js [data-reveal="clip"]:not([data-revealed]) [data-media-layer] {
@@ -315,7 +327,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal]:not([data-revealed]),
-  .js [data-reveal="rise"]:not([data-revealed]) > * {
+  .js [data-reveal="rise"]:not([data-revealed]) > *,
+  .js [data-reveal="clip"]:not([data-revealed]) > * {
     opacity: 1;
     transform: none;
     clip-path: none;
@@ -422,4 +435,129 @@
 
 @utility tabular {
   font-variant-numeric: tabular-nums;
+}
+
+.shader-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 72vh, 820px);
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: clamp(16px, 2vw, 28px);
+}
+
+/* Stands in for the ThreeUI koi stack until it is loaded (see Scene.tsx). */
+.shader-frame__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: var(--gutter);
+  text-align: center;
+  background: #10100e;
+  color: var(--brand-stone);
+}
+
+.shader-frame__note {
+  max-width: 34ch;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.shader-frame__load {
+  min-height: 2.75rem;
+  padding-inline: 1.5rem;
+  border: 1px solid var(--brand-khaki);
+  border-radius: 999px;
+  color: var(--brand-ivory);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--dur-base) var(--ease-out-soft);
+}
+
+.shader-frame__load:hover {
+  background: color-mix(in oklab, var(--brand-khaki) 18%, transparent);
+}
+
+/* Printed-dot texture laid over the experience card imagery. */
+@utility halftone {
+  background-image: radial-gradient(rgb(31 20 17 / 0.55) 1px, transparent 1.15px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/*
+ * Liquid water behind the experience cards. Two sheets of caustics - thin
+ * veins of light, cut from stitched turbulence so they tile seamlessly -
+ * drift at different speeds and directions, so where they cross the light
+ * gathers and slides like the surface of a pool. Each loop travels exactly
+ * one tile, so it repeats without a seam.
+ *
+ * Only transforms animate; the global reduced-motion rule freezes it.
+ */
+.liquid-water {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --caustic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.036' numOctaves='2' seed='5' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 2.2 0 0 0 -0.6' result='m'/%3E%3CfeComponentTransfer in='m'%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 1 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23c)'/%3E%3C/svg%3E");
+  background: radial-gradient(95% 85% at 50% 115%, rgb(4 18 26 / 0.5), transparent 70%);
+}
+
+.liquid-water::before,
+.liquid-water::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background-image: var(--caustic);
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+  filter: blur(0.4px);
+  will-change: transform;
+}
+
+.liquid-water::before {
+  background-size: 300px 300px;
+  opacity: 0.1;
+  animation: caustic-near 32s linear infinite;
+}
+
+.liquid-water::after {
+  background-size: 420px 420px;
+  opacity: 0.06;
+  animation: caustic-far 47s linear infinite;
+}
+
+@keyframes caustic-near {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-300px, 150px, 0);
+  }
+}
+
+@keyframes caustic-far {
+  from {
+    transform: scaleX(-1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scaleX(-1) translate3d(-420px, -210px, 0);
+  }
+}
+
+/* Deep pool blue behind the experience cards, lit from above. */
+.water-panel {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgb(52 116 140 / 0.55), transparent 60%),
+    linear-gradient(180deg, #1a4a5e 0%, #123846 45%, #0b232e 100%);
 }

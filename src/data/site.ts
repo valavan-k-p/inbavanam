@@ -40,13 +40,14 @@ export const contact = {
 } as const;
 
 export const primaryNav: NavItem[] = [
+  { label: "Home", href: "/", description: "Back to the start", art: "home" },
   {
     label: "About",
     href: "/about",
     description: "Our story and the people behind it",
     art: "people",
   },
-  { label: "Stay", href: "/stay", description: "Accommodation and spaces", art: "home" },
+  { label: "Stay", href: "/stay", description: "Accommodation and spaces", art: "stone" },
   {
     label: "Experiences",
     href: "/experiences",

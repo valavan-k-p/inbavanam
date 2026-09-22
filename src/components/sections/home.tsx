@@ -8,25 +8,21 @@ import {
   galleryIntro,
   intro,
   place,
-  stayIntro,
   workIntro,
 } from "@/data/story";
-import { enquireLink } from "@/data/site";
-import { experiences } from "@/data/experiences";
 import { getEvents, getGalleryItems } from "@/lib/db/content";
 import { splitEvents } from "@/lib/dates";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { MediaFrame } from "@/components/ui/media-frame";
 import { VideoFrame } from "@/components/ui/video-frame";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
 import { Paragraphs } from "@/components/ui/paragraphs";
-import { PhotoCard } from "@/components/ui/photo-card";
-import { KolamDivider } from "@/components/illustrations/kolam";
 import { LineArt } from "@/components/illustrations/line-art";
 import { EventCard, EventsEmptyState } from "@/components/events/event-card";
 import { GalleryWall } from "@/components/gallery/gallery-wall";
 import { ProgramGrid } from "./program-grid";
+import { experiences } from "@/data/experiences";
+import { ExperienceStack } from "@/components/experiences/experience-stack";
 
 export function AboutTeaserSection() {
   return (
@@ -60,7 +56,7 @@ export function AboutTeaserSection() {
               width={1462}
               height={1076}
               priority
-              className="h-auto w-full max-w-[440px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px] object-contain drop-shadow-[0_14px_32px_rgba(45,28,20,0.08)] transition-transform duration-700 ease-out hover:scale-[1.015]"
+              className="h-auto w-full max-w-[440px] object-contain drop-shadow-[0_14px_32px_rgba(45,28,20,0.08)] transition-transform duration-700 ease-out hover:scale-[1.015] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px]"
               sizes="(min-width: 1536px) 840px, (min-width: 1280px) 780px, (min-width: 1024px) 58vw, (min-width: 640px) 540px, 92vw"
             />
           </div>
@@ -72,41 +68,16 @@ export function AboutTeaserSection() {
 
 export function PlaceSection() {
   return (
-    <section
-      aria-labelledby="place-title"
-      className="relative overflow-hidden bg-cover bg-center bg-no-repeat section-y"
-      style={{
-        backgroundImage: "url('/inbavanam%20cover/farm.png')",
-      }}
-    >
-      <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
-        <div
-          className="relative flex flex-col gap-8 lg:col-span-5 lg:col-start-8"
-          style={{
-            color: "#faf7f2",
-            "--foreground": "#faf7f2",
-            "--muted-foreground": "#e8ded4",
-          } as React.CSSProperties}
-        >
-          <Reveal variant="scale">
-            <LineArt name="sprout" className="size-20 text-[#e8ded4] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
-          </Reveal>
-          <SectionHeading
-            id="place-title"
-            eyebrow={place.eyebrow}
-            title={place.heading}
-            className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
-          />
-          <Reveal delay={0.2}>
-            <Paragraphs
-              items={place.body}
-              className="text-[#e8ded4] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
-            />
-          </Reveal>
-        </div>
-      </div>
-
-      <KolamDivider className="relative z-10 container-page mt-20" />
+    <section className="w-full">
+      {/* Full-width photograph shown whole: the section takes the image's own 16:9 shape. */}
+      <Image
+        src={place.media.src ?? ""}
+        alt={place.media.alt}
+        width={1672}
+        height={941}
+        sizes="100vw"
+        className="h-auto w-full"
+      />
     </section>
   );
 }
@@ -154,54 +125,16 @@ export function ArchitectureSection() {
 
 export function StayFeatureSection() {
   return (
-    <section
-      id="stay"
-      aria-labelledby="stay-title"
-      className="relative overflow-hidden bg-cover bg-center bg-no-repeat section-y"
-      style={{
-        backgroundImage: "url('/inbavanam%20cover/pets.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="relative z-10 container-page grid items-center gap-12 lg:grid-cols-12">
-        <div
-          className="relative flex flex-col gap-8 lg:col-span-5"
-          style={{
-            color: "#fbf8f3",
-            "--foreground": "#fbf8f3",
-            "--muted-foreground": "#f5eee6",
-            textShadow: "0 1px 3px rgba(20, 10, 8, 0.6), 0 2px 8px rgba(20, 10, 8, 0.35)",
-          } as React.CSSProperties}
-        >
-          <SectionHeading
-            id="stay-title"
-            eyebrow="Stay"
-            title={stayIntro.heading}
-            lede={stayIntro.body}
-          />
-          <Reveal delay={0.25} className="flex flex-wrap items-center gap-6">
-            <ButtonLink href={enquireLink.href} arrow className="[text-shadow:none]">
-              {enquireLink.label}
-            </ButtonLink>
-            <ButtonLink
-              href="/stay"
-              variant="text"
-              arrow
-              className="text-[#fbf8f3]"
-            >
-              See the spaces
-            </ButtonLink>
-          </Reveal>
-        </div>
-        <Reveal variant="clip" className="lg:col-span-6 lg:col-start-7">
-          <MediaFrame
-            media={stayIntro.media}
-            ratio="4 / 5"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-          />
-        </Reveal>
-      </div>
+    <section className="w-full">
+      {/* Full-width photograph shown whole: the section takes the image's own 16:9 shape. */}
+      <Image
+        src="/inbavanam cover/pets.jpg"
+        alt="Inbavanam sanctuary life and architecture"
+        width={3417}
+        height={1920}
+        sizes="100vw"
+        className="h-auto w-full"
+      />
     </section>
   );
 }
@@ -223,18 +156,9 @@ export function ExperiencesSection() {
             </ButtonLink>
           </Reveal>
         </div>
-        <ul className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {experiences.map((item, i) => (
-            <Reveal as="li" key={item.slug} delay={(i % 3) * 0.1}>
-              <PhotoCard
-                media={item.media}
-                title={item.title}
-                subtitle={item.summary}
-                href={`/experiences#${item.slug}`}
-              />
-            </Reveal>
-          ))}
-        </ul>
+        <Reveal delay={0.15} className="mt-14">
+          <ExperienceStack items={experiences} />
+        </Reveal>
       </div>
     </section>
   );
@@ -338,14 +262,11 @@ export async function GalleryPreviewSection() {
         label="Gallery wall"
         className="h-[85svh] min-h-[34rem]"
         top={
-          <div className="container-page pt-14">
-            <p className="label text-muted-foreground" data-reveal="fade">
-              Gallery
-            </p>
-            <h2 id="gallery-title" className="mt-3 max-w-[18ch] text-h2" data-reveal="up">
-              {galleryIntro.heading}
-            </h2>
-          </div>
+          // The wall carries the section; the heading stays for assistive
+          // technology instead of being drawn over the photographs.
+          <h2 id="gallery-title" className="sr-only">
+            {galleryIntro.heading}
+          </h2>
         }
         corner={
           <ButtonLink href="/gallery" variant="khaki" size="sm" arrow>
