@@ -4,7 +4,6 @@ import {
   ArchitectureSection,
   EventsSection,
   ExperiencesSection,
-  FoundersSection,
   GalleryPreviewSection,
   OurWorkSection,
   PlaceSection,
@@ -30,7 +29,6 @@ export default function HomePage() {
       <CommunityBand />
       <OurWorkSection />
       <EventsSection />
-      <FoundersSection />
       <GalleryPreviewSection />
       <FindUsBand />
       <PlanStayBand />

@@ -49,8 +49,10 @@ export const aboutIntro = {
   heading: "A home grown from lived values",
   media: {
     kind: "image",
-    src: "/about us image/ab image nbg.png",
-    alt: "Gladston Xavier and Florina Xavier with Inbavanam retreat sanctuary and Western Ghats landscape",
+    src: "/about us image/about-collage.webp",
+    alt: "Circular collage of Inbavanam: the round brick pavilion, the two-storey residence, the hall, a tiled cottage and the Western Ghats, set around the Inbavanam logo",
+    width: 1371,
+    height: 1148,
     brief: "The founders together on the grounds, natural light.",
   } satisfies MediaAsset,
 };
@@ -188,6 +190,49 @@ export const findUs = {
     height: 941,
     brief: "Wide landscape view of the surroundings, for the Find us band.",
   } satisfies MediaAsset,
+};
+
+/**
+ * About page copy, taken from the organisation profile
+ * (`public/content/Inbavanam_Organisation_Profile.pdf`): section 17 for the
+ * description, section 2 for the purpose list. Nothing here is invented.
+ */
+export const aboutStory = {
+  eyebrow: "Our story",
+  heading: "School first, then a steady income",
+  body: [
+    "Inbavanam means happy forest. It is a community organisation working in two villages in Coimbatore district, Tamil Nadu: Kandiyur and Bagavathi Amman Koil. Most families there own little land and earn little.",
+    "The work started with two things: school and work. The villages have learning centres where children get help with their studies. Parents get advice, and there are scholarships and help with college admissions. Several young women have become the first in their family to study further.",
+    "For work, families farm together on shared land, grow food without chemicals, and keep poultry, goats and fish. It gives people who own no land a steadier income and a say in what is grown.",
+  ],
+  media: {
+    kind: "image",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (10).jpeg",
+    alt: "Exposed brick jaali screen, granite steps and a balcony at the Inbavanam resource centre",
+    caption:
+      "The resource centre: a place for training, residential learning and community meetings.",
+    width: 1600,
+    height: 1066,
+  } satisfies MediaAsset,
+};
+
+/** Vision and Purpose, organisation profile section 2. */
+export const aboutPurpose = {
+  eyebrow: "Vision and purpose",
+  heading: "What we are working towards",
+  lede: "Inbavanam is working towards villages where people can:",
+  items: [
+    "Go to school and keep studying.",
+    "Earn a steady living.",
+    "Know their rights, and claim them.",
+    "Have a say in local government.",
+    "Get things done together.",
+    "Live with dignity, as equals.",
+    "Look after the land around them.",
+    "Settle arguments by talking, not fighting.",
+  ],
+  close:
+    "The work is a mix of all of these. Being in the villages day to day. Running training. Speaking up for people, and helping them earn. And showing, at Inbavanam itself, how a gentler way of living actually works.",
 };
 
 export const foundersIntro = {

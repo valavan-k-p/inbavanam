@@ -1,4 +1,4 @@
-import type { IllustrationName } from "@/types/content";
+import type { IllustrationName, MediaAsset } from "@/types/content";
 
 export interface CommunityProfile {
   name: string;
@@ -33,30 +33,63 @@ export interface CoreApproachPrinciple {
 }
 
 export const profileOverview = {
-  eyebrow: "Organisation Profile",
-  heading: "Inbavanam: Rooted in Community & Land",
+  eyebrow: "Organisation profile",
+  heading: "Rooted in community and land",
   tagline: "Happy Forest",
-  lede: "A community-development initiative focused on the sustainable development and empowerment of economically and socially marginalised communities in and around Kandiyur and Bagavathi Amman Koil villages in the Coimbatore district of Tamil Nadu.",
+  lede: "Inbavanam works with two villages near Karamadai: Kandiyur and Bagavathi Amman Koil, in Coimbatore district, Tamil Nadu. The families there have little land and low incomes. The work is about changing that, with them.",
   foundingPriorities: [
     {
-      title: "Education & Literacy",
-      description: "Preventing school dropouts, nurturing foundational learning, and opening pathways to higher education for first-generation learners.",
+      title: "School and reading",
+      description:
+        "Helping children stay in school, learn well, and go on to college, often as the first in their family to do so.",
     },
     {
-      title: "Collective & Sustainable Livelihoods",
-      description: "Cultivating shared agriculture, natural farming, and diversified local livelihoods that offer dignity, economic security, and land access.",
+      title: "Farming and earning",
+      description:
+        "Farming together, growing food without chemicals, and finding steady ways for families to earn.",
     },
   ],
+};
+
+/**
+ * One photograph per profile section. Real Inbavanam photographs only; the
+ * alt text describes what is in the frame, not what the section claims.
+ */
+export const profileMedia = {
+  communities: {
+    kind: "image",
+    src: "/community/community-group-portrait.webp",
+    alt: "A large group of children and adults gathered on open ground at Inbavanam, with the hills behind them",
+    caption: "Everyone together at the end of a children's programme.",
+    width: 1448,
+    height: 1086,
+  } satisfies MediaAsset,
+  programmes: {
+    kind: "image",
+    src: "/community/drawing-workshop.webp",
+    alt: "Children drawing on the floor of the open-sided hall while a facilitator works at a whiteboard",
+    caption: "A learning session in the open hall.",
+    width: 1448,
+    height: 1086,
+  } satisfies MediaAsset,
+  centre: {
+    kind: "image",
+    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (25).jpeg",
+    alt: "The sunlit hall at the resource centre, open on one side to the valley",
+    caption: "The hall used for workshops, trainings and community meetings.",
+    width: 1600,
+    height: 1066,
+  } satisfies MediaAsset,
 };
 
 export const communitiesServed: CommunityProfile[] = [
   {
     name: "Kandiyur AD Colony",
-    tag: "Settlement",
-    location: "Mettupalayam Taluk, Coimbatore District",
-    scale: "Approximately 75 families",
+    tag: "Village",
+    location: "Mettupalayam Taluk, Coimbatore district",
+    scale: "About 75 families",
     context:
-      "A historically marginalised community where generations of men and women have worked as agricultural labourers on landlords' farms, facing daily-wage precarity, landlessness, and limited opportunities to build financial security.",
+      "For generations, the men and women here have worked on other people's farms for a daily wage. Most families own no land, the work is not steady, and it is hard to save.",
     challenges: [
       "Generational dependence on daily-wage agricultural labor",
       "High rates of school dropout and limited formal adult schooling",
@@ -64,19 +97,19 @@ export const communitiesServed: CommunityProfile[] = [
       "Indebtedness and lack of institutional financial safety nets",
     ],
     initiatives: [
-      "Community student coaching and educational retention support",
-      "Collective farming model on community-accessed agricultural land",
-      "Documentation support for government welfare and identity cards",
-      "Counselling, family dialogue, and collective decision-making",
+      "Classes and coaching so children keep going to school",
+      "Farming together on land the community can use",
+      "Help with identity cards and government welfare papers",
+      "Talking things through with families and deciding together",
     ],
   },
   {
     name: "Bagavathi Amman Koil",
-    tag: "Indigenous Community",
+    tag: "Irular community",
     location: "Near Kandiyur, foothills of the Western Ghats",
-    scale: "Approximately 18 families (Irular community)",
+    scale: "About 18 families",
     context:
-      "An Irular tribal settlement whose people historically practiced forest-based livelihoods, including traditional medicinal knowledge and snake catching. Transitioning to the plains, families became dependent on daily-wage labor, and children were outside the formal schooling system.",
+      "An Irular settlement. The families once lived from the forest, with their own knowledge of medicine and of catching snakes. After moving to the plains they took daily-wage work. The children were not in school.",
     challenges: [
       "Children historically un-enrolled in formal government schooling",
       "Transition from traditional forest life to daily-wage uncertainty",
@@ -84,10 +117,10 @@ export const communitiesServed: CommunityProfile[] = [
       "Limited representation in village governance structures",
     ],
     initiatives: [
-      "Literacy classes, hygiene awareness, and public library visits",
-      "Advocacy for government-school admissions and enrollment",
-      "Connecting community members with the local Panchayat office",
-      "Facilitating tribal cards, Aadhaar cards, and social welfare access",
+      "Reading classes, health and hygiene, and trips to the library",
+      "Getting children admitted to the government school",
+      "Introducing people to the Panchayat office",
+      "Help with tribal cards, Aadhaar cards and welfare schemes",
     ],
   },
 ];
@@ -95,10 +128,10 @@ export const communitiesServed: CommunityProfile[] = [
 export const programmePillars: ProgrammePillar[] = [
   {
     id: "education",
-    title: "Education & Foundational Learning",
-    subtitle: "Will Power Coaching Centres",
+    title: "School and learning",
+    subtitle: "The village learning centres",
     summary:
-      "Community-based activity centres established right inside the villages so children receive warm, accessible educational support close to home.",
+      "Learning centres inside the villages, so children can get help with their studies close to home.",
     art: "book",
     highlights: [
       "Over 40 children participate in daily learning and mentorship in each village center",
@@ -115,10 +148,10 @@ export const programmePillars: ProgrammePillar[] = [
   },
   {
     id: "agriculture",
-    title: "Collective Agriculture & Livelihoods",
-    subtitle: "Community Farming Model",
+    title: "Farming together",
+    subtitle: "Community farming model",
     summary:
-      "A ~5-acre farming collective enabling landless agricultural labourers to plan, cultivate, and harvest together with shared responsibility and profit distribution.",
+      "About five acres farmed as a group. Families who own no land plan, grow and harvest together, and share what the farm earns.",
     art: "sprout",
     highlights: [
       "Access to land, shared irrigation, and organic soil enrichment techniques",
@@ -135,10 +168,10 @@ export const programmePillars: ProgrammePillar[] = [
   },
   {
     id: "justice",
-    title: "Access to Justice & Entitlements",
-    subtitle: "Legal Literacy & Public Documentation",
+    title: "Rights and entitlements",
+    subtitle: "Rights and papers",
     summary:
-      "Bridging the gap between marginalised communities and the public institutions that serve them by securing essential constitutional documentation.",
+      "Helping people get the papers they need, and showing them how to deal with government offices.",
     art: "hands",
     highlights: [
       "Facilitating applications for essential tribal community certificates and identity cards",
@@ -154,10 +187,10 @@ export const programmePillars: ProgrammePillar[] = [
   },
   {
     id: "leadership",
-    title: "Tribal Leadership & Social Cohesion",
-    subtitle: "Participatory Local Governance",
+    title: "Tribal leadership",
+    subtitle: "A voice in the Panchayat",
     summary:
-      "Strengthening formal and informal tribal Panchayat leaders to represent their communities effectively while fostering inter-community respect and harmony.",
+      "Training tribal Panchayat leaders to speak for their communities, and bringing different communities closer.",
     art: "gathering",
     highlights: [
       "Leadership training and rights-awareness sessions for elected tribal representatives",
@@ -173,10 +206,10 @@ export const programmePillars: ProgrammePillar[] = [
   },
   {
     id: "peacebuilding",
-    title: "Peacebuilding & Conflict Transformation",
-    subtitle: "Three-Day Experiential Workshops",
+    title: "Peacebuilding and conflict transformation",
+    subtitle: "Workshops on conflict",
     summary:
-      "Intensive training for social workers, academic institutions, and community workers, moving beyond simple dispute resolution toward systemic transformation.",
+      "Three-day workshops for social workers, colleges and community workers. They cover handling conflict and repairing relationships.",
     art: "stone",
     highlights: [
       "In-depth analysis of structural conflict, relationship mapping, and mediation tools",
@@ -192,10 +225,10 @@ export const programmePillars: ProgrammePillar[] = [
   },
   {
     id: "capacity-building",
-    title: "Organisational Capacity Building",
-    subtitle: "Strengthening Civil Society",
+    title: "Organisational capacity building",
+    subtitle: "Help for other organisations",
     summary:
-      "Facilitating strategic reviews, mission alignment, and operational sustainability assessments for non-profits and educational institutions.",
+      "Helping charities and colleges look again at what they do, why they do it, and how to keep it going.",
     art: "sun",
     highlights: [
       "Interactive workshops on strategic planning, mission relevance, and impact assessment",
@@ -212,39 +245,39 @@ export const programmePillars: ProgrammePillar[] = [
 ];
 
 export const resourceCentreProfile = {
-  eyebrow: "Living Demonstration Site",
+  eyebrow: "Living demonstration site",
   heading: "The Inbavanam Resource Centre",
   summary:
-    "Positioned as both a residential learning venue and a living demonstration of sustainable architecture and environmental stewardship in the foothills of the Western Ghats.",
+    "A place to stay and learn, in the foothills of the Western Ghats. It is also an example: a building and a farm that run gently on the land.",
   capacity: [
-    { label: "Workshop Training Hall", value: "Up to 60 Participants" },
-    { label: "Residential Lodging", value: "Up to 30 Guests" },
-    { label: "Land Area", value: "5.5 Acres Demonstration Farm" },
-    { label: "Campus Energy", value: "Solar Powered & Efficient" },
+    { label: "Training hall", value: "Up to 60 people" },
+    { label: "Rooms", value: "Up to 30 guests" },
+    { label: "Land", value: "5.5 acre farm" },
+    { label: "Power", value: "Solar" },
   ],
   features: [
     {
-      title: "Closed-Loop Water Recycling",
+      title: "Water used twice",
       description:
-        "Nutrient-rich effluent from freshwater fish culture is circulated for crop irrigation, and treated water from bio-toilets nourishes landscaping and plants.",
+        "Water from the fish tanks feeds the crops, and water from the bio-toilets is cleaned and used on the gardens.",
       icon: "sprout" as IllustrationName,
     },
     {
-      title: "Renewable Energy & Solar",
+      title: "Sun for power and cooking",
       description:
-        "Harnessing abundant Tamil Nadu sunlight through photovoltaic electricity, sun ovens for cooking, and natural daylit architectural cross-ventilation.",
+        "Solar panels make the electricity, sun ovens do some of the cooking, and the rooms are built for daylight and a through breeze.",
       icon: "sun" as IllustrationName,
     },
     {
-      title: "Natural Stone & Upcycling",
+      title: "Stone and reused materials",
       description:
-        "Constructed with thick thermal stone walls, reclaimed antique timber, and repurposed materials that honor traditional heritage and climate resilience.",
+        "Thick stone walls keep the rooms cool. Old timber and other salvaged materials were used again rather than thrown away.",
       icon: "stone" as IllustrationName,
     },
     {
-      title: "Thriving Native Biodiversity",
+      title: "Room for wildlife",
       description:
-        "A protected habitat shared with resident peacocks, bulbuls, owls, rabbits, and wandering deer, proving that human activity and wildlife can coexist.",
+        "Peacocks, bulbuls, owls, rabbits and deer live here too, alongside everything else that happens on the land.",
       icon: "leaf" as IllustrationName,
     },
   ],
@@ -260,33 +293,36 @@ export const resourceCentreProfile = {
 
 export const corePrinciples: CoreApproachPrinciple[] = [
   {
-    title: "Community Participation",
-    summary: "Working with people rather than simply delivering services to them, ensuring every initiative is locally owned.",
+    title: "Working together",
+    summary: "We work with people, not for them. The village decides what happens.",
     art: "gathering",
   },
   {
-    title: "Education & Empowerment",
-    summary: "Treating foundational learning and literacy as the bedrock for generational confidence, dignity, and rights.",
+    title: "Education first",
+    summary: "Reading and schooling come first. Everything else gets easier after that.",
     art: "book",
   },
   {
-    title: "Collective Action",
-    summary: "Organising community cooperatives, women's groups, and youth circles rather than isolated individual interventions.",
+    title: "Strength in numbers",
+    summary:
+      "Groups get further than individuals, so we help form farming groups, women's groups and youth groups.",
     art: "hands",
   },
   {
-    title: "Practical Demonstration",
-    summary: "Showing how sustainable agriculture, renewable energy, and water recycling function in daily real-world practice.",
+    title: "Showing, not telling",
+    summary:
+      "People believe what they can see. The farm, the solar power and the water system are all open to visitors.",
     art: "sprout",
   },
   {
-    title: "Ecological Sustainability",
-    summary: "Approaching agriculture, energy, and infrastructure with deep long-term responsibility for the land and soil.",
+    title: "Caring for the land",
+    summary: "Farming, power and building are all done with the next generation in mind.",
     art: "sun",
   },
   {
-    title: "Rights & Human Dignity",
-    summary: "Supporting marginalised communities to secure constitutional documentation, claim entitlements, and participate in governance.",
+    title: "Rights and dignity",
+    summary:
+      "People should be able to get their papers, claim what is theirs by right, and have a say in local government.",
     art: "people",
   },
 ];

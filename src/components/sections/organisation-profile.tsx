@@ -4,305 +4,256 @@ import {
   programmePillars,
   resourceCentreProfile,
   corePrinciples,
+  profileMedia,
 } from "@/data/organisation-profile";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { LineArt } from "@/components/illustrations/line-art";
 import { ButtonLink } from "@/components/ui/button-link";
+import { MediaFrame } from "@/components/ui/media-frame";
 import { KolamDivider } from "@/components/illustrations/kolam";
-import { Check, Users, MapPin, Building2, Sun, Droplets, Bird, Compass } from "lucide-react";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * The organisation profile, from
+ * `public/content/Inbavanam_Organisation_Profile.pdf`. Laid out the way the
+ * rest of the site is: rules rather than cards, sentence-case headings, the
+ * line-art set rather than UI icons, and the shared surface classes.
+ */
 export function OrganisationProfileSection() {
   return (
     <div id="organisation-profile" className="scroll-mt-20">
-      {/* 1. Profile Overview & Founding Purpose */}
       <section aria-labelledby="profile-overview-title" className="section-y">
-        <div className="container-page">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-            <div className="lg:col-span-5">
-              <SectionHeading
-                id="profile-overview-title"
-                eyebrow={profileOverview.eyebrow}
-                title={profileOverview.heading}
-                lede={profileOverview.lede}
-              />
-              <Reveal delay={0.2} className="mt-8 flex flex-wrap gap-4">
-                <ButtonLink href="/community" variant="primary" arrow>
-                  Support our work
-                </ButtonLink>
-                <ButtonLink href="/contact" variant="text" arrow>
-                  Connect with us
-                </ButtonLink>
-              </Reveal>
-            </div>
+        <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-start">
+          <div className="flex flex-col gap-8 lg:col-span-5">
+            <SectionHeading
+              id="profile-overview-title"
+              eyebrow={profileOverview.eyebrow}
+              title={profileOverview.heading}
+              lede={profileOverview.lede}
+            />
+            <Reveal delay={0.2} className="flex flex-wrap gap-6">
+              <ButtonLink href="/community" variant="primary" arrow>
+                Support our work
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="text" arrow>
+                Connect with us
+              </ButtonLink>
+            </Reveal>
+          </div>
 
-            <div className="flex flex-col gap-6 lg:col-span-6 lg:col-start-7">
-              <Reveal delay={0.1}>
-                <p className="label text-muted-foreground uppercase tracking-wider">
-                  Two Foundational Priorities
-                </p>
-              </Reveal>
-              <div className="grid gap-6 sm:grid-cols-2">
-                {profileOverview.foundingPriorities.map((item, i) => (
-                  <Reveal
-                    key={item.title}
-                    delay={0.15 + i * 0.1}
-                    className="flex flex-col gap-3 rounded-[var(--radius)] border border-rule bg-background p-6 transition-all duration-300 hover:border-walnut/40"
-                  >
-                    <span className="grid size-12 place-items-center rounded-full border border-rule bg-card">
-                      <LineArt name={i === 0 ? "book" : "sprout"} className="size-6 text-olive" />
-                    </span>
-                    <h3 className="text-h3 font-serif text-lg">{item.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-col gap-8 lg:col-span-6 lg:col-start-7">
+            <p className="label text-muted-foreground" data-reveal="fade">
+              Where it started
+            </p>
+            <ul className="grid gap-10 sm:grid-cols-2">
+              {profileOverview.foundingPriorities.map((item, i) => (
+                <Reveal
+                  as="li"
+                  key={item.title}
+                  delay={0.15 + i * 0.1}
+                  className="group flex flex-col gap-4 border-t border-rule pt-6"
+                >
+                  <span className="grid size-14 place-items-center rounded-full border border-rule transition-transform duration-500 group-hover:-translate-y-1">
+                    <LineArt name={i === 0 ? "book" : "sprout"} className="size-8 text-olive" />
+                  </span>
+                  <h3 className="text-h3">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
+                </Reveal>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* 2. Communities at the Heart of Inbavanam */}
       <section aria-labelledby="communities-title" className="surface-card section-y">
         <div className="container-page">
           <SectionHeading
             id="communities-title"
-            eyebrow="Communities Served"
-            title="Grassroots Partnership & Shared Dignity"
-            lede="Inbavanam began by working directly with two historically marginalised settlements in Mettupalayam Taluk, building trusting relationships through regular presence and practical collaboration."
+            eyebrow="Communities served"
+            title="Two villages, side by side"
+            lede="Inbavanam started in two villages in Mettupalayam Taluk, by turning up regularly, getting to know people, and working on things together."
           />
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            {communitiesServed.map((comm, idx) => (
+          <Reveal variant="clip" className="mt-14">
+            <MediaFrame
+              media={profileMedia.communities}
+              ratio="var(--frame-ratio)"
+              className="[--frame-ratio:1.33] md:[--frame-ratio:2.33]"
+              sizes="100vw"
+            />
+          </Reveal>
+
+          <ul className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-16">
+            {communitiesServed.map((community, i) => (
               <Reveal
-                key={comm.name}
-                delay={idx * 0.15}
-                className="flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-background p-8 transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-md"
+                as="li"
+                key={community.name}
+                delay={i * 0.12}
+                className="flex flex-col gap-5 border-t border-rule pt-8"
               >
-                <div>
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule pb-4">
-                    <span className="label text-xs uppercase tracking-widest text-olive">
-                      {comm.tag}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <Users className="size-3.5 text-walnut" />
-                      {comm.scale}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-5 text-h2 font-serif text-2xl">{comm.name}</h3>
-                  <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <MapPin className="size-3.5 text-terracotta" />
-                    {comm.location}
+                <div className="flex flex-col gap-2">
+                  <p className="label text-muted-foreground">
+                    {community.tag}
+                    <span className="mx-3">&middot;</span>
+                    {community.scale}
                   </p>
-
-                  <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-                    {comm.context}
-                  </p>
-
-                  {/* Challenges addressed */}
-                  <div className="mt-6 border-t border-rule/60 pt-5">
-                    <h4 className="label text-xs text-muted-foreground">
-                      Key Structural Challenges
-                    </h4>
-                    <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                      {comm.challenges.map((c) => (
-                        <li key={c} className="flex items-start gap-2">
-                          <span className="mt-1 size-1.5 shrink-0 rounded-full bg-walnut/60" />
-                          <span>{c}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <h3 className="text-h3">{community.name}</h3>
+                  <p className="text-sm text-muted-foreground">{community.location}</p>
                 </div>
 
-                {/* Practical Initiatives */}
-                <div className="mt-8 rounded-[var(--radius)] border border-rule bg-card/60 p-5">
-                  <h4 className="label text-xs text-olive font-medium">
-                    Inbavanam Collaborative Action
-                  </h4>
-                  <ul className="mt-3 space-y-2 text-xs text-foreground/90">
-                    {comm.initiatives.map((init) => (
-                      <li key={init} className="flex items-start gap-2">
-                        <Check className="mt-0.5 size-3.5 shrink-0 text-olive" />
-                        <span>{init}</span>
+                <p className="text-muted-foreground">{community.context}</p>
+
+                <div className="flex flex-col gap-3 border-t border-rule pt-5">
+                  <h4 className="label text-muted-foreground">What Inbavanam does here</h4>
+                  <ul className="flex flex-col gap-2 text-sm">
+                    {community.initiatives.slice(0, 3).map((initiative) => (
+                      <li key={initiative} className="flex gap-3">
+                        <span aria-hidden="true" className="mt-2 size-1 shrink-0 bg-olive" />
+                        <span>{initiative}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* 3. Core Programme Areas */}
       <section aria-labelledby="programmes-title" className="section-y">
         <div className="container-page">
           <SectionHeading
             id="programmes-title"
-            eyebrow="Programmes & Initiatives"
-            title="Integrated Pathways to Long-Term Transformation"
-            lede="Education, agriculture, civic rights, and conflict transformation work together as interconnected strands of sustainable human and community development."
+            eyebrow="Programmes"
+            title="One piece of work"
+            lede="School, farming, rights and peace are not separate projects. Each one makes the others possible."
           />
 
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {programmePillars.map((p, i) => (
+          <Reveal variant="clip" className="mt-14">
+            <MediaFrame
+              media={profileMedia.programmes}
+              ratio="var(--frame-ratio)"
+              className="[--frame-ratio:1.33] md:[--frame-ratio:2.33]"
+              sizes="100vw"
+            />
+          </Reveal>
+
+          <ul className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+            {programmePillars.map((pillar, i) => (
               <Reveal
-                key={p.id}
+                as="li"
+                key={pillar.id}
                 delay={(i % 3) * 0.1}
-                className="group flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-background p-7 transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1 hover:border-walnut/50 hover:shadow-lg"
+                className="group flex flex-col gap-4 border-t border-rule pt-6"
               >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="label text-xs tabular text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="grid size-12 place-items-center rounded-full border border-rule bg-card transition-transform duration-500 group-hover:scale-105">
-                      <LineArt name={p.art} className="size-6 text-olive" />
-                    </span>
-                  </div>
-
-                  <h3 className="mt-5 text-h3 font-serif text-xl">{p.title}</h3>
-                  <p className="label mt-1 text-xs text-olive font-medium">{p.subtitle}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {p.summary}
-                  </p>
-
-                  <ul className="mt-5 space-y-2 border-t border-rule pt-4 text-xs text-foreground/80">
-                    {p.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2">
-                        <span className="mt-1 size-1 shrink-0 bg-terracotta" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex items-center justify-between">
+                  <span className="label text-muted-foreground tabular">{pad(i + 1)}</span>
+                  <span className="grid size-14 place-items-center rounded-full border border-rule transition-transform duration-500 group-hover:-translate-y-1">
+                    <LineArt name={pillar.art} className="size-8 text-olive" />
+                  </span>
                 </div>
 
-                {p.keyFacts && (
-                  <div className="mt-6 grid grid-cols-2 gap-2 border-t border-rule pt-4 text-center">
-                    {p.keyFacts.map((fact) => (
-                      <div key={fact.label} className="rounded bg-card p-2">
-                        <p className="text-[0.68rem] text-muted-foreground uppercase tracking-wider">
-                          {fact.label}
-                        </p>
-                        <p className="mt-0.5 text-xs font-semibold text-foreground">
-                          {fact.value}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-h3">{pillar.title}</h3>
+                  <p className="label text-muted-foreground">{pillar.subtitle}</p>
+                </div>
+
+                <p className="text-muted-foreground">{pillar.summary}</p>
               </Reveal>
             ))}
-          </div>
+          </ul>
+
+          <Reveal delay={0.2} className="mt-14">
+            <ButtonLink href="/our-work" variant="olive" arrow>
+              See each programme in detail
+            </ButtonLink>
+          </Reveal>
         </div>
       </section>
 
-      {/* 4. Inbavanam Resource Centre (Living Demonstration Campus) */}
-      <section
-        aria-labelledby="centre-title"
-        className="on-dark relative isolate overflow-hidden bg-maroon-deep py-[var(--section-y)]"
-      >
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-maroon-deep/90 via-maroon-deep/95 to-maroon-deep" />
-        <div className="container-page">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-            <div className="flex flex-col gap-6 lg:col-span-5">
-              <SectionHeading
-                id="centre-title"
-                eyebrow={resourceCentreProfile.eyebrow}
-                title={resourceCentreProfile.heading}
-                lede={resourceCentreProfile.summary}
-              />
+      <section aria-labelledby="centre-title" className="surface-maroon grain section-y">
+        <div className="container-page grid gap-12 lg:grid-cols-12">
+          <div className="flex flex-col gap-8 lg:col-span-5">
+            <SectionHeading
+              id="centre-title"
+              eyebrow={resourceCentreProfile.eyebrow}
+              title={resourceCentreProfile.heading}
+              lede={resourceCentreProfile.summary}
+            />
 
-              {/* Campus Capacity Stats */}
-              <div className="mt-2 grid grid-cols-2 gap-4">
-                {resourceCentreProfile.capacity.map((cap) => (
-                  <div
-                    key={cap.label}
-                    className="rounded-[var(--radius)] border border-ivory/20 bg-ivory/5 p-4"
-                  >
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {cap.label}
-                    </p>
-                    <p className="mt-1 font-serif text-lg font-medium text-ivory">
-                      {cap.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Diverse Groups Served */}
-              <div className="mt-4 border-t border-ivory/15 pt-5">
-                <p className="label text-xs uppercase tracking-widest text-brand-stone">
-                  Groups Welcomed at the Centre
-                </p>
-                <ul className="mt-3 grid gap-2 sm:grid-cols-2 text-xs text-ivory/90">
-                  {resourceCentreProfile.groupsServed.map((g) => (
-                    <li key={g} className="flex items-center gap-2">
-                      <span className="size-1 rounded-full bg-khaki" />
-                      <span>{g}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Environmental Architecture & Eco-features */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
-              {resourceCentreProfile.features.map((feat) => (
-                <div
-                  key={feat.title}
-                  className="flex flex-col gap-3 rounded-[var(--radius)] border border-ivory/15 bg-ivory/[0.04] p-6 backdrop-blur-xs transition-colors duration-300 hover:bg-ivory/[0.08]"
+            <dl className="flex flex-col gap-4">
+              {resourceCentreProfile.capacity.map((item) => (
+                <Reveal
+                  key={item.label}
+                  variant="left"
+                  className="flex items-baseline justify-between gap-6 border-t border-rule pt-4"
                 >
-                  <span className="grid size-10 place-items-center rounded-full bg-ivory/10 text-ivory">
-                    <LineArt name={feat.icon} className="size-5 text-khaki" />
-                  </span>
-                  <h4 className="font-serif text-base text-ivory">{feat.title}</h4>
-                  <p className="text-xs leading-relaxed text-ivory/80">
-                    {feat.description}
-                  </p>
-                </div>
+                  <dt className="label text-muted-foreground">{item.label}</dt>
+                  <dd className="text-right font-display text-lg">{item.value}</dd>
+                </Reveal>
               ))}
-            </div>
+            </dl>
+
+            <Reveal variant="clip" delay={0.1}>
+              <MediaFrame
+                media={profileMedia.centre}
+                ratio="3 / 2"
+                tone="dark"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </Reveal>
           </div>
+
+          <ul className="grid gap-10 sm:grid-cols-2 lg:col-span-6 lg:col-start-7 lg:content-center">
+            {resourceCentreProfile.features.map((feature, i) => (
+              <Reveal
+                as="li"
+                key={feature.title}
+                delay={i * 0.1}
+                className="group flex flex-col gap-4 border-t border-rule pt-6"
+              >
+                <span className="grid size-14 place-items-center rounded-full border border-rule transition-transform duration-500 group-hover:-translate-y-1">
+                  <LineArt name={feature.icon} className="size-8 text-khaki" />
+                </span>
+                <h3 className="text-h3">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* 5. Guiding Principles & Core Approach */}
       <section aria-labelledby="principles-title" className="section-y">
         <div className="container-page">
-          <div className="text-center">
-            <SectionHeading
-              id="principles-title"
-              eyebrow="Core Approach"
-              title="Principles Guiding Every Action"
-              lede="Inbavanam works through shared values that uphold human dignity, collective ownership, and deep ecological responsibility."
-              align="center"
-            />
-          </div>
+          <SectionHeading
+            id="principles-title"
+            eyebrow="Core approach"
+            title="How we work"
+            lede="A few simple ideas sit behind everything here."
+            align="center"
+            className="mx-auto"
+          />
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {corePrinciples.map((principle, idx) => (
+          <ul className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {corePrinciples.map((principle, i) => (
               <Reveal
+                as="li"
                 key={principle.title}
-                delay={idx * 0.08}
-                className="group flex flex-col gap-3 rounded-[var(--radius)] border border-rule bg-background p-6 transition-all duration-300 hover:border-walnut/40 hover:shadow-sm"
+                delay={(i % 3) * 0.1}
+                className="group flex gap-5 border-t border-rule pt-6"
               >
-                <div className="flex items-center gap-4">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-full border border-rule bg-card transition-transform duration-500 group-hover:scale-105">
-                    <LineArt name={principle.art} className="size-6 text-olive" />
-                  </span>
-                  <h3 className="text-h3 font-serif text-lg">{principle.title}</h3>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {principle.summary}
-                </p>
+                <span className="grid size-14 shrink-0 place-items-center rounded-full border border-rule transition-transform duration-500 group-hover:-translate-y-1">
+                  <LineArt name={principle.art} className="size-8 text-olive" />
+                </span>
+                <span className="flex flex-col gap-2">
+                  <h3 className="label">{principle.title}</h3>
+                  <p className="text-muted-foreground">{principle.summary}</p>
+                </span>
               </Reveal>
             ))}
-          </div>
+          </ul>
 
           <KolamDivider className="mt-20" />
         </div>

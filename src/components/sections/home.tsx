@@ -3,8 +3,6 @@ import {
   aboutIntro,
   architecture,
   experiencesIntro,
-  founders,
-  foundersIntro,
   galleryIntro,
   intro,
   place,
@@ -51,12 +49,12 @@ export function AboutTeaserSection() {
         >
           <div className="relative flex w-full items-center justify-center lg:justify-center xl:justify-end">
             <Image
-              src="/about us image/ab image nbg.png"
-              alt="Gladston Xavier and Florina Xavier with Inbavanam retreat sanctuary and Western Ghats landscape"
-              width={1462}
-              height={1076}
+              src="/about us image/about-collage.webp"
+              alt="Circular collage of Inbavanam: the round brick pavilion, the two-storey residence, the hall, a tiled cottage and the Western Ghats, set around the Inbavanam logo"
+              width={1371}
+              height={1148}
               priority
-              className="h-auto w-full max-w-[440px] object-contain drop-shadow-[0_14px_32px_rgba(45,28,20,0.08)] transition-transform duration-700 ease-out hover:scale-[1.015] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px]"
+              className="h-auto w-full max-w-[440px] object-contain transition-transform duration-700 ease-out hover:scale-[1.015] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] 2xl:max-w-[840px]"
               sizes="(min-width: 1536px) 840px, (min-width: 1280px) 780px, (min-width: 1024px) 58vw, (min-width: 640px) 540px, 92vw"
             />
           </div>
@@ -98,7 +96,11 @@ export function ArchitectureSection() {
           </Reveal>
         </div>
         <Reveal variant="clip" className="mt-16">
-          <VideoFrame media={architecture.media} ratio="21 / 9" />
+          <VideoFrame
+            media={architecture.media}
+            ratio="var(--frame-ratio)"
+            className="[--frame-ratio:1.33] md:[--frame-ratio:2.33]"
+          />
         </Reveal>
         <ul className="mt-16 grid gap-10 md:grid-cols-3">
           {architecture.facts.map((fact, i) => (
@@ -212,41 +214,6 @@ export async function EventsSection() {
           ) : (
             <EventsEmptyState />
           )}
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-export function FoundersSection() {
-  return (
-    <section aria-labelledby="founders-title" className="surface-maroon grain section-y">
-      <div className="container-page grid gap-12 lg:grid-cols-12">
-        <div className="flex flex-col gap-8 lg:col-span-5">
-          <SectionHeading
-            id="founders-title"
-            eyebrow={foundersIntro.eyebrow}
-            title={foundersIntro.heading}
-          />
-          <Reveal delay={0.15}>
-            <Paragraphs items={foundersIntro.body} className="text-lede" />
-          </Reveal>
-          <ul className="flex flex-col gap-4 border-t border-rule pt-6">
-            {founders.map((f, i) => (
-              <Reveal as="li" key={f.name} variant="left" delay={0.2 + i * 0.1}>
-                <p className="font-display text-h3">{f.name}</p>
-                <p className="mt-1 label text-muted-foreground">{f.role}</p>
-              </Reveal>
-            ))}
-          </ul>
-          <Reveal delay={0.4}>
-            <ButtonLink href="/about" variant="text" arrow>
-              Read our story
-            </ButtonLink>
-          </Reveal>
-        </div>
-        <Reveal variant="clip" className="lg:col-span-6 lg:col-start-7">
-          <VideoFrame media={foundersIntro.media} ratio="4 / 5" />
         </Reveal>
       </div>
     </section>

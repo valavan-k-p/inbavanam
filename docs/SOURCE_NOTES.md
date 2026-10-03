@@ -12,6 +12,11 @@ The client source files live in `prompt/` (kept out of git).
 4. **Existing-website review document**: summarised in the brief (section 56).
 5. **Logo, colour, navigation and kolam references**: the logo is at
    `public/brand/logo.png`; the other reference images were not supplied as files.
+6. **Organisation profile**: `public/content/Inbavanam_Organisation_Profile.pdf`,
+   compiled by the client from the existing Inbavanam website. It supplies the
+   About page copy and the Organisation Profile section. Its own editorial note
+   says figures and claims should be verified by Inbavanam before publication,
+   and its section 18 lists what needs checking.
 
 ## Facts in use
 
@@ -32,6 +37,25 @@ The client source files live in `prompt/` (kept out of git).
 | Vegetables and herbs are dried on site into powders for additional nutrition                             | Review document                        | In use                                                      |
 | A bird list and a short plant album are being prepared                                                   | Review document                        | In use as "being prepared"                                  |
 | Program names (Peacebuilding, WISDOM Workshops, and so on)                                               | Review document                        | Used verbatim in `src/data/programs.ts`                     |
+
+### From the organisation profile PDF
+
+| Statement on the site                                                                                                                         | Source                                     | Status                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------- |
+| Inbavanam means "happy forest"                                                                                                                | Profile, section 1                         | In use (About)                        |
+| A community-development initiative working with marginalised communities in and around Kandiyur and Bagavathi Amman Koil, Coimbatore district | Profile, sections 1 and 17                 | In use (About)                        |
+| The work began with two priorities: education and sustainable livelihoods                                                                     | Profile, sections 1 and 17                 | In use (About)                        |
+| Learning centres, counselling, mentorship, scholarships and higher-education support, including first-generation learners entering college    | Profile, section 17                        | In use (About)                        |
+| Community-based agriculture, natural farming, livestock rearing and fish culture, supporting landless agricultural workers                    | Profile, section 17                        | In use (About)                        |
+| The eight-point vision and purpose list                                                                                                       | Profile, section 2, quoted almost verbatim | In use (About)                        |
+| Communities served, programme pillars, resource centre and core approach                                                                      | Profile, sections 3 to 15                  | In use (Organisation Profile section) |
+
+The About page copy is written in plain English. The wording is the site's
+own; the facts, figures and programme names behind it are the profile's, and
+nothing has been added to it.
+
+The About page carries no founder biography or portrait: the profile PDF names
+no individuals, and the founder details that were there came from the audio.
 
 ## Deliberately not used
 

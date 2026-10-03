@@ -57,14 +57,14 @@ camps, weddings and celebrations, and corporate gatherings.
 
 ## Founders and team
 
-| Item                                                        | Status                        |
-| ----------------------------------------------------------- | ----------------------------- |
-| Founder biographies approved by Gladston and Florina Xavier | Needed                        |
-| Founder portraits                                           | Needed                        |
-| Confirmation of the Auroville-inspired concept wording      | Needed (`aboutNotes.concept`) |
-| Confirmation of "self-funded" wording                       | Needed                        |
-| Staff introductions and bios                                | Later                         |
-| Timeline of the past five years and more                    | Needed (About page)           |
+| Item                                                        | Status                                                                                                                                                                                                        |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Founder biographies approved by Gladston and Florina Xavier | Later. The About page no longer carries founder details or portraits; it follows the organisation profile, which names no individuals. The data is still in `src/data/story.ts` if a founders page is wanted. |
+| Founder portraits                                           | Later, as above                                                                                                                                                                                               |
+| Confirmation of the Auroville-inspired concept wording      | Needed (`aboutNotes.concept`)                                                                                                                                                                                 |
+| Confirmation of "self-funded" wording                       | Needed                                                                                                                                                                                                        |
+| Staff introductions and bios                                | Later                                                                                                                                                                                                         |
+| Timeline of the past five years and more                    | Needed (About page)                                                                                                                                                                                           |
 
 ## Our Work and community
 
