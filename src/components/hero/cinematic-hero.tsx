@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { enquireLink, site } from "@/data/site";
+import { heroSlides } from "@/data/story";
+import { HeroSlideshow } from "./hero-slideshow";
 import { ButtonLink } from "@/components/ui/button-link";
 import { revealDelay } from "@/components/ui/reveal";
 
@@ -7,10 +9,13 @@ export function CinematicHero() {
   return (
     <section
       aria-label={site.name}
-      className="on-dark relative isolate flex min-h-svh flex-col overflow-hidden bg-maroon-deep grain"
+      className="on-dark grain relative isolate flex min-h-svh flex-col overflow-hidden bg-maroon-deep"
     >
+      <HeroSlideshow slides={heroSlides} />
 
-      {/* Existing atmospheric gradients */}
+      {/* Scrim over the photographs: the artwork and the labels have to stay
+          readable whichever slide is showing. */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-maroon-deep/65" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-t from-maroon-deep/85 via-transparent to-maroon-deep/45" />
 
       {/* Semantic h1 for screen readers and SEO */}
@@ -46,4 +51,3 @@ export function CinematicHero() {
     </section>
   );
 }
-

@@ -14,26 +14,22 @@ export const heroMedia: MediaAsset = {
   brief: "Centerpiece Inbavanam artwork",
 };
 
-/** Hero slideshow, used until the hero video is supplied. */
+/**
+ * Hero background slideshow, used until the hero film is supplied. The
+ * photographs sit behind the artwork as decoration, so their alt text is
+ * empty; what each one shows is noted here.
+ */
 export const heroSlides: MediaAsset[] = [
-  {
-    kind: "image",
-    src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM.jpeg",
-    alt: "The main two-storey brick building at Inbavanam at dusk, standing above the slope",
-    brief: "Wide photograph of the buildings and grounds in warm evening light.",
-  },
-  {
-    kind: "image",
-    src: "/inbavanam cover/top view inbavanam.png",
-    alt: "Aerial view of Inbavanam, its gardens and the cultivated land around it",
-    brief: "Landscape of the land around Inbavanam in early morning light.",
-  },
-  {
-    kind: "image",
-    src: "/community/community-group-portrait.webp",
-    alt: "A large group of children and adults gathered on the open ground at Inbavanam",
-    brief: "A gathering on site, photographed with the consent of those shown.",
-  },
+  // A tiled-roof cottage above the fields, with the hills behind.
+  { kind: "image", src: "/hero section/hero-1-cottage-and-fields.webp", alt: "" },
+  // The Western Ghats, with mist on the ridge and plantations below.
+  { kind: "image", src: "/hero section/hero-2-western-ghats.webp", alt: "" },
+  // The brick elevation of the residence, with jaali screens and arches.
+  { kind: "image", src: "/hero section/hero-3-brick-elevation.webp", alt: "" },
+  // The round pavilion on its stone columns, at the corner of the residence.
+  { kind: "image", src: "/hero section/hero-4-round-pavilion.webp", alt: "" },
+  // The whole complex, seen above the stone retaining wall.
+  { kind: "image", src: "/hero section/hero-5-complex-and-wall.webp", alt: "" },
 ];
 
 export const intro = {
