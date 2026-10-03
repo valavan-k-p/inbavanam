@@ -44,16 +44,9 @@ export function HeroVideo({
   }, []);
 
   return (
-    <div
-      className={cn(
-        "relative size-full overflow-hidden bg-maroon-deep grain",
-        className,
-      )}
-    >
+    <div className={cn("grain relative size-full overflow-hidden bg-maroon-deep", className)}>
       {/* Subtle decorative kolam motif integrated into the visual atmosphere */}
-      <KolamKnot
-        className="pointer-events-none absolute top-1/2 left-1/2 w-[min(50vw,32rem)] -translate-x-1/2 -translate-y-1/2 text-stone/15"
-      />
+      <KolamKnot className="pointer-events-none absolute top-1/2 left-1/2 w-[min(50vw,32rem)] -translate-x-1/2 -translate-y-1/2 text-stone/15" />
 
       <video
         ref={videoRef}
@@ -72,4 +65,3 @@ export function HeroVideo({
     </div>
   );
 }
-

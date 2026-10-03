@@ -51,7 +51,11 @@ export function cardPose(offset: number, count: number): CardPose {
  * Returns degrees; the sign follows the pointer, as if the stack were a
  * card held in the hand.
  */
-export function tiltFromPointer(x: number, y: number, max = 9): { rotateX: number; rotateY: number } {
+export function tiltFromPointer(
+  x: number,
+  y: number,
+  max = 9,
+): { rotateX: number; rotateY: number } {
   const clamp = (v: number) => Math.min(1, Math.max(0, v));
   return {
     rotateY: (clamp(x) - 0.5) * 2 * max,

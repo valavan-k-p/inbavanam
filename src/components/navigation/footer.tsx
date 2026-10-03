@@ -236,7 +236,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-block link-underline py-2.5 label text-[0.66rem]"
+                  className="inline-block link-underline py-2.5 label text-[0.72rem] sm:text-[0.66rem]"
                 >
                   {link.label}
                 </Link>

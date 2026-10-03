@@ -86,7 +86,7 @@ function WallFilters({ value, onChange }: { value: Filter; onChange: (value: Fil
             aria-pressed={active}
             onClick={() => onChange(option.value)}
             className={cn(
-              "relative min-h-10 cursor-pointer px-1 text-[0.8rem] transition-colors duration-300",
+              "relative grid min-h-11 min-w-11 cursor-pointer place-items-center px-2 text-[0.8rem] transition-colors duration-300",
               active ? "text-ivory" : "text-stone hover:text-ivory",
             )}
           >
@@ -123,7 +123,7 @@ function ViewToggle({
       type="button"
       onClick={() => onChange(next)}
       className={cn(
-        "inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-full border px-4 label text-[0.66rem] transition-colors duration-300",
+        "inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-full border px-4 label text-[0.72rem] transition-colors duration-300 sm:text-[0.66rem]",
         tone === "dark"
           ? "border-khaki text-ivory hover:bg-khaki/15"
           : "border-rule hover:border-foreground",

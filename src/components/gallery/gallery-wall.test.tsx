@@ -13,6 +13,9 @@ const items: GalleryItem[] = Array.from({ length: 10 }, (_, i) => ({
   span: "regular",
 }));
 
+/** Size the wall is told it has; a test can switch this to a phone. */
+const viewport = { width: 1440, height: 900 };
+
 class FakeResizeObserver {
   private readonly cb: ResizeObserverCallback;
   constructor(cb: ResizeObserverCallback) {
@@ -20,7 +23,7 @@ class FakeResizeObserver {
   }
   observe() {
     this.cb(
-      [{ contentRect: { width: 1440, height: 900 } } as ResizeObserverEntry],
+      [{ contentRect: { ...viewport } } as ResizeObserverEntry],
       this as unknown as ResizeObserver,
     );
   }
@@ -92,6 +95,18 @@ describe("GalleryWall", () => {
       /rotateY\(.+rad\) rotateX\(.+rad\) translateZ\(.+px\)/,
     );
     for (const tile of all) expect(tile).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("builds a smaller grid on a phone", async () => {
+    viewport.width = 375;
+    viewport.height = 812;
+    try {
+      const { container } = await renderWall();
+      expect(container.querySelectorAll(".wall-tile").length).toBe(90);
+    } finally {
+      viewport.width = 1440;
+      viewport.height = 900;
+    }
   });
 
   it("moves with the arrow keys and opens the centred photograph with Enter", async () => {

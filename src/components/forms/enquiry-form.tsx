@@ -195,7 +195,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="flex items-start gap-3 text-sm">
+        <label className="flex min-h-11 items-start gap-3 py-1 text-sm">
           <input
             id={id("consent")}
             name="consent"
@@ -203,7 +203,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
             defaultChecked={v.consent === "on"}
             aria-invalid={Boolean(fieldError("consent"))}
             aria-describedby={fieldError("consent") ? `${id("consent")}-error` : undefined}
-            className="mt-0.5 size-5 accent-maroon"
+            className="mt-0.5 size-6 shrink-0 accent-maroon"
           />
           <span>I agree that Inbavanam may use these details to reply to my enquiry.</span>
         </label>

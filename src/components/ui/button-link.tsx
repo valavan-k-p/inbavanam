@@ -17,7 +17,7 @@ const buttonLink = cva(
       },
       size: {
         md: "min-h-12 px-6",
-        sm: "min-h-10 px-4 text-[0.66rem]",
+        sm: "min-h-10 px-4 text-[0.72rem] sm:text-[0.66rem]",
       },
     },
     compoundVariants: [{ variant: "text", className: "min-h-11 px-0" }],

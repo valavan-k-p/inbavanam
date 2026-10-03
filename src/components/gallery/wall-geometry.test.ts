@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
   MIN_FACING,
   WALL_COLS,
+  WALL_COLS_SM,
   WALL_ROWS,
+  WALL_ROWS_SM,
   measureWall,
   projectTile,
   pseudoRandom,
@@ -59,8 +61,18 @@ describe("measureWall", () => {
   ])("keeps the visible arc inside one repeat at %ix%i", (w, h) => {
     const g = measureWall(w, h);
     const visibleHalfArc = Math.acos(MIN_FACING) * g.radius;
-    expect(visibleHalfArc).toBeLessThanOrEqual((WALL_COLS * g.cellW) / 2);
-    expect(visibleHalfArc).toBeLessThanOrEqual((WALL_ROWS * g.cellH) / 2);
+    expect(visibleHalfArc).toBeLessThanOrEqual((g.cols * g.cellW) / 2);
+    expect(visibleHalfArc).toBeLessThanOrEqual((g.rows * g.cellH) / 2);
+  });
+
+  it("uses a smaller grid on phones than on desktops", () => {
+    const phone = measureWall(375, 812);
+    const desktop = measureWall(1440, 900);
+    expect(phone.cols).toBe(WALL_COLS_SM);
+    expect(phone.rows).toBe(WALL_ROWS_SM);
+    expect(desktop.cols).toBe(WALL_COLS);
+    expect(desktop.rows).toBe(WALL_ROWS);
+    expect(phone.cols * phone.rows).toBeLessThan(desktop.cols * desktop.rows);
   });
 });
 

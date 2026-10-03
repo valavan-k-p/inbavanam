@@ -9,7 +9,7 @@ export function CinematicHero() {
   return (
     <section
       aria-label={site.name}
-      className="on-dark grain relative isolate flex min-h-svh flex-col overflow-hidden bg-maroon-deep"
+      className="on-dark grain relative isolate flex min-h-[82svh] flex-col overflow-hidden bg-maroon-deep sm:min-h-svh"
     >
       <HeroSlideshow slides={heroSlides} />
 
@@ -23,7 +23,7 @@ export function CinematicHero() {
 
       {/* Hero Image prominently centered below navigation */}
       <div className="container-page flex flex-1 items-center justify-center pt-[calc(var(--header-h)+1.5rem)] pb-24 md:pb-28">
-        <div className="relative flex w-full max-w-5xl items-center justify-center px-4 sm:px-6">
+        <div className="relative flex w-full max-w-5xl items-center justify-center sm:px-6">
           <Image
             src="/images/hero image.png"
             alt={site.name}

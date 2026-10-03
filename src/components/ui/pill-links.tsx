@@ -15,7 +15,7 @@ export function PillLinks({
           <li key={link.href}>
             <Link
               href={link.href}
-              className="inline-flex min-h-10 items-center rounded-full border border-rule px-4 label text-[0.66rem] transition-colors duration-300 hover:border-maroon hover:bg-maroon hover:text-ivory"
+              className="inline-flex min-h-10 items-center rounded-full border border-rule px-4 label text-[0.72rem] transition-colors duration-300 hover:border-maroon hover:bg-maroon hover:text-ivory sm:text-[0.66rem]"
             >
               {link.label}
             </Link>

@@ -154,7 +154,7 @@ export function ExperienceStack({ items, className }: { items: Experience[]; cla
                     <Link
                       href={`/experiences#${item.slug}`}
                       onClick={(event) => event.stopPropagation()}
-                      className="link-underline py-1 label text-[0.62rem]"
+                      className="inline-flex min-h-10 items-center link-underline label text-[0.7rem] sm:text-[0.62rem]"
                     >
                       Explore
                     </Link>
@@ -176,7 +176,7 @@ export function ExperienceStack({ items, className }: { items: Experience[]; cla
         >
           <ArrowLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
         </button>
-        <p className="text-center label text-[0.62rem] text-muted-foreground">
+        <p className="text-center label text-[0.7rem] text-muted-foreground sm:text-[0.62rem]">
           <span className="tabular">
             {pad(active + 1)} / {pad(count)}
           </span>

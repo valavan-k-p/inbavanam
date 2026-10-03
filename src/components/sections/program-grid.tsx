@@ -82,7 +82,7 @@ export function ProgramGrid() {
                 aria-haspopup="dialog"
                 aria-label={`View details for ${program.name}`}
                 className={cn(
-                  "group relative flex size-full min-h-[160px] sm:min-h-[175px] flex-col items-center justify-center gap-3.5 sm:gap-4 rounded-[1.25rem] p-5 sm:p-6 text-center select-none cursor-pointer",
+                  "group relative flex size-full min-h-[160px] cursor-pointer flex-col items-center justify-center gap-3.5 rounded-[1.25rem] p-5 text-center select-none sm:min-h-[175px] sm:gap-4 sm:p-6",
                   "shadow-[0_4px_14px_-2px_rgba(45,28,20,0.07),0_2px_5px_-1px_rgba(45,28,20,0.04)]",
                   "transition-all duration-300 ease-out",
                   "hover:-translate-y-1 hover:shadow-[0_10px_24px_-4px_rgba(45,28,20,0.12),0_4px_8px_-2px_rgba(45,28,20,0.06)] hover:brightness-[1.02]",
@@ -102,7 +102,7 @@ export function ProgramGrid() {
                   <LineArt name={program.art} className="size-9" />
                 </div>
                 <span
-                  className="font-display text-[1.05rem] sm:text-[1.125rem] font-normal leading-snug"
+                  className="font-display text-[1.05rem] leading-snug font-normal sm:text-[1.125rem]"
                   style={{ color: theme.text }}
                 >
                   {program.name}
@@ -122,9 +122,9 @@ export function ProgramGrid() {
       >
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-50 bg-ink/75 backdrop-blur-xs transition-opacity duration-300 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
-          <Dialog.Popup className="fixed inset-0 z-50 grid place-items-center overflow-y-auto p-4 sm:p-6 transition-[opacity,scale] duration-300 outline-none data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0">
+          <Dialog.Popup className="fixed inset-0 z-50 grid place-items-center overflow-y-auto p-4 transition-[opacity,scale] duration-300 outline-none data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0 sm:p-6">
             {activeProgram && (
-              <div className="surface-card relative w-full max-w-2xl rounded-[1.5rem] border border-rule bg-background p-6 sm:p-8 md:p-10 shadow-[0_24px_48px_-12px_rgba(43,21,21,0.25)]">
+              <div className="surface-card relative w-full max-w-2xl rounded-[1.5rem] border border-rule bg-background p-6 shadow-[0_24px_48px_-12px_rgba(43,21,21,0.25)] sm:p-8 md:p-10">
                 {/* Header with program icon and close button */}
                 <div className="flex items-center justify-between gap-4 border-b border-rule pb-5">
                   <div className="flex items-center gap-3.5">
@@ -138,10 +138,12 @@ export function ProgramGrid() {
                       <LineArt name={activeProgram.art} className="size-6" />
                     </span>
                     <div>
-                      <span className="label text-xs uppercase tracking-widest text-olive font-medium">
+                      <span className="label text-xs font-medium tracking-widest text-olive uppercase">
                         {activeProgram.tag}
                       </span>
-                      <p className="text-xs text-muted-foreground">Inbavanam Programme Initiative</p>
+                      <p className="text-xs text-muted-foreground">
+                        Inbavanam Programme Initiative
+                      </p>
                     </div>
                   </div>
 
@@ -155,31 +157,31 @@ export function ProgramGrid() {
 
                 {/* Title & Subtitle */}
                 <div className="mt-6">
-                  <Dialog.Title className="font-display text-2xl sm:text-3xl text-foreground font-normal leading-tight">
+                  <Dialog.Title className="font-display text-2xl leading-tight font-normal text-foreground sm:text-3xl">
                     {activeProgram.name}
                   </Dialog.Title>
-                  <p className="label mt-1 text-xs sm:text-sm text-olive font-medium">
+                  <p className="mt-1 label text-xs font-medium text-olive sm:text-sm">
                     {activeProgram.subtitle}
                   </p>
                 </div>
 
                 {/* Lead text extracted directly from the PDF */}
-                <p className="mt-4 text-sm sm:text-base leading-relaxed text-foreground/90 font-normal">
+                <p className="mt-4 text-sm leading-relaxed font-normal text-foreground/90 sm:text-base">
                   {activeProgram.lead}
                 </p>
 
                 {/* Key focus & activities */}
                 <div className="mt-6">
-                  <h4 className="label text-xs uppercase tracking-wider text-muted-foreground">
+                  <h4 className="label text-xs tracking-wider text-muted-foreground uppercase">
                     Key Focus & Activities
                   </h4>
                   <ul className="mt-3 space-y-2.5">
                     {activeProgram.highlights.map((item, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-3 text-xs sm:text-sm leading-relaxed text-foreground/85"
+                        className="flex items-start gap-3 text-xs leading-relaxed text-foreground/85 sm:text-sm"
                       >
-                        <span className="mt-1.5 size-1.5 shrink-0 bg-terracotta rotate-45" />
+                        <span className="mt-1.5 size-1.5 shrink-0 rotate-45 bg-terracotta" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -189,14 +191,14 @@ export function ProgramGrid() {
                 {/* Key fact chip & PDF source attribution */}
                 <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-card/70 px-5 py-3.5">
                   <div>
-                    <span className="text-[0.7rem] uppercase tracking-wider text-muted-foreground block">
+                    <span className="block text-[0.7rem] tracking-wider text-muted-foreground uppercase">
                       {activeProgram.keyFact.label}
                     </span>
                     <span className="font-serif text-sm font-medium text-foreground">
                       {activeProgram.keyFact.value}
                     </span>
                   </div>
-                  <span className="text-[0.68rem] text-muted-foreground/80 italic">
+                  <span className="text-[0.72rem] text-muted-foreground/80 italic sm:text-[0.68rem]">
                     Source: {activeProgram.sourceRef}
                   </span>
                 </div>

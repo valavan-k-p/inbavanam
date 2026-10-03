@@ -13,7 +13,7 @@ export function Wordmark({
     <span className={cn("flex flex-col leading-none", className)}>
       <span className="font-display text-[1.35rem] tracking-[0.14em] uppercase">{site.name}</span>
       {tagline ? (
-        <span className="mt-2 label text-[0.6rem] tracking-[0.3em] text-muted-foreground">
+        <span className="mt-2 label text-[0.66rem] tracking-[0.3em] text-muted-foreground sm:text-[0.6rem]">
           {site.tagline}
         </span>
       ) : null}

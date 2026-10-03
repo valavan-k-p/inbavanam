@@ -23,7 +23,7 @@ export function AccommodationCard({
       ) : null}
       <div className="flex flex-1 flex-col gap-4 p-6">
         {preview ? (
-          <p className="self-start rounded-full border border-current px-3 py-1 label text-[0.6rem] text-terracotta">
+          <p className="self-start rounded-full border border-current px-3 py-1 label text-[0.72rem] text-terracotta sm:text-[0.6rem] sm:text-[0.68rem]">
             Layout preview (development only)
           </p>
         ) : null}
@@ -31,11 +31,15 @@ export function AccommodationCard({
         <p className="text-sm text-muted-foreground">{item.summary}</p>
         <dl className="grid grid-cols-2 gap-4 border-t border-rule pt-4 text-sm">
           <div>
-            <dt className="label text-[0.62rem] text-muted-foreground">Capacity</dt>
+            <dt className="label text-[0.7rem] text-muted-foreground sm:text-[0.62rem]">
+              Capacity
+            </dt>
             <dd className="mt-1">{item.capacity}</dd>
           </div>
           <div>
-            <dt className="label text-[0.62rem] text-muted-foreground">Amenities</dt>
+            <dt className="label text-[0.7rem] text-muted-foreground sm:text-[0.62rem]">
+              Amenities
+            </dt>
             <dd className="mt-1">{item.amenities.join(", ")}</dd>
           </div>
         </dl>

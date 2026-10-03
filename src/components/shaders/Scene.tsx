@@ -26,7 +26,11 @@ export function Scene() {
   const frameRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const reduce = useReducedMotion();
-  const lightData = useSyncExternalStore(noopSubscribe, () => prefersLightData(), () => false);
+  const lightData = useSyncExternalStore(
+    noopSubscribe,
+    () => prefersLightData(),
+    () => false,
+  );
   const loadsOnScroll = !reduce && !lightData;
 
   useEffect(() => {
@@ -53,8 +57,8 @@ export function Scene() {
         <div className="shader-frame__placeholder">
           <p className="label">Koi studies</p>
           <p className="shader-frame__note">
-            An interactive stack of three Japanese koi studies. Drag, or use the arrow keys, to
-            move through them.
+            An interactive stack of three Japanese koi studies. Drag, or use the arrow keys, to move
+            through them.
           </p>
           <button type="button" className="shader-frame__load" onClick={() => setMounted(true)}>
             {loadsOnScroll ? "Load now" : "Load interactive stack (16 MB)"}

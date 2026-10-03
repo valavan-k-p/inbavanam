@@ -8,8 +8,6 @@ import { GalleryLightbox } from "./gallery-lightbox";
 import { WallTileMedia } from "./wall-tile-media";
 import {
   MIN_FACING,
-  WALL_COLS,
-  WALL_ROWS,
   measureWall,
   projectTile,
   pseudoRandom,
@@ -18,7 +16,8 @@ import {
   type WallGeometry,
 } from "./wall-geometry";
 
-const TILE_COUNT = WALL_COLS * WALL_ROWS;
+/** Tiles on the sphere: the grid comes from the measurement, so phones get fewer. */
+const tileCount = (g: WallGeometry | null) => (g ? g.cols * g.rows : 0);
 const INTRO_MS = 1300;
 const INTRO_SPREAD_MS = 900;
 const DRAG_THRESHOLD = 6;
@@ -69,13 +68,14 @@ export function GalleryWall({ items, label, className, top, footer, corner }: Ga
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [zoom, setZoom] = useState<{ index: number; rect: DOMRect } | null>(null);
 
+  const count = tileCount(geo);
   const itemFor = useMemo(
-    () => Array.from({ length: TILE_COUNT }, (_, k) => tileItemIndex(k, items.length)),
-    [items.length],
+    () => Array.from({ length: count }, (_, k) => tileItemIndex(k, items.length, geo?.cols)),
+    [items.length, count, geo?.cols],
   );
   const delays = useMemo(
-    () => Array.from({ length: TILE_COUNT }, (_, k) => pseudoRandom(k) * INTRO_SPREAD_MS),
-    [],
+    () => Array.from({ length: count }, (_, k) => pseudoRandom(k) * INTRO_SPREAD_MS),
+    [count],
   );
 
   useEffect(() => {
@@ -86,17 +86,17 @@ export function GalleryWall({ items, label, className, top, footer, corner }: Ga
     const render = (now: number) => {
       const g = geoRef.current;
       if (!g) return false;
-      const width = WALL_COLS * g.cellW;
-      const height = WALL_ROWS * g.cellH;
+      const width = g.cols * g.cellW;
+      const height = g.rows * g.cellH;
       const elapsed = introStart.current === null ? -1 : now - introStart.current;
       let introRunning = false;
       let nearest = Infinity;
 
-      for (let k = 0; k < TILE_COUNT; k++) {
+      for (let k = 0; k < g.cols * g.rows; k++) {
         const el = tiles.current[k];
         if (!el) continue;
-        const x = wrapCentered((k % WALL_COLS) * g.cellW + offset.current.x, width);
-        const y = wrapCentered(Math.floor(k / WALL_COLS) * g.cellH + offset.current.y, height);
+        const x = wrapCentered((k % g.cols) * g.cellW + offset.current.x, width);
+        const y = wrapCentered(Math.floor(k / g.cols) * g.cellH + offset.current.y, height);
         const { yaw, pitch, facing } = projectTile(x, y, g.radius);
         if (facing < MIN_FACING) {
           el.style.visibility = "hidden";
@@ -345,7 +345,7 @@ export function GalleryWall({ items, label, className, top, footer, corner }: Ga
           style={{ transform: geo ? `translateZ(${-geo.radius}px)` : undefined }}
         >
           {geo
-            ? Array.from({ length: TILE_COUNT }, (_, k) => {
+            ? Array.from({ length: count }, (_, k) => {
                 const item = items[itemFor[k]];
                 if (!item) return null;
                 return (
@@ -399,7 +399,7 @@ export function GalleryWall({ items, label, className, top, footer, corner }: Ga
                     transition={{ duration: 0.25 }}
                   >
                     {caption.caption ?? caption.alt}
-                    <span className="ml-3 label text-[0.6rem] text-muted-foreground">
+                    <span className="ml-3 label text-[0.72rem] text-muted-foreground sm:text-[0.6rem] sm:text-[0.68rem]">
                       {caption.category}
                     </span>
                   </motion.span>

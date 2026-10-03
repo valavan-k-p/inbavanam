@@ -32,7 +32,7 @@ export function PillGroup<T extends string>({
             aria-pressed={active}
             onClick={() => onChange(option.value)}
             className={cn(
-              "relative isolate min-h-10 cursor-pointer rounded-full border px-4 label text-[0.66rem] transition-colors duration-300",
+              "relative isolate min-h-10 cursor-pointer rounded-full border px-4 label text-[0.72rem] transition-colors duration-300 sm:text-[0.66rem]",
               active
                 ? "border-maroon text-ivory"
                 : "border-rule text-foreground hover:border-foreground",

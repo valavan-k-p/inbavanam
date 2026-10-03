@@ -70,7 +70,9 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                     <Icon aria-hidden="true" className="size-4" strokeWidth={1.5} />
                   </span>
                   <span>
-                    <dt className="label text-[0.62rem] text-muted-foreground">{term}</dt>
+                    <dt className="label text-[0.7rem] text-muted-foreground sm:text-[0.62rem]">
+                      {term}
+                    </dt>
                     <dd className="mt-1">
                       {href ? (
                         <a href={href} className="link-underline">

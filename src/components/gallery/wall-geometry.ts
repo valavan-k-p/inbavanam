@@ -6,6 +6,18 @@
 export const WALL_COLS = 14;
 export const WALL_ROWS = 12;
 
+/**
+ * Phones get a smaller grid. Every tile is transformed on every frame of the
+ * drag, so 90 of them rather than 168 is most of the work saved on the device
+ * least able to do it, and the sphere still carries more tiles than fit on
+ * screen at once.
+ */
+export const WALL_COLS_SM = 10;
+export const WALL_ROWS_SM = 9;
+
+/** Below this width the small grid is used. */
+export const SMALL_WALL_WIDTH = 640;
+
 /** Wraps a value into [-size / 2, size / 2), so the grid repeats endlessly. */
 export function wrapCentered(value: number, size: number): number {
   const m = ((value % size) + size) % size;
@@ -37,6 +49,9 @@ export type WallGeometry = {
   cellH: number;
   /** Sphere radius in px. */
   radius: number;
+  /** Grid size, which is smaller on phones. */
+  cols: number;
+  rows: number;
 };
 
 /** Tile size and sphere radius for a wall of the given size. */
@@ -51,10 +66,13 @@ export function measureWall(width: number, height: number): WallGeometry {
   const gap = Math.round(tileW * 0.06);
   const cellW = tileW + gap;
   const cellH = tileH + gap;
+  const small = width < SMALL_WALL_WIDTH;
+  const cols = small ? WALL_COLS_SM : WALL_COLS;
+  const rows = small ? WALL_ROWS_SM : WALL_ROWS;
   // Keep the visible arc (|angle| < acos(0.3), about 1.27 rad) inside one
   // repeat of the grid, so a tile never needs to be in two places at once.
-  const radius = Math.round(Math.min(WALL_COLS * cellW, WALL_ROWS * cellH) / 2.6);
-  return { tileW, tileH, cellW, cellH, radius };
+  const radius = Math.round(Math.min(cols * cellW, rows * cellH) / 2.6);
+  return { tileW, tileH, cellW, cellH, radius, cols, rows };
 }
 
 /** Below this facing value a tile is too close to the edge of the sphere to show. */
