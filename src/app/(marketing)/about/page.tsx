@@ -11,6 +11,8 @@ import { ValuesBand } from "@/components/sections/bands";
 
 import { OrganisationProfileSection } from "@/components/sections/organisation-profile";
 
+import { getSiteContentSection } from "@/lib/db/content";
+
 export const metadata: Metadata = {
   title: "About & Organisation Profile",
   description:
@@ -18,13 +20,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const aboutData = await getSiteContentSection("about", {
+    heading: aboutIntro.heading,
+    imagePath: "/about us image/about-collage.webp",
+  });
+
   return (
     <>
       <section className="overflow-hidden pt-[calc(var(--header-h)+clamp(3rem,7vw,6rem))] pb-[var(--section-y)]">
         <div className="container-page grid items-center gap-12 lg:grid-cols-12">
           <div className="flex flex-col gap-7 lg:col-span-5">
-            <SectionHeading as="h1" size="h1" eyebrow="About us" title={aboutIntro.heading} />
+            <SectionHeading as="h1" size="h1" eyebrow="About us" title={aboutData.heading} />
             <Reveal delay={0.24}>
               <Paragraphs items={aboutStory.body.slice(0, 1)} className="text-muted-foreground" />
             </Reveal>
@@ -44,7 +51,7 @@ export default function AboutPage() {
           >
             <div className="relative flex w-full items-center justify-center lg:justify-center xl:justify-end">
               <Image
-                src="/about us image/about-collage.webp"
+                src={aboutData.imagePath}
                 alt="Circular collage of Inbavanam: the round brick pavilion, the two-storey residence, the hall, a tiled cottage and the Western Ghats, set around the Inbavanam logo"
                 width={1371}
                 height={1148}

@@ -56,17 +56,17 @@ const cardThemes: CardTheme[] = [
  * Clicking any card opens a dedicated detail modal with accurate,
  * verified programme content from Inbavanam_Organisation_Profile.pdf.
  */
-export function ProgramGrid() {
+export function ProgramGrid({ items = programIndex }: { items?: ProgramDetail[] }) {
   const [activeProgram, setActiveProgram] = useState<ProgramDetail | null>(null);
   const activeIndex = activeProgram
-    ? programIndex.findIndex((p) => p.slug === activeProgram.slug)
+    ? items.findIndex((p) => p.slug === activeProgram.slug)
     : -1;
   const activeTheme = activeIndex >= 0 ? cardThemes[activeIndex % cardThemes.length] : null;
 
   return (
     <>
       <ul className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-4.5 xl:gap-5">
-        {programIndex.map((program, i) => {
+        {items.map((program, i) => {
           const theme = cardThemes[i % cardThemes.length];
           return (
             <Reveal

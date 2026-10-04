@@ -28,9 +28,20 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
   });
   if (!parsed.success) return { error: "Enter your email address and password." };
 
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { data: auth, error } = await supabase.auth.signInWithPassword(parsed.data);
   // Same message whatever the cause, so the form does not reveal which accounts exist.
-  if (error) return { error: "That email and password combination was not recognised." };
+  if (error || !auth.user) return { error: "That email and password combination was not recognised." };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", auth.user.id)
+    .single();
+
+  if (profile?.role !== "admin") {
+    await supabase.auth.signOut();
+    return { error: "Access denied. Only administrators have permission to access the dashboard." };
+  }
 
   redirect(safeAdminPath(formData.get("next")));
 }

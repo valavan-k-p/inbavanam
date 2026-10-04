@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
-import { supabaseConfig } from "@/lib/supabase/config";
+import { getSupabaseConfig } from "@/lib/supabase/config";
 
 /**
  * Refreshes the Supabase session cookie on admin routes and sends signed-out
@@ -8,12 +8,13 @@ import { supabaseConfig } from "@/lib/supabase/config";
  * page and server action verifies the user and role again on the server.
  */
 export async function proxy(request: NextRequest) {
-  if (!supabaseConfig || request.nextUrl.pathname.startsWith("/admin/login")) {
+  const config = getSupabaseConfig();
+  if (!config || request.nextUrl.pathname.startsWith("/admin/login")) {
     return NextResponse.next();
   }
 
   let response = NextResponse.next({ request });
-  const supabase = createServerClient(supabaseConfig.url, supabaseConfig.key, {
+  const supabase = createServerClient(config.url, config.key, {
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll: (list) => {

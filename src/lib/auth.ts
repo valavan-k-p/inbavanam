@@ -36,6 +36,14 @@ export async function requireStaff() {
   return staff;
 }
 
+/** Only users with the admin role can access management pages. */
+export async function requireAdmin() {
+  const staff = await getStaff();
+  if (!staff) redirect("/admin/login");
+  if (staff.role !== "admin") redirect("/admin/login?error=forbidden");
+  return staff;
+}
+
 /** Only allow redirects back into the admin area. */
 export function safeAdminPath(value: unknown): string {
   return typeof value === "string" &&

@@ -3,7 +3,7 @@ import { OrganisationProfileSection } from "@/components/sections/organisation-p
 import { PageHero } from "@/components/sections/page-hero";
 import { ValuesBand } from "@/components/sections/bands";
 import { ButtonLink } from "@/components/ui/button-link";
-import { profileOverview } from "@/data/organisation-profile";
+import { getOrganisationProfileContent } from "@/lib/db/content";
 
 export const metadata: Metadata = {
   title: "Organisation Profile & Programme Content",
@@ -12,13 +12,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about/profile" },
 };
 
-export default function OrganisationProfilePage() {
+export default async function OrganisationProfilePage() {
+  const profile = await getOrganisationProfileContent();
+
   return (
     <>
       <PageHero
-        eyebrow={profileOverview.eyebrow}
-        title={profileOverview.heading}
-        lede={profileOverview.lede}
+        eyebrow={profile.eyebrow}
+        title={profile.heading}
+        lede={profile.lede}
       >
         <div className="flex flex-wrap items-center gap-6">
           <ButtonLink href="/about" variant="text" arrow>

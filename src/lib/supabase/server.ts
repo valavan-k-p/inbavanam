@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { supabaseConfig } from "./config";
+import { getSupabaseConfig } from "./config";
 
 /**
  * Supabase client for Server Components, Server Actions and Route Handlers.
@@ -8,9 +8,10 @@ import { supabaseConfig } from "./config";
  * Returns null when Supabase is not configured.
  */
 export async function createSupabaseServerClient() {
-  if (!supabaseConfig) return null;
+  const config = getSupabaseConfig();
+  if (!config) return null;
   const cookieStore = await cookies();
-  return createServerClient(supabaseConfig.url, supabaseConfig.key, {
+  return createServerClient(config.url, config.key, {
     cookies: {
       getAll: () => cookieStore.getAll(),
       setAll: (list) => {

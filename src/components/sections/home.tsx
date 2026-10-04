@@ -8,7 +8,7 @@ import {
   place,
   workIntro,
 } from "@/data/story";
-import { getEvents, getGalleryItems } from "@/lib/db/content";
+import { getEvents, getGalleryItems, getProgramList, getSiteContentSection } from "@/lib/db/content";
 import { splitEvents } from "@/lib/dates";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { VideoFrame } from "@/components/ui/video-frame";
@@ -22,7 +22,16 @@ import { ProgramGrid } from "./program-grid";
 import { experiences } from "@/data/experiences";
 import { ExperienceStack } from "@/components/experiences/experience-stack";
 
-export function AboutTeaserSection() {
+export async function AboutTeaserSection() {
+  const aboutData = await getSiteContentSection("about", {
+    heading: aboutIntro.heading,
+    imagePath: "/about us image/about-collage.webp",
+  });
+  const introData = await getSiteContentSection("intro", {
+    body1: intro.body[0],
+    body2: intro.body[1],
+  });
+
   return (
     <section id="essence" aria-labelledby="about-title" className="overflow-hidden section-y">
       <div className="container-page grid items-center gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16">
@@ -30,11 +39,11 @@ export function AboutTeaserSection() {
           <SectionHeading
             id="about-title"
             eyebrow="About us"
-            title={aboutIntro.heading}
+            title={aboutData.heading}
             size="h1"
           />
           <Reveal delay={0.2}>
-            <Paragraphs items={intro.body} className="text-muted-foreground" />
+            <Paragraphs items={[introData.body1, introData.body2]} className="text-muted-foreground" />
           </Reveal>
           <Reveal delay={0.3}>
             <ButtonLink href="/about" variant="text" arrow>
@@ -49,7 +58,7 @@ export function AboutTeaserSection() {
         >
           <div className="relative flex w-full items-center justify-center lg:justify-center xl:justify-end">
             <Image
-              src="/about us image/about-collage.webp"
+              src={aboutData.imagePath}
               alt="Circular collage of Inbavanam: the round brick pavilion, the two-storey residence, the hall, a tiled cottage and the Western Ghats, set around the Inbavanam logo"
               width={1371}
               height={1148}
@@ -64,12 +73,15 @@ export function AboutTeaserSection() {
   );
 }
 
-export function PlaceSection() {
+export async function PlaceSection() {
+  const placeData = await getSiteContentSection("the_land", {
+    imagePath: place.media.src ?? "/inbavanam cover/farm.png",
+  });
   return (
     <section className="w-full">
       {/* Full-width photograph shown whole: the section takes the image's own 16:9 shape. */}
       <Image
-        src={place.media.src ?? ""}
+        src={placeData.imagePath}
         alt={place.media.alt}
         width={1672}
         height={941}
@@ -80,24 +92,37 @@ export function PlaceSection() {
   );
 }
 
-export function ArchitectureSection() {
+export async function ArchitectureSection() {
+  const archData = await getSiteContentSection("architecture", {
+    eyebrow: architecture.eyebrow,
+    heading: architecture.heading,
+    body1: architecture.body[0],
+    body2: architecture.body[1],
+    imagePath: architecture.media.src ?? "",
+  });
+
+  const media = {
+    ...architecture.media,
+    src: archData.imagePath,
+  };
+
   return (
     <section aria-labelledby="architecture-title" className="surface-walnut grain section-y">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-12">
           <SectionHeading
             id="architecture-title"
-            eyebrow={architecture.eyebrow}
-            title={architecture.heading}
+            eyebrow={archData.eyebrow}
+            title={archData.heading}
             className="lg:col-span-6"
           />
           <Reveal delay={0.15} className="lg:col-span-5 lg:col-start-8 lg:pt-12">
-            <Paragraphs items={architecture.body} className="text-lede" />
+            <Paragraphs items={[archData.body1, archData.body2]} className="text-lede" />
           </Reveal>
         </div>
         <Reveal variant="clip" className="mt-16">
           <VideoFrame
-            media={architecture.media}
+            media={media}
             ratio="var(--frame-ratio)"
             className="[--frame-ratio:1.33] md:[--frame-ratio:2.33]"
           />
@@ -166,7 +191,8 @@ export function ExperiencesSection() {
   );
 }
 
-export function OurWorkSection() {
+export async function OurWorkSection() {
+  const programs = await getProgramList();
   return (
     <section aria-labelledby="work-title" className="surface-card section-y">
       <div className="container-page">
@@ -184,7 +210,7 @@ export function OurWorkSection() {
           </Reveal>
         </div>
         <div className="mt-14">
-          <ProgramGrid />
+          <ProgramGrid items={programs} />
         </div>
       </div>
     </section>

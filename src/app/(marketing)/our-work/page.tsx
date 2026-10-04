@@ -10,6 +10,8 @@ import { PillLinks } from "@/components/ui/pill-links";
 import { Reveal } from "@/components/ui/reveal";
 import { LineArt } from "@/components/illustrations/line-art";
 
+import { getProgramList } from "@/lib/db/content";
+
 export const metadata: Metadata = {
   title: "Our Work",
   description:
@@ -17,13 +19,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/our-work" },
 };
 
-export default function OurWorkPage() {
+export default async function OurWorkPage() {
+  const programs = await getProgramList();
   return (
     <>
       <PageHero eyebrow="Our work" title={workIntro.heading} lede={workIntro.body} />
 
       <section aria-label="Programs" className="container-page pb-[var(--section-y)]">
-        <ProgramGrid />
+        <ProgramGrid items={programs} />
       </section>
 
       <CommunityBand />

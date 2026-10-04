@@ -4,11 +4,19 @@
  * need the database (enquiry storage, admin) explain that they are not
  * configured instead of failing.
  */
-export const supabaseConfig = (() => {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+export function getSupabaseConfig() {
+  const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
   const key =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return url && key ? { url, key } : null;
-})();
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
+  if (!rawUrl || !key) return null;
+
+  // Sanitize URL: strip trailing /rest/v1 or trailing slashes if accidentally included
+  const url = rawUrl.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
+  return { url, key };
+}
+
+export const supabaseConfig = getSupabaseConfig();
 
 export const isSupabaseConfigured = supabaseConfig !== null;
+
