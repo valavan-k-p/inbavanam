@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 import { communityBand, community, findUs, pillars, pullQuote } from "@/data/story";
-import { contact, enquireLink, site, TBC } from "@/data/site";
+import { contact, enquireLink, site } from "@/data/site";
 import { LineArt } from "@/components/illustrations/line-art";
 import { ButtonLink } from "@/components/ui/button-link";
 import { MediaFrame } from "@/components/ui/media-frame";
@@ -91,7 +91,6 @@ export function CommunityBand() {
 
 /** Landscape band with the location and directions. */
 export function FindUsBand() {
-  const external = Boolean(contact.mapUrl);
   return (
     <section
       aria-labelledby="find-title"
@@ -110,29 +109,24 @@ export function FindUsBand() {
         </h2>
         <Reveal delay={0.1}>
           <p className="prose-measure">
-            {site.locationLong}.{" "}
-            {contact.address ? contact.address : `Street address: ${TBC.toLowerCase()}.`}
+            {site.locationLong}.{contact.address ? ` ${contact.address}` : ""}
           </p>
         </Reveal>
-        <Reveal delay={0.2}>
-          <ButtonLink
-            href={contact.mapUrl ?? "/contact"}
-            variant="khaki"
-            arrow
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {external ? "Get directions" : "Ask for directions"}
-          </ButtonLink>
-        </Reveal>
-        <span
-          aria-hidden="true"
-          className="absolute top-1/2 right-[18%] hidden -translate-y-1/2 md:block"
+        <a
+          href="https://maps.app.goo.gl/LakRJCWDNT8QczTC9"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Inbavanam location on Google Maps"
+          className="absolute top-1/2 right-[18%] hidden -translate-y-1/2 cursor-pointer md:block"
         >
-          <span className="absolute inset-0 -m-3 animate-[ping-soft_2.8s_ease-out_infinite] rounded-full border border-ivory/40" />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -m-3 animate-[ping-soft_2.8s_ease-out_infinite] rounded-full border border-ivory/40"
+          />
           <span className="grid size-12 place-items-center rounded-full bg-ivory text-maroon shadow-lg">
             <MapPin className="size-5" strokeWidth={1.5} />
           </span>
-        </span>
+        </a>
       </div>
     </section>
   );

@@ -190,7 +190,13 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
       <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
         <label>
           Leave this field empty
-          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            suppressHydrationWarning
+          />
         </label>
       </div>
 
@@ -204,6 +210,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
             aria-invalid={Boolean(fieldError("consent"))}
             aria-describedby={fieldError("consent") ? `${id("consent")}-error` : undefined}
             className="mt-0.5 size-6 shrink-0 accent-maroon"
+            suppressHydrationWarning
           />
           <span>I agree that Inbavanam may use these details to reply to my enquiry.</span>
         </label>
@@ -218,6 +225,7 @@ export function EnquiryForm({ defaultType = "general", context }: EnquiryFormPro
         type="submit"
         disabled={pending}
         aria-disabled={pending}
+        suppressHydrationWarning
         className="group inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 bg-primary px-8 label text-primary-foreground transition-[background-color,transform] duration-300 hover:bg-primary/90 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
       >
         {pending ? "Sending..." : "Send enquiry"}
@@ -236,6 +244,7 @@ type ControlProps = {
   className?: string;
   "aria-invalid"?: boolean;
   "aria-describedby"?: string;
+  suppressHydrationWarning?: boolean;
 };
 
 type FieldProps = {
@@ -255,6 +264,7 @@ function Field({ id, label, required, hint, error, children }: FieldProps) {
     id,
     "aria-invalid": Boolean(error),
     "aria-describedby": describedBy,
+    suppressHydrationWarning: true,
     className:
       "min-h-12 w-full rounded-[var(--radius)] border border-input bg-background/70 px-4 py-3 text-base text-foreground transition-[border-color,box-shadow] duration-300 placeholder:text-muted-foreground hover:border-foreground focus:border-foreground focus:shadow-[0_0_0_4px_rgb(169_71_50/0.12)] aria-[invalid=true]:border-destructive",
   });

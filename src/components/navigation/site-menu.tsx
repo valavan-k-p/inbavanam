@@ -37,6 +37,7 @@ export function SiteMenu() {
       <Dialog.Trigger
         aria-label="Open menu"
         className="inline-flex min-h-11 cursor-pointer items-center gap-3 px-1 label"
+        suppressHydrationWarning
       >
         <MenuGlyph />
         <span aria-hidden="true" className="min-[1360px]:hidden">
@@ -54,6 +55,7 @@ export function SiteMenu() {
           <Dialog.Close
             aria-label="Close menu"
             className="fixed top-4 right-[var(--gutter)] grid size-12 cursor-pointer place-items-center rounded-full border border-rule transition-[transform,border-color] duration-500 ease-[var(--ease-out-soft)] hover:rotate-90 hover:border-cream"
+            suppressHydrationWarning
           >
             <X aria-hidden="true" className="size-5" strokeWidth={1.25} />
           </Dialog.Close>
