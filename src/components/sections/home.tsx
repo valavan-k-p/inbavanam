@@ -99,12 +99,36 @@ export async function ArchitectureSection() {
     body1: architecture.body[0],
     body2: architecture.body[1],
     imagePath: architecture.media.src ?? "",
+    fact1Label: architecture.facts[0]?.label ?? "Natural cooling",
+    fact1Body: architecture.facts[0]?.body ?? "",
+    fact2Label: architecture.facts[1]?.label ?? "Heavy stone",
+    fact2Body: architecture.facts[1]?.body ?? "",
+    fact3Label: architecture.facts[2]?.label ?? "Climate-responsive design",
+    fact3Body: architecture.facts[2]?.body ?? "",
   });
 
   const media = {
     ...architecture.media,
     src: archData.imagePath,
   };
+
+  const facts = [
+    {
+      art: architecture.facts[0]?.art ?? "stone",
+      label: archData.fact1Label || architecture.facts[0]?.label || "Natural cooling",
+      body: archData.fact1Body || architecture.facts[0]?.body || "",
+    },
+    {
+      art: architecture.facts[1]?.art ?? "stone",
+      label: archData.fact2Label || architecture.facts[1]?.label || "Heavy stone",
+      body: archData.fact2Body || architecture.facts[1]?.body || "",
+    },
+    {
+      art: architecture.facts[2]?.art ?? "sun",
+      label: archData.fact3Label || architecture.facts[2]?.label || "Climate-responsive design",
+      body: archData.fact3Body || architecture.facts[2]?.body || "",
+    },
+  ];
 
   return (
     <section aria-labelledby="architecture-title" className="surface-walnut grain section-y">
@@ -128,7 +152,7 @@ export async function ArchitectureSection() {
           />
         </Reveal>
         <ul className="mt-16 grid gap-10 md:grid-cols-3">
-          {architecture.facts.map((fact, i) => (
+          {facts.map((fact, i) => (
             <Reveal
               as="li"
               key={fact.label}
@@ -136,7 +160,7 @@ export async function ArchitectureSection() {
               className="group flex gap-5 border-t border-rule pt-6"
             >
               <span className="grid size-14 shrink-0 place-items-center rounded-full border border-rule transition-transform duration-500 group-hover:-translate-y-1">
-                <LineArt name={fact.art ?? "stone"} className="size-8 text-cream" />
+                <LineArt name={fact.art} className="size-8 text-cream" />
               </span>
               <span className="flex flex-col gap-2">
                 <h3 className="label">{fact.label}</h3>
@@ -150,12 +174,16 @@ export async function ArchitectureSection() {
   );
 }
 
-export function StayFeatureSection() {
+export async function StayFeatureSection() {
+  const stayData = await getSiteContentSection("stay", {
+    imagePath: "/inbavanam cover/pets.jpg",
+  });
+
   return (
     <section className="w-full">
       {/* Full-width photograph shown whole: the section takes the image's own 16:9 shape. */}
       <Image
-        src="/inbavanam cover/pets.jpg"
+        src={stayData.imagePath || "/inbavanam cover/pets.jpg"}
         alt="Inbavanam sanctuary life and architecture"
         width={3417}
         height={1920}

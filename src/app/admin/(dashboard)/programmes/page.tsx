@@ -4,6 +4,8 @@ import { requireAdmin } from "@/lib/auth";
 import { programIndex, type ProgramDetail } from "@/data/programs";
 import { LineArt } from "@/components/illustrations/line-art";
 
+import { ProgrammesToolbar } from "@/components/admin/programmes-toolbar";
+
 export const metadata = { title: "Programmes Management" };
 
 export default async function AdminProgrammesPage() {
@@ -32,6 +34,8 @@ export default async function AdminProgrammesPage() {
           leads, bullet points, key facts, and visibility.
         </p>
       </div>
+
+      <ProgrammesToolbar />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {programmes.map((p) => {

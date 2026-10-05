@@ -1,8 +1,10 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight, RotateCcw } from "lucide-react";
 import { type ProgrammeFormState } from "@/app/admin/(dashboard)/programmes/actions";
+import { ImageInput } from "./image-input";
 
 interface ProgrammeFormProps {
   initial: {
@@ -28,8 +30,92 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
   const [state, formAction, pending] = useActionState(action, { status: "idle" });
   const errors = state.fieldErrors ?? {};
 
+  // Form field states for undo & dirty tracking
+  const [name, setName] = useState(initial.name);
+  const [subtitle, setSubtitle] = useState(initial.subtitle);
+  const [tag, setTag] = useState(initial.tag);
+  const [lead, setLead] = useState(initial.lead);
+  const [highlights, setHighlights] = useState(initial.highlights.join("\n"));
+  const [keyFactLabel, setKeyFactLabel] = useState(initial.keyFact?.label ?? "Workshop Format");
+  const [keyFactValue, setKeyFactValue] = useState(initial.keyFact?.value ?? "Experiential Programme");
+  const [sourceRef, setSourceRef] = useState(initial.sourceRef ?? "");
+  const [imagePath, setImagePath] = useState(initial.imagePath ?? "");
+  const [published, setPublished] = useState(initial.published !== false);
+
+  const isDirty =
+    name !== initial.name ||
+    subtitle !== initial.subtitle ||
+    tag !== initial.tag ||
+    lead !== initial.lead ||
+    highlights !== initial.highlights.join("\n") ||
+    keyFactLabel !== (initial.keyFact?.label ?? "Workshop Format") ||
+    keyFactValue !== (initial.keyFact?.value ?? "Experiential Programme") ||
+    sourceRef !== (initial.sourceRef ?? "") ||
+    imagePath !== (initial.imagePath ?? "") ||
+    published !== (initial.published !== false);
+
+  // Warn on browser navigation if unsaved
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  const handleUndo = () => {
+    setName(initial.name);
+    setSubtitle(initial.subtitle);
+    setTag(initial.tag);
+    setLead(initial.lead);
+    setHighlights(initial.highlights.join("\n"));
+    setKeyFactLabel(initial.keyFact?.label ?? "Workshop Format");
+    setKeyFactValue(initial.keyFact?.value ?? "Experiential Programme");
+    setSourceRef(initial.sourceRef ?? "");
+    setImagePath(initial.imagePath ?? "");
+    setPublished(initial.published !== false);
+  };
+
   return (
     <form action={formAction} className="flex max-w-2xl flex-col gap-6">
+      {/* Location Badge & Preview */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius)] border border-rule bg-card/60 px-4 py-2.5 text-xs">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-muted-foreground uppercase tracking-wider">
+            Where does this appear:
+          </span>
+          <span className="rounded-full bg-cream px-2.5 py-0.5 font-medium text-foreground">
+            Our Work Page — Initiatives Grid
+          </span>
+        </div>
+        <a
+          href="/our-work#initiatives"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-semibold text-olive hover:underline"
+        >
+          <span>View on Site</span>
+          <ArrowUpRight className="size-3.5" />
+        </a>
+      </div>
+
+      {isDirty && (
+        <div className="flex items-center justify-between rounded-[var(--radius)] border border-terracotta/30 bg-terracotta/10 px-4 py-2 text-xs font-semibold text-terracotta">
+          <span>You have unsaved changes</span>
+          <button
+            type="button"
+            onClick={handleUndo}
+            className="inline-flex cursor-pointer items-center gap-1 text-ink underline hover:text-foreground"
+          >
+            <RotateCcw className="size-3" />
+            <span>Undo Changes</span>
+          </button>
+        </div>
+      )}
+
       {state.status === "error" && state.message && (
         <div
           role="alert"
@@ -48,7 +134,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
           id="name"
           name="name"
           type="text"
-          defaultValue={initial.name}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className={inputClass}
           aria-invalid={Boolean(errors.name)}
@@ -66,7 +153,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
             id="subtitle"
             name="subtitle"
             type="text"
-            defaultValue={initial.subtitle}
+            value={subtitle}
+            onChange={(e) => setSubtitle(e.target.value)}
             required
             className={inputClass}
             aria-invalid={Boolean(errors.subtitle)}
@@ -82,7 +170,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
             id="tag"
             name="tag"
             type="text"
-            defaultValue={initial.tag}
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
             required
             className={inputClass}
             aria-invalid={Boolean(errors.tag)}
@@ -100,7 +189,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
           id="lead"
           name="lead"
           rows={3}
-          defaultValue={initial.lead}
+          value={lead}
+          onChange={(e) => setLead(e.target.value)}
           required
           placeholder="Concise overview of what this programme achieves..."
           className={inputClass}
@@ -118,7 +208,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
           id="highlights"
           name="highlights"
           rows={6}
-          defaultValue={initial.highlights.join("\n")}
+          value={highlights}
+          onChange={(e) => setHighlights(e.target.value)}
           placeholder="Enter one highlight point per line..."
           className={inputClass}
         />
@@ -137,7 +228,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
             id="keyFactLabel"
             name="keyFactLabel"
             type="text"
-            defaultValue={initial.keyFact?.label ?? "Workshop Format"}
+            value={keyFactLabel}
+            onChange={(e) => setKeyFactLabel(e.target.value)}
             className={inputClass}
           />
         </div>
@@ -150,42 +242,38 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
             id="keyFactValue"
             name="keyFactValue"
             type="text"
-            defaultValue={initial.keyFact?.value ?? "Experiential Programme"}
+            value={keyFactValue}
+            onChange={(e) => setKeyFactValue(e.target.value)}
             className={inputClass}
           />
         </div>
       </div>
 
-      {/* Source Reference & Image */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <label htmlFor="sourceRef" className="text-sm font-semibold text-foreground">
-            Source Reference
-          </label>
-          <input
-            id="sourceRef"
-            name="sourceRef"
-            type="text"
-            defaultValue={initial.sourceRef ?? ""}
-            placeholder="e.g. Section 10: Inbavanam Profile PDF"
-            className={inputClass}
-          />
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label htmlFor="imagePath" className="text-sm font-semibold text-foreground">
-            Image Path (Optional)
-          </label>
-          <input
-            id="imagePath"
-            name="imagePath"
-            type="text"
-            defaultValue={initial.imagePath ?? ""}
-            placeholder="e.g. programmes/peacebuilding.jpg"
-            className={inputClass}
-          />
-        </div>
+      {/* Source Reference */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="sourceRef" className="text-sm font-semibold text-foreground">
+          Source Reference
+        </label>
+        <input
+          id="sourceRef"
+          name="sourceRef"
+          type="text"
+          value={sourceRef}
+          onChange={(e) => setSourceRef(e.target.value)}
+          placeholder="e.g. Section 10: Inbavanam Profile PDF"
+          className={inputClass}
+        />
       </div>
+
+      {/* Visual Image Picker */}
+      <ImageInput
+        name="imagePath"
+        value={imagePath}
+        onChange={setImagePath}
+        label="Programme Photograph (Optional)"
+        hint="Photograph illustrating the workshop, activity, or community setting."
+        locationInfo="Our Work Page — Programme Card & Modal"
+      />
 
       {/* Published Toggle */}
       <div className="flex flex-col gap-2 rounded-[var(--radius)] border border-rule bg-card p-4">
@@ -193,7 +281,8 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
           <input
             type="checkbox"
             name="published"
-            defaultChecked={initial.published !== false}
+            checked={published}
+            onChange={(e) => setPublished(e.target.checked)}
             className="size-5 accent-maroon"
           />
           <span>Visible on website</span>
@@ -212,6 +301,16 @@ export function ProgrammeForm({ initial, action, cancelHref }: ProgrammeFormProp
         >
           {pending ? "Saving..." : "Save Programme"}
         </button>
+        {isDirty && (
+          <button
+            type="button"
+            onClick={handleUndo}
+            className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-[var(--radius)] border border-rule bg-card px-5 label text-foreground hover:bg-cream/40"
+          >
+            <RotateCcw className="size-4" />
+            <span>Undo Changes</span>
+          </button>
+        )}
         <Link
           href={cancelHref}
           className="inline-flex min-h-11 items-center px-4 label text-muted-foreground underline-offset-4 hover:underline"

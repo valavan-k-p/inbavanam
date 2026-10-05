@@ -3,6 +3,7 @@ import { contact, primaryNav, site, supportLink } from "@/data/site";
 import { Logo } from "@/components/brand/logo";
 import { Wordmark } from "@/components/brand/wordmark";
 import { ButtonLink } from "@/components/ui/button-link";
+import { getSiteContentSection } from "@/lib/db/content";
 
 /**
  * Botanical grain/seed stalk inspired by the reference image's handcrafted
@@ -214,7 +215,15 @@ function FooterDecorations() {
   );
 }
 
-export function Footer() {
+export async function Footer() {
+  const footerData = await getSiteContentSection("footer", {
+    tagline: site.tagline,
+    locationShort: site.locationShort,
+    supportLabel: supportLink.label,
+    supportUrl: supportLink.href,
+    copyrightText: site.name,
+  });
+
   return (
     <footer className="surface-card relative overflow-hidden border-t border-rule">
       {/* Nature-inspired decorative layer inspired by the reference design */}
@@ -227,7 +236,7 @@ export function Footer() {
           className="flex items-center gap-4 self-start lg:col-span-4"
         >
           <Logo size={76} />
-          <Wordmark tagline />
+          <Wordmark tagline taglineText={footerData.tagline} />
         </Link>
 
         <nav aria-label="Footer" className="lg:col-span-5">
@@ -246,16 +255,18 @@ export function Footer() {
         </nav>
 
         <div className="flex flex-col items-start gap-4 lg:col-span-3 lg:items-end">
-          <ButtonLink href={supportLink.href} variant="olive" arrow>
-            {supportLink.label}
+          <ButtonLink href={footerData.supportUrl || supportLink.href} variant="olive" arrow>
+            {footerData.supportLabel || supportLink.label}
           </ButtonLink>
-          <p className="text-sm text-muted-foreground">{site.locationShort}</p>
+          <p className="text-sm text-muted-foreground">
+            {footerData.locationShort || site.locationShort}
+          </p>
         </div>
       </div>
 
       <div className="relative z-10 container-page flex flex-col items-center gap-3 py-6 text-center text-sm text-muted-foreground sm:flex-row sm:justify-center">
         <p>
-          &copy; {new Date().getFullYear()} {site.name}
+          &copy; {new Date().getFullYear()} {footerData.copyrightText || site.name}
           {contact.email ? (
             <>
               {" · "}

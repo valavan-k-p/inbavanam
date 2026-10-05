@@ -24,7 +24,23 @@ export default async function AboutPage() {
   const aboutData = await getSiteContentSection("about", {
     heading: aboutIntro.heading,
     imagePath: "/about us image/about-collage.webp",
+    storyHeading: aboutStory.heading,
+    storyBody1: aboutStory.body[0] ?? "",
+    storyBody2: aboutStory.body[1] ?? "",
+    storyBody3: aboutStory.body[2] ?? "",
+    storyImagePath: aboutStory.media.src ?? "",
   });
+
+  const storyParagraphs = [
+    aboutData.storyBody1,
+    aboutData.storyBody2,
+    aboutData.storyBody3,
+  ].filter(Boolean);
+
+  const storyMedia = {
+    ...aboutStory.media,
+    src: aboutData.storyImagePath || aboutStory.media.src,
+  };
 
   return (
     <>
@@ -33,7 +49,10 @@ export default async function AboutPage() {
           <div className="flex flex-col gap-7 lg:col-span-5">
             <SectionHeading as="h1" size="h1" eyebrow="About us" title={aboutData.heading} />
             <Reveal delay={0.24}>
-              <Paragraphs items={aboutStory.body.slice(0, 1)} className="text-muted-foreground" />
+              <Paragraphs
+                items={storyParagraphs.length ? storyParagraphs.slice(0, 1) : aboutStory.body.slice(0, 1)}
+                className="text-muted-foreground"
+              />
             </Reveal>
             <Reveal delay={0.32} className="flex flex-wrap items-center gap-6">
               <ButtonLink href="#purpose" variant="text" arrow>
@@ -76,15 +95,18 @@ export default async function AboutPage() {
             <SectionHeading
               id="story-title"
               eyebrow={aboutStory.eyebrow}
-              title={aboutStory.heading}
+              title={aboutData.storyHeading || aboutStory.heading}
             />
             <Reveal delay={0.15}>
-              <Paragraphs items={aboutStory.body} className="text-lede" />
+              <Paragraphs
+                items={storyParagraphs.length ? storyParagraphs : aboutStory.body}
+                className="text-lede"
+              />
             </Reveal>
           </div>
           <Reveal variant="clip" className="lg:col-span-6 lg:col-start-7">
             <MediaFrame
-              media={aboutStory.media}
+              media={storyMedia}
               ratio="4 / 5"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />

@@ -10,6 +10,7 @@ import { programIndex, type ProgramDetail } from "@/data/programs";
 import { profileOverview } from "@/data/organisation-profile";
 import { contact as defaultContact } from "@/data/site";
 import { getSupabaseConfig } from "@/lib/supabase/config";
+import { founders as defaultFounders } from "@/data/story";
 
 /**
  * Public content repository. Reads published rows from Supabase when it is
@@ -184,8 +185,32 @@ export async function getSiteContentSection<T extends Record<string, unknown>>(
  * Reads the organisation profile overview, falling back to local data.
  */
 export async function getOrganisationProfileContent() {
+  const defaultFoundersList = [
+    {
+      name: defaultFounders[0]?.name ?? "Gladston Xavier",
+      role: defaultFounders[0]?.role ?? "Co-founder, social worker",
+      bio: defaultFounders[0]?.bio ?? "",
+      portrait:
+        defaultFounders[0]?.portrait?.src ??
+        "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (7).jpeg",
+    },
+    {
+      name: defaultFounders[1]?.name ?? "Florina Xavier",
+      role: defaultFounders[1]?.role ?? "Co-founder, social worker",
+      bio: defaultFounders[1]?.bio ?? "",
+      portrait:
+        defaultFounders[1]?.portrait?.src ??
+        "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (6).jpeg",
+    },
+  ];
+
   const db = getDb();
-  if (!db) return profileOverview;
+  if (!db) {
+    return {
+      ...profileOverview,
+      founders: defaultFoundersList,
+    };
+  }
   const { data, error } = await db
     .from("site_settings")
     .select("value")
@@ -193,7 +218,10 @@ export async function getOrganisationProfileContent() {
     .single();
 
   if (error || !data?.value || typeof data.value !== "object") {
-    return profileOverview;
+    return {
+      ...profileOverview,
+      founders: defaultFoundersList,
+    };
   }
 
   const v = data.value as Record<string, string>;
@@ -211,6 +239,20 @@ export async function getOrganisationProfileContent() {
       {
         title: v.priority2Title ?? profileOverview.foundingPriorities[1].title,
         description: v.priority2Desc ?? profileOverview.foundingPriorities[1].description,
+      },
+    ],
+    founders: [
+      {
+        name: v.founder1Name ?? defaultFoundersList[0].name,
+        role: v.founder1Role ?? defaultFoundersList[0].role,
+        bio: v.founder1Bio ?? defaultFoundersList[0].bio,
+        portrait: v.founder1Portrait ?? defaultFoundersList[0].portrait,
+      },
+      {
+        name: v.founder2Name ?? defaultFoundersList[1].name,
+        role: v.founder2Role ?? defaultFoundersList[1].role,
+        bio: v.founder2Bio ?? defaultFoundersList[1].bio,
+        portrait: v.founder2Portrait ?? defaultFoundersList[1].portrait,
       },
     ],
   };

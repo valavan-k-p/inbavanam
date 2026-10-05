@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { accommodationTemplate } from "@/data/collections";
-import { getAccommodations } from "@/lib/db/content";
+import { getAccommodations, getSiteContentSection } from "@/lib/db/content";
 import { architecture, stayIntro } from "@/data/story";
 import { enquireLink } from "@/data/site";
 import { ImageHero } from "@/components/sections/image-hero";
@@ -24,16 +24,28 @@ export const revalidate = 300;
 export default async function StayPage() {
   const published = (await getAccommodations()).filter((a) => a.published);
 
+  const stayData = await getSiteContentSection("stay", {
+    heading: stayIntro.heading,
+    body: stayIntro.body,
+    roomImagePath: stayIntro.media.src ?? "",
+    buttonLabel: "Book / Enquire",
+  });
+
+  const heroMedia = {
+    ...stayIntro.media,
+    src: stayData.roomImagePath || stayIntro.media.src,
+  };
+
   return (
     <>
       <ImageHero
         eyebrow="Stay"
-        title={stayIntro.heading}
-        lede={stayIntro.body}
-        media={stayIntro.media}
+        title={stayData.heading || stayIntro.heading}
+        lede={stayData.body || stayIntro.body}
+        media={heroMedia}
       >
         <ButtonLink href={enquireLink.href} variant="khaki" arrow>
-          {enquireLink.label}
+          {stayData.buttonLabel || enquireLink.label}
         </ButtonLink>
       </ImageHero>
 

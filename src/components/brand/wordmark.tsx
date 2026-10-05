@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 /** Set-in-type name that accompanies the supplied logo mark. */
 export function Wordmark({
   tagline = false,
+  taglineText,
   className,
 }: {
   tagline?: boolean;
+  taglineText?: string;
   className?: string;
 }) {
   return (
@@ -14,7 +16,7 @@ export function Wordmark({
       <span className="font-display text-[1.35rem] tracking-[0.14em] uppercase">{site.name}</span>
       {tagline ? (
         <span className="mt-2 label text-[0.66rem] tracking-[0.3em] text-muted-foreground sm:text-[0.6rem]">
-          {site.tagline}
+          {taglineText ?? site.tagline}
         </span>
       ) : null}
     </span>

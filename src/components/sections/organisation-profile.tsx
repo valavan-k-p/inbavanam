@@ -1,5 +1,5 @@
+import Image from "next/image";
 import {
-  profileOverview,
   communitiesServed,
   programmePillars,
   resourceCentreProfile,
@@ -12,6 +12,7 @@ import { LineArt } from "@/components/illustrations/line-art";
 import { ButtonLink } from "@/components/ui/button-link";
 import { MediaFrame } from "@/components/ui/media-frame";
 import { KolamDivider } from "@/components/illustrations/kolam";
+import { getOrganisationProfileContent } from "@/lib/db/content";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -21,7 +22,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * rest of the site is: rules rather than cards, sentence-case headings, the
  * line-art set rather than UI icons, and the shared surface classes.
  */
-export function OrganisationProfileSection() {
+export async function OrganisationProfileSection() {
+  const profile = await getOrganisationProfileContent();
+
   return (
     <div id="organisation-profile" className="scroll-mt-20">
       <section aria-labelledby="profile-overview-title" className="section-y">
@@ -29,9 +32,9 @@ export function OrganisationProfileSection() {
           <div className="flex flex-col gap-8 lg:col-span-5">
             <SectionHeading
               id="profile-overview-title"
-              eyebrow={profileOverview.eyebrow}
-              title={profileOverview.heading}
-              lede={profileOverview.lede}
+              eyebrow={profile.eyebrow}
+              title={profile.heading}
+              lede={profile.lede}
             />
             <Reveal delay={0.2} className="flex flex-wrap gap-6">
               <ButtonLink href="/community" variant="primary" arrow>
@@ -48,7 +51,7 @@ export function OrganisationProfileSection() {
               Where it started
             </p>
             <ul className="grid gap-10 sm:grid-cols-2">
-              {profileOverview.foundingPriorities.map((item, i) => (
+              {profile.foundingPriorities.map((item, i) => (
                 <Reveal
                   as="li"
                   key={item.title}
@@ -222,6 +225,46 @@ export function OrganisationProfileSection() {
               </Reveal>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Founders Section */}
+      <section id="founders" aria-labelledby="founders-title" className="surface-card scroll-mt-20 section-y">
+        <div className="container-page">
+          <SectionHeading
+            id="founders-title"
+            eyebrow="Founders"
+            title="The people behind Inbavanam"
+            lede="Gladston Xavier and Florina Xavier are social workers. They created Inbavanam, continue to run it, and describe the organisation as self-funded."
+          />
+          <div className="mt-14 grid gap-10 md:grid-cols-2">
+            {profile.founders.map((founder, i) => (
+              <Reveal
+                key={founder.name}
+                delay={i * 0.15}
+                className="flex flex-col gap-6 rounded-[var(--radius)] border border-rule bg-card p-6 md:p-8"
+              >
+                {founder.portrait ? (
+                  <div className="relative aspect-square w-full max-w-[280px] overflow-hidden rounded-[var(--radius)] border border-rule bg-cream/30">
+                    <Image
+                      src={founder.portrait}
+                      alt={founder.name}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 85vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : null}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-display text-2xl font-semibold text-foreground">{founder.name}</h3>
+                  <p className="label text-olive">{founder.role}</p>
+                  {founder.bio ? (
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{founder.bio}</p>
+                  ) : null}
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

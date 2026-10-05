@@ -2,8 +2,9 @@
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, Clock, ImageIcon, MapPin } from "lucide-react";
+import { CalendarDays, Clock, MapPin } from "lucide-react";
 import type { EventFormState } from "@/app/admin/(dashboard)/events/actions";
+import { ImageInput } from "./image-input";
 
 interface EventFormProps {
   initial?: {
@@ -204,25 +205,15 @@ export function EventForm({ initial = {}, action, cancelHref }: EventFormProps) 
         />
       </div>
 
-      {/* Image Reference */}
-      <div className="flex flex-col gap-2">
-        <label htmlFor="image_path" className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-          <ImageIcon className="size-4 text-muted-foreground" />
-          <span>Event Image / Storage Path</span>
-        </label>
-        <input
-          id="image_path"
-          name="image_path"
-          type="text"
-          value={imagePath}
-          onChange={(e) => setImagePath(e.target.value)}
-          placeholder="e.g. events/workshop.jpg or https://..."
-          className={inputClass}
-        />
-        <p className="text-xs text-muted-foreground">
-          Enter a path from the Media library (or select from Media section).
-        </p>
-      </div>
+      {/* Visual Image Picker */}
+      <ImageInput
+        name="image_path"
+        value={imagePath}
+        onChange={setImagePath}
+        label="Event Photograph / Flyer"
+        hint="Photograph or promotional image displayed on the event card and modal."
+        locationInfo="Homepage Events Section & Event Modal"
+      />
 
       {/* Registration Link */}
       <div className="flex flex-col gap-2">

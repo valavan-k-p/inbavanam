@@ -7,9 +7,14 @@ import { MediaFrame } from "@/components/ui/media-frame";
 import { Paragraphs } from "@/components/ui/paragraphs";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { getSiteContentSection } from "@/lib/db/content";
 
 /** Olive band of the four values, with an optional pull quote. */
-export function ValuesBand({ withQuote = true }: { withQuote?: boolean }) {
+export async function ValuesBand({ withQuote = true }: { withQuote?: boolean }) {
+  const aboutData = await getSiteContentSection("about", {
+    pullQuote: pullQuote,
+  });
+
   return (
     <section aria-labelledby="values-title" className="surface-olive grain overflow-hidden">
       <div className="container-page py-16 md:py-20">
@@ -38,7 +43,7 @@ export function ValuesBand({ withQuote = true }: { withQuote?: boolean }) {
             className="mt-16 flex items-center justify-center gap-10 border-t border-rule pt-14"
           >
             <blockquote className="max-w-[24ch] text-center font-display text-h2 italic">
-              &ldquo;{pullQuote}&rdquo;
+              &ldquo;{aboutData.pullQuote || pullQuote}&rdquo;
             </blockquote>
             <LineArt name="leaf" className="hidden size-20 text-cream/70 md:block" />
           </Reveal>
@@ -49,13 +54,24 @@ export function ValuesBand({ withQuote = true }: { withQuote?: boolean }) {
 }
 
 /** Photograph band with the community story and a call to take part. */
-export function CommunityBand() {
+export async function CommunityBand() {
+  const commData = await getSiteContentSection("community", {
+    eyebrow: community.eyebrow,
+    heading: community.heading,
+    body1: community.body[0] ?? "",
+    body2: community.body[1] ?? "",
+    quote: communityBand.quote,
+    imagePath: "/inbavanam cover/side inbavanam.png",
+  });
+
+  const bodyItems = [commData.body1, commData.body2].filter(Boolean);
+
   return (
     <section
       aria-labelledby="community-band-title"
       className="on-dark relative isolate overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: "url('/inbavanam%20cover/side%20inbavanam.png')",
+        backgroundImage: `url('${commData.imagePath || "/inbavanam cover/side inbavanam.png"}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -69,11 +85,11 @@ export function CommunityBand() {
         <div className="flex flex-col gap-7 lg:col-span-6">
           <SectionHeading
             id="community-band-title"
-            eyebrow={community.eyebrow}
-            title={community.heading}
+            eyebrow={commData.eyebrow}
+            title={commData.heading}
           />
           <Reveal delay={0.2}>
-            <Paragraphs items={community.body} className="text-lede" />
+            <Paragraphs items={bodyItems.length ? bodyItems : community.body} className="text-lede" />
           </Reveal>
           <Reveal delay={0.3}>
             <ButtonLink href="/community" variant="light" arrow>
@@ -82,7 +98,7 @@ export function CommunityBand() {
           </Reveal>
         </div>
         <Reveal variant="right" delay={0.2} className="lg:col-span-5 lg:col-start-8">
-          <blockquote className="font-display text-h2 italic">{communityBand.quote}</blockquote>
+          <blockquote className="font-display text-h2 italic">{commData.quote || communityBand.quote}</blockquote>
         </Reveal>
       </div>
     </section>
@@ -90,14 +106,26 @@ export function CommunityBand() {
 }
 
 /** Landscape band with the location and directions. */
-export function FindUsBand() {
+export async function FindUsBand() {
+  const findUsData = await getSiteContentSection("find_us", {
+    heading: "Karamadai, Coimbatore",
+    description: site.locationLong,
+    mapUrl: "https://maps.app.goo.gl/LakRJCWDNT8QczTC9",
+    imagePath: "/inbavanam cover/top view inbavanam.png",
+  });
+
+  const media = {
+    ...findUs.media,
+    src: findUsData.imagePath || findUs.media.src,
+  };
+
   return (
     <section
       aria-labelledby="find-title"
       className="on-dark relative isolate overflow-hidden bg-olive-deep"
     >
       <div className="absolute inset-0 -z-10">
-        <MediaFrame media={findUs.media} fill tone="dark" sizes="100vw" zoom={false} />
+        <MediaFrame media={media} fill tone="dark" sizes="100vw" zoom={false} />
       </div>
       <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-maroon-deep/85 via-maroon-deep/40 to-transparent" />
       <div className="relative container-page flex min-h-[26rem] flex-col justify-center gap-6 py-20 md:min-h-[32rem]">
@@ -105,15 +133,15 @@ export function FindUsBand() {
           Find us
         </p>
         <h2 id="find-title" className="max-w-[16ch] text-h2" data-reveal="up">
-          Karamadai, Coimbatore
+          {findUsData.heading || "Karamadai, Coimbatore"}
         </h2>
         <Reveal delay={0.1}>
           <p className="prose-measure">
-            {site.locationLong}.{contact.address ? ` ${contact.address}` : ""}
+            {findUsData.description || site.locationLong}.{contact.address ? ` ${contact.address}` : ""}
           </p>
         </Reveal>
         <a
-          href="https://maps.app.goo.gl/LakRJCWDNT8QczTC9"
+          href={findUsData.mapUrl || "https://maps.app.goo.gl/LakRJCWDNT8QczTC9"}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Open Inbavanam location on Google Maps"

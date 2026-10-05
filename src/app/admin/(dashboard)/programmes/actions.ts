@@ -98,6 +98,17 @@ export async function saveProgramme(
     published: data.published,
   } as ProgramDetail & { published?: boolean; imagePath?: string };
 
+  // Save snapshot of previous state before modifying
+  if (currentSetting?.value) {
+    await supabase.from("site_settings").upsert(
+      {
+        key: "programs_previous",
+        value: currentSetting.value,
+      },
+      { onConflict: "key" },
+    );
+  }
+
   if (existingIdx >= 0) {
     storedPrograms[existingIdx] = updatedEntry;
   } else {
@@ -122,4 +133,86 @@ export async function saveProgramme(
   revalidatePath("/");
 
   redirect("/admin/programmes");
+}
+
+export async function restorePreviousProgrammes() {
+  const { supabase } = await requireAdmin();
+
+  const { data: prevSetting } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "programs_previous")
+    .single();
+
+  if (!prevSetting?.value) {
+    return {
+      success: false,
+      message: "No previous version available to restore.",
+    };
+  }
+
+  const { error } = await supabase.from("site_settings").upsert(
+    {
+      key: "programs",
+      value: prevSetting.value,
+    },
+    { onConflict: "key" },
+  );
+
+  if (error) {
+    return { success: false, message: `Failed to restore: ${error.message}` };
+  }
+
+  revalidatePath("/admin/programmes");
+  revalidatePath("/our-work");
+  revalidatePath("/");
+
+  return {
+    success: true,
+    message: "Restored previous saved version of all programmes.",
+  };
+}
+
+export async function restoreOriginalProgrammes() {
+  const { supabase } = await requireAdmin();
+
+  // Snapshot before reset
+  const { data: currentSetting } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "programs")
+    .single();
+
+  if (currentSetting?.value) {
+    await supabase.from("site_settings").upsert(
+      {
+        key: "programs_previous",
+        value: currentSetting.value,
+      },
+      { onConflict: "key" },
+    );
+  }
+
+  const originalFactoryList = programIndex.map((p) => ({ ...p, published: true }));
+
+  const { error } = await supabase.from("site_settings").upsert(
+    {
+      key: "programs",
+      value: originalFactoryList as unknown as Record<string, unknown>[],
+    },
+    { onConflict: "key" },
+  );
+
+  if (error) {
+    return { success: false, message: `Failed to restore original: ${error.message}` };
+  }
+
+  revalidatePath("/admin/programmes");
+  revalidatePath("/our-work");
+  revalidatePath("/");
+
+  return {
+    success: true,
+    message: "Restored original factory default programmes.",
+  };
 }

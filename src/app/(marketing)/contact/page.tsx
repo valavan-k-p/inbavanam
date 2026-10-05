@@ -19,11 +19,18 @@ type ContactPageProps = { searchParams: Promise<Record<string, string | string[]
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
 
+import { getSiteContentSection } from "@/lib/db/content";
+
 export default async function ContactPage({ searchParams }: ContactPageProps) {
   const params = await searchParams;
   const type = first(params.type);
   const subject = first(params.space) ?? first(params.experience) ?? first(params.event);
   const context = subject ? `Enquiry started from: ${subject.slice(0, 80)}` : undefined;
+
+  const contactData = await getSiteContentSection("contact", {
+    heading: contactIntro.heading,
+    body: contactIntro.body,
+  });
 
   const details = [
     {
@@ -55,8 +62,8 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               as="h1"
               size="h1"
               eyebrow="Contact"
-              title={contactIntro.heading}
-              lede={contactIntro.body}
+              title={contactData.heading || contactIntro.heading}
+              lede={contactData.body || contactIntro.body}
             />
             <dl className="flex flex-col gap-6">
               {details.map(({ icon: Icon, term, value, href }, i) => (
