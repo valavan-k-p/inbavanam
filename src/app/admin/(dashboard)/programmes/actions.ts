@@ -104,6 +104,7 @@ export async function saveProgramme(
       {
         key: "programs_previous",
         value: currentSetting.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -120,6 +121,7 @@ export async function saveProgramme(
     {
       key: "programs",
       value: storedPrograms as unknown as Record<string, unknown>[],
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -155,6 +157,7 @@ export async function restorePreviousProgrammes() {
     {
       key: "programs",
       value: prevSetting.value,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -188,6 +191,7 @@ export async function restoreOriginalProgrammes() {
       {
         key: "programs_previous",
         value: currentSetting.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -199,6 +203,7 @@ export async function restoreOriginalProgrammes() {
     {
       key: "programs",
       value: originalFactoryList as unknown as Record<string, unknown>[],
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );

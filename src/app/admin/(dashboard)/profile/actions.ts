@@ -35,6 +35,7 @@ export async function saveOrganisationProfile(
       {
         key: "organisation_profile_previous",
         value: current.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -44,6 +45,7 @@ export async function saveOrganisationProfile(
     {
       key: "organisation_profile",
       value: data,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -89,6 +91,7 @@ export async function restorePreviousProfile(): Promise<{
     {
       key: "organisation_profile",
       value: previousData,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -128,6 +131,7 @@ export async function restoreOriginalProfile(): Promise<{
       {
         key: "organisation_profile_previous",
         value: current.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -160,6 +164,7 @@ export async function restoreOriginalProfile(): Promise<{
     {
       key: "organisation_profile",
       value: originalFactoryDefaults,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );

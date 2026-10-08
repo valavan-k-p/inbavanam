@@ -87,6 +87,7 @@ export async function saveSiteContent(
     {
       key: "site_content",
       value: updatedContent,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -144,6 +145,7 @@ export async function restorePreviousContent(
   const { error } = await supabase.from("site_settings").upsert({
     key: "site_content",
     value: restoredContent,
+    updated_at: new Date().toISOString(),
   });
 
   if (error) {
@@ -182,6 +184,7 @@ export async function restoreOriginalContent(
   const { error } = await supabase.from("site_settings").upsert({
     key: "site_content",
     value: restoredContent,
+    updated_at: new Date().toISOString(),
   });
 
   if (error) {

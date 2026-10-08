@@ -41,6 +41,7 @@ export async function saveContactSettings(
       {
         key: "contact_previous",
         value: current.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -91,6 +92,7 @@ export async function restorePreviousSettings(): Promise<{
     {
       key: "contact",
       value: prevData,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
@@ -129,6 +131,7 @@ export async function restoreOriginalSettings(): Promise<{
       {
         key: "contact_previous",
         value: current.value,
+        updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
     );
@@ -146,6 +149,7 @@ export async function restoreOriginalSettings(): Promise<{
     {
       key: "contact",
       value: originalDefaults,
+      updated_at: new Date().toISOString(),
     },
     { onConflict: "key" },
   );
