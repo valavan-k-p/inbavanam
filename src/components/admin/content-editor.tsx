@@ -17,6 +17,8 @@ import {
   saveSiteContent,
   restorePreviousContent,
   restoreOriginalContent,
+  listContentVersions,
+  type ContentVersionSummary,
   type ContentSaveState,
 } from "@/app/admin/(dashboard)/content/actions";
 import { ImageInput } from "./image-input";
@@ -65,6 +67,8 @@ function SectionCard({
   // Modal dialog states for confirmation
   const [showRestoreOriginalModal, setShowRestoreOriginalModal] = useState(false);
   const [showRestorePrevModal, setShowRestorePrevModal] = useState(false);
+  const [versions, setVersions] = useState<ContentVersionSummary[]>([]);
+  const [chosenVersion, setChosenVersion] = useState(0);
 
   // Check if form has unsaved modifications
   const isDirty = JSON.stringify(formValues) !== JSON.stringify(savedValues);
@@ -101,11 +105,7 @@ function SectionCard({
     }
 
     startSaveTransition(async () => {
-      const res: ContentSaveState = await saveSiteContent(
-        config.key,
-        { status: "idle" },
-        formData,
-      );
+      const res: ContentSaveState = await saveSiteContent(config.key, { status: "idle" }, formData);
       if (res.status === "success") {
         setSavedValues(formValues);
         setStatusMessage({ type: "success", text: "Changes saved successfully." });
@@ -138,10 +138,17 @@ function SectionCard({
     });
   };
 
+  // The picker needs the list of saved versions before it can show them.
+  const openRestorePrevious = () => {
+    setChosenVersion(0);
+    setShowRestorePrevModal(true);
+    startRestoreTransition(async () => setVersions(await listContentVersions(config.key)));
+  };
+
   const handleConfirmRestorePrevious = () => {
     setShowRestorePrevModal(false);
     startRestoreTransition(async () => {
-      const res = await restorePreviousContent(config.key);
+      const res = await restorePreviousContent(config.key, chosenVersion);
       if (res.success && res.data) {
         setFormValues(res.data);
         setSavedValues(res.data);
@@ -172,7 +179,7 @@ function SectionCard({
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-semibold text-base text-foreground">{config.title}</h3>
+              <h3 className="text-base font-semibold text-foreground">{config.title}</h3>
               <span className="rounded-full bg-cream px-2.5 py-0.5 text-[0.68rem] font-medium text-maroon">
                 {config.locationBadge}
               </span>
@@ -186,7 +193,7 @@ function SectionCard({
           </div>
         </button>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
           <Link
             href={config.previewUrl}
             target="_blank"
@@ -210,15 +217,15 @@ function SectionCard({
 
       {/* Expanded Editor Form */}
       {isOpen && (
-        <form onSubmit={handleSave} className="border-t border-rule p-6 flex flex-col gap-6">
+        <form onSubmit={handleSave} className="flex flex-col gap-6 border-t border-rule p-6">
           {/* Status Alert Banner */}
           {statusMessage && (
             <div
               role="alert"
               className={`rounded-md border-l-4 p-3.5 text-xs ${
                 statusMessage.type === "success"
-                  ? "border-olive bg-cream text-olive font-medium"
-                  : "border-destructive bg-destructive/10 text-destructive font-medium"
+                  ? "border-olive bg-cream font-medium text-olive"
+                  : "border-destructive bg-destructive/10 font-medium text-destructive"
               }`}
             >
               {statusMessage.text}
@@ -228,7 +235,8 @@ function SectionCard({
           {/* Section Location & Preview Reminder */}
           <div className="flex flex-wrap items-center justify-between rounded-lg border border-rule/60 bg-cream/40 p-3.5 text-xs">
             <span className="text-muted-foreground">
-              <strong className="text-foreground">Where this appears:</strong> {config.locationBadge}
+              <strong className="text-foreground">Where this appears:</strong>{" "}
+              {config.locationBadge}
             </span>
             <Link
               href={config.previewUrl}
@@ -259,7 +267,7 @@ function SectionCard({
                     <div className="flex items-baseline justify-between">
                       <label
                         htmlFor={`${config.key}-${field.name}`}
-                        className="text-xs font-semibold label text-foreground"
+                        className="label text-xs font-semibold text-foreground"
                       >
                         {field.label}
                       </label>
@@ -317,7 +325,7 @@ function SectionCard({
 
               <button
                 type="button"
-                onClick={() => setShowRestorePrevModal(true)}
+                onClick={openRestorePrevious}
                 disabled={restorePending}
                 title="Restore the previous saved version of this content"
                 className="inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-[var(--radius)] border border-rule bg-card px-3 py-1.5 label text-xs text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
@@ -365,11 +373,11 @@ function SectionCard({
           <div className="w-full max-w-md rounded-xl border border-rule bg-card p-6 shadow-2xl">
             <div className="flex items-center gap-3 text-destructive">
               <AlertTriangle className="size-6" />
-              <h3 className="font-semibold text-lg text-foreground">Restore Original Content?</h3>
+              <h3 className="text-lg font-semibold text-foreground">Restore Original Content?</h3>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              This will replace your current content in <strong>{config.title}</strong> with the original
-              factory version that existed before editing.
+              This will replace your current content in <strong>{config.title}</strong> with the
+              original factory version that existed before editing.
             </p>
             <div className="mt-6 flex items-center justify-end gap-3 border-t border-rule pt-4">
               <button
@@ -383,7 +391,7 @@ function SectionCard({
                 type="button"
                 onClick={handleConfirmRestoreOriginal}
                 disabled={restorePending}
-                className="cursor-pointer rounded-[var(--radius)] bg-destructive px-5 py-2 label text-xs font-semibold text-destructive-foreground hover:bg-destructive/90"
+                className="text-destructive-foreground cursor-pointer rounded-[var(--radius)] bg-destructive px-5 py-2 label text-xs font-semibold hover:bg-destructive/90"
               >
                 {restorePending ? "Restoring..." : "Restore Original"}
               </button>
@@ -398,12 +406,40 @@ function SectionCard({
           <div className="w-full max-w-md rounded-xl border border-rule bg-card p-6 shadow-2xl">
             <div className="flex items-center gap-3 text-foreground">
               <History className="size-6 text-maroon" />
-              <h3 className="font-semibold text-lg text-foreground">Restore Previous Version?</h3>
+              <h3 className="text-lg font-semibold text-foreground">Restore Previous Version?</h3>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              This will recover the previously saved state for <strong>{config.title}</strong> before
-              your last update.
+              Choose a saved version of <strong>{config.title}</strong> to bring back. What is on
+              the site now is kept as a version too, so this can be undone.
             </p>
+            {versions.length ? (
+              <label className="mt-4 block text-sm">
+                <span className="label text-muted-foreground">Version</span>
+                <select
+                  value={chosenVersion}
+                  onChange={(e) => setChosenVersion(Number(e.target.value))}
+                  className="mt-2 min-h-11 w-full rounded-[var(--radius)] border border-rule bg-background px-3 text-sm"
+                >
+                  {versions.map((v) => (
+                    <option key={v.index} value={v.index}>
+                      {v.savedAt
+                        ? new Date(v.savedAt).toLocaleString("en-IN", {
+                            day: "numeric",
+                            month: "short",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : `Version ${v.index + 1}`}
+                      {v.preview ? ` — ${v.preview}` : ""}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : (
+              <p className="mt-4 text-sm text-muted-foreground">
+                {restorePending ? "Loading saved versions..." : "No saved versions yet."}
+              </p>
+            )}
             <div className="mt-6 flex items-center justify-end gap-3 border-t border-rule pt-4">
               <button
                 type="button"

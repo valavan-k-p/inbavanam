@@ -34,7 +34,8 @@ export default async function AdminContentPage() {
     {
       key: "hero",
       title: "1. Homepage Hero & Top Banner",
-      description: "Manage the hero image artwork, proposition text, brand quotes, and location line.",
+      description:
+        "Manage the hero image artwork, proposition text, brand quotes, and location line.",
       locationBadge: "Homepage — top section",
       previewUrl: "/",
       fields: [
@@ -230,7 +231,8 @@ export default async function AdminContentPage() {
     {
       key: "architecture",
       title: "5. Architecture Section",
-      description: "Stone construction, climate-responsive design narrative, photography, and key facts.",
+      description:
+        "Stone construction, climate-responsive design narrative, photography, and key facts.",
       locationBadge: "Homepage — Architecture section",
       previewUrl: "/#architecture",
       fields: [
