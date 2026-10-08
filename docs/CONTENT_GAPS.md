@@ -18,13 +18,13 @@ the page works without it but reads as unfinished. **Later** can follow launch.
 
 ## Contact and location
 
-| Item                                  | Status       | Where                                                                   |
-| ------------------------------------- | ------------ | ----------------------------------------------------------------------- |
-| Contact email                         | **Blocking** | Footer, Contact page (`NEXT_PUBLIC_CONTACT_EMAIL`)                      |
-| Phone number                          | Needed       | Footer, Contact page (`NEXT_PUBLIC_CONTACT_PHONE`)                      |
-| Street address                        | Needed       | Contact page, Location section, structured data                         |
-| Map link or directions                | Needed       | Location section (`NEXT_PUBLIC_MAP_URL`)                                |
-| Where enquiry notifications should go | **Blocking** | Enquiries are stored in Supabase; email notification needs a recipient. |
+| Item                                  | Status       | Where                                                                       |
+| ------------------------------------- | ------------ | --------------------------------------------------------------------------- |
+| Contact email                         | Supplied     | `inbavanamfarm@gmail.com`, set on Vercel and locally. Footer, Contact page. |
+| Phone number                          | Needed       | Footer, Contact page (`NEXT_PUBLIC_CONTACT_PHONE`)                          |
+| Street address                        | Needed       | Contact page, Location section, structured data                             |
+| Map link or directions                | Needed       | Location section (`NEXT_PUBLIC_MAP_URL`)                                    |
+| Where enquiry notifications should go | **Blocking** | Enquiries are stored in Supabase; email notification needs a recipient.     |
 
 ## Stay
 
