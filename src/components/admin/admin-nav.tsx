@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import {
   CalendarDays,
@@ -98,12 +98,10 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
                     )}
                   >
                     <Icon
-                      className={cn(
-                        "size-4 shrink-0",
-                        active ? "text-maroon" : "text-ivory/70",
-                      )}
+                      className={cn("size-4 shrink-0", active ? "text-maroon" : "text-ivory/70")}
                     />
                     <span className="flex-1">{item.label}</span>
+                    <NavPending />
                     {item.badge && item.badge > 0 ? (
                       <span
                         className={cn(
@@ -141,7 +139,7 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
         <form action={signOutAction}>
           <button
             type="submit"
-            className="flex min-h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius)] border border-ivory/20 px-3 py-2 text-xs label text-ivory transition-colors hover:bg-ivory/10"
+            className="flex min-h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius)] border border-ivory/20 px-3 py-2 label text-xs text-ivory transition-colors hover:bg-ivory/10"
           >
             <LogOut className="size-3.5" />
             <span>Sign out</span>
@@ -159,9 +157,7 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
           <span className="font-display text-lg font-semibold tracking-wider text-ivory">
             INBAVANAM
           </span>
-          <span className="label text-[0.6rem] tracking-[0.2em] text-cream/70">
-            CMS DASHBOARD
-          </span>
+          <span className="label text-[0.6rem] tracking-[0.2em] text-cream/70">CMS DASHBOARD</span>
         </Link>
         <button
           type="button"
@@ -175,11 +171,7 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
 
       {/* Mobile Backdrop & Drawer */}
       {mobileOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex md:hidden"
-        >
+        <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex md:hidden">
           <div
             className="fixed inset-0 bg-maroon-deep/80 backdrop-blur-xs"
             onClick={() => setMobileOpen(false)}
@@ -195,5 +187,21 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
         {navContent}
       </aside>
     </>
+  );
+}
+
+/**
+ * A spinner on the link being opened. The panel beside it shows a skeleton
+ * (loading.tsx), but the click itself needs an answer too: these pages are
+ * built per request, so there is nothing to show instantly.
+ */
+function NavPending() {
+  const { pending } = useLinkStatus();
+  if (!pending) return null;
+  return (
+    <span
+      aria-hidden="true"
+      className="size-3.5 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent opacity-70 motion-reduce:animate-none"
+    />
   );
 }
