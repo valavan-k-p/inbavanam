@@ -7,7 +7,7 @@ import {
   restorePreviousProfile,
   restoreOriginalProfile,
   type ProfileSaveState,
-} from "@/app/admin/(dashboard)/profile/actions";
+} from "@/app/inbavanamadmin/(dashboard)/profile/actions";
 import { ImageInput } from "./image-input";
 
 interface ProfileEditorProps {

@@ -141,8 +141,8 @@ export async function saveEvent(
   }
 
   revalidatePublic();
-  revalidatePath("/admin/events");
-  redirect("/admin/events");
+  revalidatePath("/inbavanamadmin/events");
+  redirect("/inbavanamadmin/events");
 }
 
 export async function deleteEvent(id: string, formData: FormData) {
@@ -150,8 +150,8 @@ export async function deleteEvent(id: string, formData: FormData) {
   if (!uuid.safeParse(id).success || formData.get("confirm") !== "on") return;
   await supabase.from("events").delete().eq("id", id);
   revalidatePublic();
-  revalidatePath("/admin/events");
-  redirect("/admin/events");
+  revalidatePath("/inbavanamadmin/events");
+  redirect("/inbavanamadmin/events");
 }
 
 export async function toggleEventPublish(id: string, currentPublished: boolean) {
@@ -159,5 +159,5 @@ export async function toggleEventPublish(id: string, currentPublished: boolean) 
   if (!uuid.safeParse(id).success) return;
   await supabase.from("events").update({ published: !currentPublished }).eq("id", id);
   revalidatePublic();
-  revalidatePath("/admin/events");
+  revalidatePath("/inbavanamadmin/events");
 }

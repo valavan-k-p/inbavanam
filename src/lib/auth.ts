@@ -32,23 +32,27 @@ export const getStaff = cache(async () => {
 /** Use at the top of every admin page and server action. */
 export async function requireStaff() {
   const staff = await getStaff();
-  if (!staff) redirect("/admin/login");
+  if (!staff) redirect("/inbavanamadmin/login");
   return staff;
 }
 
 /** Only users with the admin role can access management pages. */
 export async function requireAdmin() {
   const staff = await getStaff();
-  if (!staff) redirect("/admin/login");
-  if (staff.role !== "admin") redirect("/admin/login?error=forbidden");
+  if (!staff) redirect("/inbavanamadmin/login");
+  if (staff.role !== "admin") redirect("/inbavanamadmin/login?error=forbidden");
   return staff;
 }
 
 /** Only allow redirects back into the admin area. */
 export function safeAdminPath(value: unknown): string {
-  return typeof value === "string" &&
-    /^\/admin(\/[\w-]*)*$/.test(value) &&
-    !value.startsWith("/admin/login")
-    ? value
-    : "/admin";
+  if (typeof value !== "string") return "/inbavanamadmin";
+  const normalized = value.startsWith("/admin")
+    ? value.replace(/^\/admin/, "/inbavanamadmin")
+    : value;
+
+  return /^\/inbavanamadmin(\/[\w-]*)*$/.test(normalized) &&
+    !normalized.startsWith("/inbavanamadmin/login")
+    ? normalized
+    : "/inbavanamadmin";
 }

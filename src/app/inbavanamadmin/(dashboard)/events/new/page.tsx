@@ -19,7 +19,7 @@ export default async function NewEventPage() {
 
       <EventForm
         action={saveEvent.bind(null, null)}
-        cancelHref="/admin/events"
+        cancelHref="/inbavanamadmin/events"
       />
     </div>
   );

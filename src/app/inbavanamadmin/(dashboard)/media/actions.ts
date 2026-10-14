@@ -79,7 +79,7 @@ export async function uploadMedia(
     console.warn("Inserted storage but gallery_items record failed:", dbError.message);
   }
 
-  revalidatePath("/admin/media");
+  revalidatePath("/inbavanamadmin/media");
   revalidatePath("/gallery");
   revalidatePath("/");
 
@@ -108,7 +108,7 @@ export async function updateMediaMetadata(
     })
     .eq("id", id);
 
-  revalidatePath("/admin/media");
+  revalidatePath("/inbavanamadmin/media");
   revalidatePath("/gallery");
 }
 
@@ -123,7 +123,7 @@ export async function deleteMedia(id: string, storagePath: string) {
     await supabase.storage.from("media").remove([storagePath]);
   }
 
-  revalidatePath("/admin/media");
+  revalidatePath("/inbavanamadmin/media");
   revalidatePath("/gallery");
 }
 

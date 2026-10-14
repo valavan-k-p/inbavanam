@@ -59,7 +59,7 @@ export async function saveContactSettings(
     return { status: "error", message: `Failed to update settings: ${error.message}` };
   }
 
-  revalidatePath("/admin/settings");
+  revalidatePath("/inbavanamadmin/settings");
   revalidatePath("/contact");
   revalidatePath("/");
 
@@ -101,7 +101,7 @@ export async function restorePreviousSettings(): Promise<{
     return { success: false, message: `Failed to restore: ${error.message}` };
   }
 
-  revalidatePath("/admin/settings");
+  revalidatePath("/inbavanamadmin/settings");
   revalidatePath("/contact");
   revalidatePath("/");
 
@@ -158,7 +158,7 @@ export async function restoreOriginalSettings(): Promise<{
     return { success: false, message: `Failed to restore: ${error.message}` };
   }
 
-  revalidatePath("/admin/settings");
+  revalidatePath("/inbavanamadmin/settings");
   revalidatePath("/contact");
   revalidatePath("/");
 

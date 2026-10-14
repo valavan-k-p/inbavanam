@@ -7,7 +7,7 @@ import {
   getAvailableMediaItems,
   uploadMediaDirect,
   type MediaPickerItem,
-} from "@/app/admin/(dashboard)/media/actions";
+} from "@/app/inbavanamadmin/(dashboard)/media/actions";
 
 export interface ImageInputProps {
   name: string;

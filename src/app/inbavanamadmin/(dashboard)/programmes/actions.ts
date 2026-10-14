@@ -130,11 +130,11 @@ export async function saveProgramme(
     return { status: "error", message: `Failed to save: ${error.message}` };
   }
 
-  revalidatePath("/admin/programmes");
+  revalidatePath("/inbavanamadmin/programmes");
   revalidatePath("/our-work");
   revalidatePath("/");
 
-  redirect("/admin/programmes");
+  redirect("/inbavanamadmin/programmes");
 }
 
 export async function restorePreviousProgrammes() {
@@ -166,7 +166,7 @@ export async function restorePreviousProgrammes() {
     return { success: false, message: `Failed to restore: ${error.message}` };
   }
 
-  revalidatePath("/admin/programmes");
+  revalidatePath("/inbavanamadmin/programmes");
   revalidatePath("/our-work");
   revalidatePath("/");
 
@@ -212,7 +212,7 @@ export async function restoreOriginalProgrammes() {
     return { success: false, message: `Failed to restore original: ${error.message}` };
   }
 
-  revalidatePath("/admin/programmes");
+  revalidatePath("/inbavanamadmin/programmes");
   revalidatePath("/our-work");
   revalidatePath("/");
 

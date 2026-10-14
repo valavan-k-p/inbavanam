@@ -15,7 +15,7 @@ import {
   deleteMedia,
   uploadMedia,
   type MediaUploadState,
-} from "@/app/admin/(dashboard)/media/actions";
+} from "@/app/inbavanamadmin/(dashboard)/media/actions";
 
 export interface MediaItemDisplay {
   id: string;

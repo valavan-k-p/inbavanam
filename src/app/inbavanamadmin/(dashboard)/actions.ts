@@ -51,7 +51,7 @@ export async function saveRecord(
   }
 
   revalidatePublic();
-  redirect(`/admin/${resource.slug}`);
+  redirect(`/inbavanamadmin/${resource.slug}`);
 }
 
 export async function setPublished(resourceSlug: string, id: string, formData: FormData) {
@@ -63,7 +63,7 @@ export async function setPublished(resourceSlug: string, id: string, formData: F
     .update({ published: formData.get("published") === "true" })
     .eq("id", id);
   revalidatePublic();
-  revalidatePath(`/admin/${resource.slug}`);
+  revalidatePath(`/inbavanamadmin/${resource.slug}`);
 }
 
 export async function deleteRecord(resourceSlug: string, id: string, formData: FormData) {
@@ -72,7 +72,7 @@ export async function deleteRecord(resourceSlug: string, id: string, formData: F
   if (!resource || !uuid.safeParse(id).success || formData.get("confirm") !== "on") return;
   await supabase.from(resource.table).delete().eq("id", id);
   revalidatePublic();
-  redirect(`/admin/${resource.slug}`);
+  redirect(`/inbavanamadmin/${resource.slug}`);
 }
 
 const enquiryStatuses = ["new", "in_progress", "closed"] as const;
@@ -82,12 +82,12 @@ export async function setEnquiryStatus(id: string, formData: FormData) {
   const status = z.enum(enquiryStatuses).safeParse(formData.get("status"));
   if (!status.success || !uuid.safeParse(id).success) return;
   await supabase.from("enquiries").update({ status: status.data }).eq("id", id);
-  revalidatePath("/admin/enquiries");
-  revalidatePath("/admin");
+  revalidatePath("/inbavanamadmin/enquiries");
+  revalidatePath("/inbavanamadmin");
 }
 
 export async function signOut() {
   const { supabase } = await requireStaff();
   await supabase.auth.signOut();
-  redirect("/admin/login");
+  redirect("/inbavanamadmin/login");
 }

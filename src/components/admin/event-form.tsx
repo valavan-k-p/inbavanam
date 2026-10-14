@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import Link from "next/link";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
-import type { EventFormState } from "@/app/admin/(dashboard)/events/actions";
+import type { EventFormState } from "@/app/inbavanamadmin/(dashboard)/events/actions";
 import { ImageInput } from "./image-input";
 
 interface EventFormProps {

@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import type { AdminField } from "@/lib/admin/resources";
-import type { RecordFormState } from "@/app/admin/(dashboard)/actions";
+import type { RecordFormState } from "@/app/inbavanamadmin/(dashboard)/actions";
 
 type RecordFormProps = {
   fields: AdminField[];

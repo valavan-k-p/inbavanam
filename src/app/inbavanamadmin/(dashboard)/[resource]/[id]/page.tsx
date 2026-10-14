@@ -23,7 +23,7 @@ export default async function EditRecordPage({ params }: Props) {
         fields={resource.fields}
         initial={record as Record<string, unknown>}
         action={saveRecord.bind(null, resource.slug, id)}
-        cancelHref={`/admin/${resource.slug}`}
+        cancelHref={`/inbavanamadmin/${resource.slug}`}
       />
 
       <section

@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
-import { type ProgrammeFormState } from "@/app/admin/(dashboard)/programmes/actions";
+import { type ProgrammeFormState } from "@/app/inbavanamadmin/(dashboard)/programmes/actions";
 import { ImageInput } from "./image-input";
 
 interface ProgrammeFormProps {

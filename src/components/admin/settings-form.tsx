@@ -8,7 +8,7 @@ import {
   restoreOriginalSettings,
   type SettingsSaveState,
   type ContactSettingsRecord,
-} from "@/app/admin/(dashboard)/settings/actions";
+} from "@/app/inbavanamadmin/(dashboard)/settings/actions";
 
 interface SettingsFormProps {
   initial: {

@@ -143,7 +143,7 @@ export async function saveSiteContent(
   }
 
   PUBLIC_PATHS.forEach((p) => revalidatePath(p));
-  revalidatePath("/admin/content");
+  revalidatePath("/inbavanamadmin/content");
 
   return {
     status: "success",
@@ -194,7 +194,7 @@ export async function restorePreviousContent(
   }
 
   PUBLIC_PATHS.forEach((p) => revalidatePath(p));
-  revalidatePath("/admin/content");
+  revalidatePath("/inbavanamadmin/content");
 
   return {
     success: true,
@@ -222,7 +222,7 @@ export async function restoreOriginalContent(
   }
 
   PUBLIC_PATHS.forEach((p) => revalidatePath(p));
-  revalidatePath("/admin/content");
+  revalidatePath("/inbavanamadmin/content");
 
   return {
     success: true,

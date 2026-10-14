@@ -56,7 +56,7 @@ export async function saveOrganisationProfile(
 
   revalidatePath("/about");
   revalidatePath("/about/profile");
-  revalidatePath("/admin/profile");
+  revalidatePath("/inbavanamadmin/profile");
   revalidatePath("/");
 
   return {
@@ -102,7 +102,7 @@ export async function restorePreviousProfile(): Promise<{
 
   revalidatePath("/about");
   revalidatePath("/about/profile");
-  revalidatePath("/admin/profile");
+  revalidatePath("/inbavanamadmin/profile");
   revalidatePath("/");
 
   return {
@@ -175,7 +175,7 @@ export async function restoreOriginalProfile(): Promise<{
 
   revalidatePath("/about");
   revalidatePath("/about/profile");
-  revalidatePath("/admin/profile");
+  revalidatePath("/inbavanamadmin/profile");
   revalidatePath("/");
 
   return {

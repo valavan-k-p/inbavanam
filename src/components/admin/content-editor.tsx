@@ -20,7 +20,7 @@ import {
   listContentVersions,
   type ContentVersionSummary,
   type ContentSaveState,
-} from "@/app/admin/(dashboard)/content/actions";
+} from "@/app/inbavanamadmin/(dashboard)/content/actions";
 import { ImageInput } from "./image-input";
 
 export interface SectionFieldConfig {

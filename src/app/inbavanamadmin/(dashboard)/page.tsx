@@ -80,14 +80,14 @@ export default async function AdminDashboardPage() {
         </div>
         <div className="flex items-center gap-3">
           <Link
-            href="/admin/events/new"
+            href="/inbavanamadmin/events/new"
             className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius)] bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
           >
             <Plus className="size-4" />
             <span>Add Event</span>
           </Link>
           <Link
-            href="/admin/media"
+            href="/inbavanamadmin/media"
             className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius)] border border-rule bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-foreground"
           >
             <ImageIcon className="size-4" />
@@ -100,7 +100,7 @@ export default async function AdminDashboardPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Events */}
         <Link
-          href="/admin/events"
+          href="/inbavanamadmin/events"
           className="group flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-card p-6 shadow-xs transition-colors hover:border-foreground"
         >
           <div className="flex items-center justify-between text-muted-foreground">
@@ -120,7 +120,7 @@ export default async function AdminDashboardPage() {
 
         {/* Programmes */}
         <Link
-          href="/admin/programmes"
+          href="/inbavanamadmin/programmes"
           className="group flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-card p-6 shadow-xs transition-colors hover:border-foreground"
         >
           <div className="flex items-center justify-between text-muted-foreground">
@@ -138,7 +138,7 @@ export default async function AdminDashboardPage() {
 
         {/* Media */}
         <Link
-          href="/admin/media"
+          href="/inbavanamadmin/media"
           className="group flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-card p-6 shadow-xs transition-colors hover:border-foreground"
         >
           <div className="flex items-center justify-between text-muted-foreground">
@@ -156,7 +156,7 @@ export default async function AdminDashboardPage() {
 
         {/* Enquiries */}
         <Link
-          href="/admin/enquiries"
+          href="/inbavanamadmin/enquiries"
           className="group flex flex-col justify-between rounded-[var(--radius)] border border-rule bg-cream p-6 shadow-xs transition-colors hover:border-foreground"
         >
           <div className="flex items-center justify-between text-muted-foreground">
@@ -182,7 +182,7 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-h3">Upcoming Events</h2>
             <Link
-              href="/admin/events"
+              href="/inbavanamadmin/events"
               className="text-xs font-semibold label text-terracotta underline-offset-4 hover:underline"
             >
               View all
@@ -208,7 +208,7 @@ export default async function AdminDashboardPage() {
                       )}
                     </div>
                     <Link
-                      href={`/admin/events/${event.id}`}
+                      href={`/inbavanamadmin/events/${event.id}`}
                       className="block truncate font-semibold text-foreground hover:underline"
                     >
                       {event.title}
@@ -218,7 +218,7 @@ export default async function AdminDashboardPage() {
                     </p>
                   </div>
                   <Link
-                    href={`/admin/events/${event.id}`}
+                    href={`/inbavanamadmin/events/${event.id}`}
                     className="shrink-0 text-xs font-semibold label underline-offset-4 hover:underline"
                   >
                     Edit
@@ -234,7 +234,7 @@ export default async function AdminDashboardPage() {
                 Add programs, workshops, or group bookings to make them visible on the calendar.
               </p>
               <Link
-                href="/admin/events/new"
+                href="/inbavanamadmin/events/new"
                 className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold label text-terracotta hover:underline"
               >
                 <Plus className="size-3.5" />
@@ -247,7 +247,7 @@ export default async function AdminDashboardPage() {
           <div className="mt-4 flex items-center justify-between">
             <h2 className="text-h3">Recent Enquiries</h2>
             <Link
-              href="/admin/enquiries"
+              href="/inbavanamadmin/enquiries"
               className="text-xs font-semibold label text-terracotta underline-offset-4 hover:underline"
             >
               View inbox
@@ -285,7 +285,7 @@ export default async function AdminDashboardPage() {
           <h2 className="text-h3">Content Management</h2>
           <div className="flex flex-col gap-3">
             <Link
-              href="/admin/content"
+              href="/inbavanamadmin/content"
               className="flex items-start gap-4 rounded-[var(--radius)] border border-rule bg-card p-4 transition-colors hover:border-foreground"
             >
               <div className="grid size-10 shrink-0 place-items-center rounded bg-cream text-maroon">
@@ -300,7 +300,7 @@ export default async function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/admin/programmes"
+              href="/inbavanamadmin/programmes"
               className="flex items-start gap-4 rounded-[var(--radius)] border border-rule bg-card p-4 transition-colors hover:border-foreground"
             >
               <div className="grid size-10 shrink-0 place-items-center rounded bg-cream text-walnut">
@@ -315,7 +315,7 @@ export default async function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/admin/profile"
+              href="/inbavanamadmin/profile"
               className="flex items-start gap-4 rounded-[var(--radius)] border border-rule bg-card p-4 transition-colors hover:border-foreground"
             >
               <div className="grid size-10 shrink-0 place-items-center rounded bg-cream text-olive">
@@ -330,7 +330,7 @@ export default async function AdminDashboardPage() {
             </Link>
 
             <Link
-              href="/admin/media"
+              href="/inbavanamadmin/media"
               className="flex items-start gap-4 rounded-[var(--radius)] border border-rule bg-card p-4 transition-colors hover:border-foreground"
             >
               <div className="grid size-10 shrink-0 place-items-center rounded bg-cream text-terracotta">

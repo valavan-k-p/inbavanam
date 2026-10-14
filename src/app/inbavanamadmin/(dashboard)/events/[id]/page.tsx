@@ -35,7 +35,7 @@ export default async function EditEventPage({ params }: Props) {
       <EventForm
         initial={event}
         action={saveEvent.bind(null, id)}
-        cancelHref="/admin/events"
+        cancelHref="/inbavanamadmin/events"
       />
 
       {/* Delete Confirmation Box */}

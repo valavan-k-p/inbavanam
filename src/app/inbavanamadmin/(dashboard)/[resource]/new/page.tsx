@@ -18,7 +18,7 @@ export default async function NewRecordPage({ params }: Props) {
       <RecordForm
         fields={resource.fields}
         action={saveRecord.bind(null, resource.slug, null)}
-        cancelHref={`/admin/${resource.slug}`}
+        cancelHref={`/inbavanamadmin/${resource.slug}`}
       />
     </div>
   );

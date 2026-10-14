@@ -5,7 +5,7 @@ import { ArrowUpRight, History, RotateCcw } from "lucide-react";
 import {
   restorePreviousProgrammes,
   restoreOriginalProgrammes,
-} from "@/app/admin/(dashboard)/programmes/actions";
+} from "@/app/inbavanamadmin/(dashboard)/programmes/actions";
 
 export function ProgrammesToolbar() {
   const [isPending, startTransition] = useTransition();

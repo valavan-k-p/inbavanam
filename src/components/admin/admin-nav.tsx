@@ -39,18 +39,18 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/events", label: "Events / Calendar", icon: CalendarDays },
-    { href: "/admin/content", label: "Website Content", icon: FileText },
-    { href: "/admin/media", label: "Images / Media", icon: ImageIcon },
-    { href: "/admin/programmes", label: "Programmes", icon: Sparkles },
-    { href: "/admin/profile", label: "About / Organisation", icon: Users },
-    { href: "/admin/enquiries", label: "Enquiries", icon: Inbox, badge: unreadEnquiries },
-    { href: "/admin/settings", label: "Settings", icon: SettingsIcon },
+    { href: "/inbavanamadmin", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/inbavanamadmin/events", label: "Events / Calendar", icon: CalendarDays },
+    { href: "/inbavanamadmin/content", label: "Website Content", icon: FileText },
+    { href: "/inbavanamadmin/media", label: "Images / Media", icon: ImageIcon },
+    { href: "/inbavanamadmin/programmes", label: "Programmes", icon: Sparkles },
+    { href: "/inbavanamadmin/profile", label: "About / Organisation", icon: Users },
+    { href: "/inbavanamadmin/enquiries", label: "Enquiries", icon: Inbox, badge: unreadEnquiries },
+    { href: "/inbavanamadmin/settings", label: "Settings", icon: SettingsIcon },
   ];
 
   const isActive = (href: string) => {
-    if (href === "/admin") return pathname === "/admin";
+    if (href === "/inbavanamadmin") return pathname === "/inbavanamadmin";
     return pathname.startsWith(href);
   };
 
@@ -59,7 +59,7 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <Link
-            href="/admin"
+            href="/inbavanamadmin"
             onClick={() => setMobileOpen(false)}
             className="flex flex-col gap-0.5"
           >
@@ -153,7 +153,7 @@ export function AdminNav({ staff, unreadEnquiries = 0, signOutAction }: AdminNav
     <>
       {/* Mobile Top Bar */}
       <header className="surface-maroon sticky top-0 z-30 flex items-center justify-between border-b border-ivory/10 px-5 py-3 md:hidden">
-        <Link href="/admin" className="flex flex-col">
+        <Link href="/inbavanamadmin" className="flex flex-col">
           <span className="font-display text-lg font-semibold tracking-wider text-ivory">
             INBAVANAM
           </span>

@@ -26,7 +26,7 @@ export default async function ResourceListPage({ params }: Props) {
           <p className="mt-2 text-muted-foreground">{resource.description}</p>
         </div>
         <Link
-          href={`/admin/${resource.slug}/new`}
+          href={`/inbavanamadmin/${resource.slug}/new`}
           className="inline-flex min-h-11 items-center bg-primary px-5 label text-primary-foreground"
         >
           Add {resource.singular}
@@ -67,7 +67,7 @@ export default async function ResourceListPage({ params }: Props) {
                       <td key={c} className="py-3 pr-4">
                         {i === 0 ? (
                           <Link
-                            href={`/admin/${resource.slug}/${id}`}
+                            href={`/inbavanamadmin/${resource.slug}/${id}`}
                             className="underline underline-offset-4"
                           >
                             {String(row[c] ?? "Untitled")}

@@ -14,7 +14,7 @@ import {
   Plus,
 } from "lucide-react";
 import { eventDates, formatDateRange, monthGrid, shiftMonth } from "@/lib/dates";
-import { toggleEventPublish } from "@/app/admin/(dashboard)/events/actions";
+import { toggleEventPublish } from "@/app/inbavanamadmin/(dashboard)/events/actions";
 import { type EventCategory } from "@/types/content";
 
 export interface AdminEventItem {
@@ -136,7 +136,7 @@ export function EventListView({ events }: EventListViewProps) {
           </div>
 
           <Link
-            href="/admin/events/new"
+            href="/inbavanamadmin/events/new"
             className="inline-flex min-h-9 items-center gap-1.5 rounded-[var(--radius)] bg-primary px-3 py-1.5 text-xs label text-primary-foreground hover:bg-primary/90"
           >
             <Plus className="size-3.5" />
@@ -178,7 +178,7 @@ export function EventListView({ events }: EventListViewProps) {
                     <tr key={event.id} className="transition-colors hover:bg-background/40">
                       <td className="py-3.5 px-4 font-semibold">
                         <Link
-                          href={`/admin/events/${event.id}`}
+                          href={`/inbavanamadmin/events/${event.id}`}
                           className="hover:underline hover:text-terracotta"
                         >
                           {event.title}
@@ -222,7 +222,7 @@ export function EventListView({ events }: EventListViewProps) {
                       <td className="py-3.5 px-4 text-right">
                         <div className="flex items-center justify-end gap-3">
                           <Link
-                            href={`/admin/events/${event.id}`}
+                            href={`/inbavanamadmin/events/${event.id}`}
                             className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:underline"
                           >
                             <Edit className="size-3.5" />
@@ -240,7 +240,7 @@ export function EventListView({ events }: EventListViewProps) {
               <CalendarDays className="size-8 text-muted-foreground" />
               <p className="font-display text-lg">No events found in this category.</p>
               <Link
-                href="/admin/events/new"
+                href="/inbavanamadmin/events/new"
                 className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold label text-terracotta hover:underline"
               >
                 <Plus className="size-3.5" />
@@ -319,7 +319,7 @@ export function EventListView({ events }: EventListViewProps) {
                     {dayEvents.slice(0, 3).map((e) => (
                       <Link
                         key={e.id}
-                        href={`/admin/events/${e.id}`}
+                        href={`/inbavanamadmin/events/${e.id}`}
                         className={`truncate rounded px-1.5 py-0.5 text-[0.68rem] font-medium transition-opacity hover:opacity-80 ${
                           e.published
                             ? "bg-primary text-primary-foreground"

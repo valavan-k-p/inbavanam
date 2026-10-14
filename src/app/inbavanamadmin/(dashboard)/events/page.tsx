@@ -56,7 +56,7 @@ export default async function AdminEventsPage() {
           </p>
         </div>
         <Link
-          href="/admin/events/new"
+          href="/inbavanamadmin/events/new"
           className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius)] bg-primary px-5 label text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
         >
           <Plus className="size-4" />

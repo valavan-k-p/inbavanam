@@ -41,7 +41,7 @@ export default async function EditProgrammePage({ params }: Props) {
       <ProgrammeForm
         initial={programme}
         action={saveProgramme.bind(null, slug)}
-        cancelHref="/admin/programmes"
+        cancelHref="/inbavanamadmin/programmes"
       />
     </div>
   );

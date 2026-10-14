@@ -82,7 +82,7 @@ export default async function AdminProgrammesPage() {
 
               <div className="mt-5 border-t border-rule pt-3">
                 <Link
-                  href={`/admin/programmes/${p.slug}`}
+                  href={`/inbavanamadmin/programmes/${p.slug}`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold label text-foreground hover:text-terracotta"
                 >
                   <Edit className="size-3.5" />
