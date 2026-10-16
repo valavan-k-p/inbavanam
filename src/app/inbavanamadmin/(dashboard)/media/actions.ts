@@ -50,12 +50,10 @@ export async function uploadMedia(
 
   // Upload to Supabase Storage
   const buffer = await file.arrayBuffer();
-  const { error: uploadError } = await supabase.storage
-    .from("media")
-    .upload(storagePath, buffer, {
-      contentType: file.type,
-      upsert: true,
-    });
+  const { error: uploadError } = await supabase.storage.from("media").upload(storagePath, buffer, {
+    contentType: file.type,
+    upsert: true,
+  });
 
   if (uploadError) {
     return {
@@ -90,10 +88,7 @@ export async function uploadMedia(
   };
 }
 
-export async function updateMediaMetadata(
-  id: string,
-  formData: FormData,
-) {
+export async function updateMediaMetadata(id: string, formData: FormData) {
   const { supabase } = await requireAdmin();
   const alt = formData.get("alt") as string;
   const caption = formData.get("caption") as string | null;
@@ -148,9 +143,10 @@ export async function getAvailableMediaItems(): Promise<MediaPickerItem[]> {
     if (dbItems) {
       for (const item of dbItems) {
         if (!item.storage_path) continue;
-        const publicUrl = item.storage_path.startsWith("http") || item.storage_path.startsWith("/")
-          ? item.storage_path
-          : `${process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, "")}/storage/v1/object/public/media/${item.storage_path}`;
+        const publicUrl =
+          item.storage_path.startsWith("http") || item.storage_path.startsWith("/")
+            ? item.storage_path
+            : `${process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, "")}/storage/v1/object/public/media/${item.storage_path}`;
 
         list.push({
           src: publicUrl,
@@ -167,25 +163,89 @@ export async function getAvailableMediaItems(): Promise<MediaPickerItem[]> {
   // 2. Add local curated website photography so admin can easily pick existing photos
   const localPresets: MediaPickerItem[] = [
     { src: "/images/hero image.png", alt: "Inbavanam Hero Artwork", category: "Hero" },
-    { src: "/hero section/hero-1-cottage-and-fields.webp", alt: "Cottage and Fields", category: "Hero" },
+    {
+      src: "/hero section/hero-1-cottage-and-fields.webp",
+      alt: "Cottage and Fields",
+      category: "Hero",
+    },
     { src: "/hero section/hero-2-western-ghats.webp", alt: "Western Ghats Mist", category: "Hero" },
     { src: "/hero section/hero-3-brick-elevation.webp", alt: "Brick Elevation", category: "Hero" },
     { src: "/hero section/hero-4-round-pavilion.webp", alt: "Round Pavilion", category: "Hero" },
-    { src: "/hero section/hero-5-complex-and-wall.webp", alt: "Complex and Wall", category: "Hero" },
-    { src: "/about us image/about-collage.webp", alt: "About Inbavanam Circular Collage", category: "About" },
-    { src: "/inbavanam cover/farm.png", alt: "Farmland at Inbavanam with cattle grazing", category: "The Land" },
-    { src: "/inbavanam cover/pets.jpg", alt: "Inbavanam sanctuary life and architecture", category: "Stay" },
-    { src: "/inbavanam cover/side inbavanam.png", alt: "Inbavanam side landscape and courtyard", category: "Community" },
-    { src: "/inbavanam cover/top view inbavanam.png", alt: "Aerial view of Inbavanam", category: "Find Us" },
-    { src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (13).jpeg", alt: "Brick and stone main building", category: "Architecture" },
-    { src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (21).jpeg", alt: "Guest room with Athangudi tiles", category: "Stay" },
-    { src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (7).jpeg", alt: "Gladston Xavier portrait", category: "Founders" },
-    { src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (6).jpeg", alt: "Florina Xavier portrait", category: "Founders" },
-    { src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (4).jpeg", alt: "Gladston and Florina Xavier outdoors", category: "Founders" },
-    { src: "/community/courtyard-session.webp", alt: "Children session in courtyard", category: "Community" },
-    { src: "/community/craft-display.webp", alt: "Children holding paper flowers", category: "Community" },
-    { src: "/community/drawing-workshop.webp", alt: "Learning session in hall", category: "Programmes" },
-    { src: "/community/community-group-portrait.webp", alt: "Children and adults group portrait", category: "Community" },
+    {
+      src: "/hero section/hero-5-complex-and-wall.webp",
+      alt: "Complex and Wall",
+      category: "Hero",
+    },
+    {
+      src: "/about us image/about-collage.webp",
+      alt: "About Inbavanam Circular Collage",
+      category: "About",
+    },
+    {
+      src: "/inbavanam cover/farm.png",
+      alt: "Farmland at Inbavanam with cattle grazing",
+      category: "The Land",
+    },
+    {
+      src: "/inbavanam cover/inbavanam-life.webp",
+      alt: "Six views of Inbavanam: the tractor, the round tower, a carved owl, the resident dogs, the library atrium and the long residence",
+      category: "Stay",
+    },
+    {
+      src: "/inbavanam cover/side inbavanam.png",
+      alt: "Inbavanam side landscape and courtyard",
+      category: "Community",
+    },
+    {
+      src: "/inbavanam cover/top view inbavanam.png",
+      alt: "Aerial view of Inbavanam",
+      category: "Find Us",
+    },
+    {
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (13).jpeg",
+      alt: "Brick and stone main building",
+      category: "Architecture",
+    },
+    {
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.18 PM (21).jpeg",
+      alt: "Guest room with Athangudi tiles",
+      category: "Stay",
+    },
+    {
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (7).jpeg",
+      alt: "Gladston Xavier portrait",
+      category: "Founders",
+    },
+    {
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (6).jpeg",
+      alt: "Florina Xavier portrait",
+      category: "Founders",
+    },
+    {
+      src: "/gallery image/WhatsApp Image 2026-09-14 at 4.01.17 PM (4).jpeg",
+      alt: "Gladston and Florina Xavier outdoors",
+      category: "Founders",
+    },
+    {
+      src: "/community/courtyard-session.webp",
+      alt: "Children session in courtyard",
+      category: "Community",
+    },
+    {
+      src: "/community/craft-display.webp",
+      alt: "Children holding paper flowers",
+      category: "Community",
+    },
+    {
+      src: "/community/drawing-workshop.webp",
+      alt: "Learning session in hall",
+      category: "Programmes",
+    },
+    {
+      src: "/community/community-group-portrait.webp",
+      alt: "Children and adults group portrait",
+      category: "Community",
+    },
   ];
 
   for (const preset of localPresets) {
@@ -207,4 +267,3 @@ export async function uploadMediaDirect(
   }
   return { success: false, message: result.message ?? "Upload failed." };
 }
-

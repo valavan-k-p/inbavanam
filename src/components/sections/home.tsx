@@ -8,7 +8,12 @@ import {
   place,
   workIntro,
 } from "@/data/story";
-import { getEvents, getGalleryItems, getProgramList, getSiteContentSection } from "@/lib/db/content";
+import {
+  getEvents,
+  getGalleryItems,
+  getProgramList,
+  getSiteContentSection,
+} from "@/lib/db/content";
 import { splitEvents } from "@/lib/dates";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { VideoFrame } from "@/components/ui/video-frame";
@@ -36,14 +41,12 @@ export async function AboutTeaserSection() {
     <section id="essence" aria-labelledby="about-title" className="overflow-hidden section-y">
       <div className="container-page grid items-center gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16">
         <div className="flex flex-col gap-7 lg:col-span-5">
-          <SectionHeading
-            id="about-title"
-            eyebrow="About us"
-            title={aboutData.heading}
-            size="h1"
-          />
+          <SectionHeading id="about-title" eyebrow="About us" title={aboutData.heading} size="h1" />
           <Reveal delay={0.2}>
-            <Paragraphs items={[introData.body1, introData.body2]} className="text-muted-foreground" />
+            <Paragraphs
+              items={[introData.body1, introData.body2]}
+              className="text-muted-foreground"
+            />
           </Reveal>
           <Reveal delay={0.3}>
             <ButtonLink href="/about" variant="text" arrow>
@@ -176,17 +179,17 @@ export async function ArchitectureSection() {
 
 export async function StayFeatureSection() {
   const stayData = await getSiteContentSection("stay", {
-    imagePath: "/inbavanam cover/pets.jpg",
+    imagePath: "/inbavanam cover/inbavanam-life.webp",
   });
 
   return (
     <section className="w-full">
       {/* Full-width photograph shown whole: the section takes the image's own 16:9 shape. */}
       <Image
-        src={stayData.imagePath || "/inbavanam cover/pets.jpg"}
-        alt="Inbavanam sanctuary life and architecture"
-        width={3417}
-        height={1920}
+        src={stayData.imagePath || "/inbavanam cover/inbavanam-life.webp"}
+        alt="Six views of Inbavanam: the tractor under the portico, the round brick tower, a carved owl hung in a cane ring, the resident dogs on the terrace, the library atrium seen from below, and the long brick residence"
+        width={2000}
+        height={1124}
         sizes="100vw"
         className="h-auto w-full"
       />

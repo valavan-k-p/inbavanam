@@ -346,7 +346,7 @@ export default async function AdminContentPage() {
           name: "imagePath",
           label: "Stay Cover Photograph",
           type: "image",
-          hint: "Full-width photograph displayed on the homepage Stay section (default: /inbavanam cover/pets.jpg).",
+          hint: "Full-width photograph displayed on the homepage Stay section (default: /inbavanam cover/inbavanam-life.webp).",
           locationInfo: "Homepage — Stay Full Width Section",
         },
         {
@@ -574,7 +574,7 @@ export default async function AdminContentPage() {
     stay: {
       heading: stayIntro.heading,
       body: stayIntro.body,
-      imagePath: "/inbavanam cover/pets.jpg",
+      imagePath: "/inbavanam cover/inbavanam-life.webp",
       roomImagePath: stayIntro.media.src ?? "",
       buttonLabel: "Book / Enquire",
     },
