@@ -77,6 +77,19 @@ const c = (
   height,
 });
 
+/** The carved room signs in public/room signs, all the same 3:2 frame. */
+const sign = (file: string, code: string, tamil: string, roman: string): GalleryItem => ({
+  id: `sign-${file}`,
+  kind: "image",
+  src: `/room signs/${file}.webp`,
+  alt: `Carved wooden sign reading ${code} ${tamil} ${roman}, mounted above the door`,
+  caption: `${code} ${roman}`,
+  category: "Stay",
+  span: "regular",
+  width: 1600,
+  height: 1066,
+});
+
 /** Photographs from public/gallery image across all seven categories. */
 export const galleryItems: GalleryItem[] = [
   g(
@@ -537,4 +550,24 @@ export const galleryItems: GalleryItem[] = [
     1449,
     1086,
   ),
+  sign("f1-eeti", "F1", "ஈட்டி", "EETI"),
+  sign("f2-vaepam", "F2", "வேப்பம்", "VAEPAM"),
+  sign("f3-arasam", "F3", "ஆரசம்", "ARASAM"),
+  sign("f4-paaku", "F4", "பாக்கு", "PAAKU"),
+  sign("f5-thennai", "F5", "தென்னை", "THENNAI"),
+  sign("f6-panai", "F6", "பனை", "PANAI"),
+  sign("g1-magizham", "G1", "மகிழம்", "MAGIZHAM"),
+  sign("g2-aalam", "G2", "ஆலம்", "AALAM"),
+  sign("g5-vaazhai", "G5", "வாழை", "VAAZHAI"),
+  {
+    id: "sign-annam-kudil",
+    kind: "image",
+    src: "/room signs/annam-kudil.webp",
+    alt: "Carved wooden sign reading ANNAM KUDIL, அன்னம் குடில், on the brick wall",
+    caption: "Annam Kudil",
+    category: "Stay",
+    span: "regular",
+    width: 1600,
+    height: 1066,
+  },
 ];
